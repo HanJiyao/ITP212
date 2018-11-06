@@ -4,8 +4,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
    <f:view>
-      <h:outputLabel value="Hello, world"/>
+      <head>
+         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+      </head>
+      <h:body>
+         <ui:composition template="templates/template.xhtml">
+            <ui:define name="content">
+               <h1>Welcome Page Content...</h1>
+               <h3>Now we know how to use JSF Templates</h3>
+               <h4>We can create multiple pages with the same template</h4>
+                <p:textEditor />
+            </ui:define>
+         </ui:composition>
+      </h:body>
    </f:view>
 </html>
