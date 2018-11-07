@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    </head>
+    <h:body>
+        <ui:composition template="templates/template.xhtml">
+            <ui:define name="content">
+                <div class="request-form" style="max-width: 36rem; margin: auto;padding-top:5rem;margin-bottom: 5rem">
+                    <div class="card">
+                        <div class="card-content" style="text-align: center">
+                            <h5>Tell us what you need to be done</h5>
+                        </div>
+                        <div class="card-tabs">
+                            <ul class="tabs tabs-fixed-width">
+                                <li class="tab"><a href="#test4">TASK INTEREST</a></li>
+                                <li class="tab"><a class="active" href="#test5">Test 2</a></li>
+                                <li class="tab"><a href="#test6">Test 3</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-content grey lighten-4">
+                            <div class="row">
+                                <h6 class="col s12">What do you need done?</h6>
+                            </div>
+                            <div class="row">
+                                <h:form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <h:inputText id="request_title" type="text" class="validate"/>
+                                            <label for="request_title">Task Title</label>
+                                            <span class="helper-text" data-error="wrong" data-success="alright">This'll be title of your task - e.g. Help move my sofa</span>
+                                        </div>
+                                    </div>
+                                </h:form>
+                            </div>
+                            <div class="row">
+                                <h6 class="col s12">What are the details?</h6>
+                            </div>
+                            <div class="row">
+                                <h:form class="col s12">
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <h:inputTextarea id="request_details" class="materialize-textarea"/>
+                                            <label for="request_details">Task Details</label>
+                                            <span class="helper-text" data-error="wrong" data-success="alright">Be as specific as you can about what needs doing</span>
+                                        </div>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</f:view>
+</html>
