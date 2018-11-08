@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+</h:head>
+<h:body>
+    <ui:composition template="templates/template.xhtml">
+    <ui:define name="content">
+    <style type="text/css">
+        .ui-dashboard-column {width:200px;}
+    </style>
+
+    <h3>Some listing here</h3>
+
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:rating value="4" readonly="true" /><h:outputText value="100 Reviews" />
+    </h:panelGrid>
+
+    <h:panelGrid columns="3" cellpadding="2">
+            <p></p><p:rating value="5" readonly="true" /><h:outputText value="(20)" />
+            <p></p><p:rating value="4" readonly="true" /><h:outputText value="(30)" />
+            <p></p><p:rating value="3" readonly="true" /><h:outputText value="(20)" />
+            <p></p><p:rating value="2" readonly="true" /><h:outputText value="(25)" />
+            <p></p><p:rating value="1" readonly="true" /><h:outputText value="(5)" />
+    </h:panelGrid>
+
+        <p:fieldset legend="Leave a review:" toggleable="true" closable="true" toggleSpeed="500">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:form>
+                    <p>Display Name: <p:inputText /></p>
+                    <h:panelGrid columns="2" cellpadding="2">
+                        Rating:<p:rating value="3" />
+                    </h:panelGrid>
+                    Upload Image: <p:fileUpload mode="simple" skinSimple="true"/>
+                    <br/>
+                    <p:inputTextarea rows="10" cols="100" queryDelay="750" minQueryLength="4" placeholder="Type your review here." />
+                    <br/>
+                    <p:commandButton value="Submit" icon="ui-icon-check"/>
+                </h:form>
+            </h:panelGrid>
+        </p:fieldset>
+            <br />
+    <h:outputLabel for="category" value="Category" />
+    <h:form>
+    <p:selectOneMenu id="category" label="Category">
+        <f:selectItem itemLabel="Highest Rated Review" itemValue="" noSelectionOption="true" />
+        <f:selectItem itemLabel="Latest Review" itemValue="1" />
+        <f:selectItem itemLabel="Oldest Review" itemValue="2" />
+    </p:selectOneMenu>
+    </h:form>
+    <h:form>
+        <p:panel id="basic" header="Review" style="margin-bottom:20px">
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage height="100px" width="100px" value="/girl.jpg" />
+                <h:outputText
+                        value="Very effective! Trustworthy and worth the money. Fixed my laptop in less than an hour." />
+                <h:outputText value="John Doe" /><p:rating value="5" readonly="true" />
+            </h:panelGrid>
+            <hr />
+            <h:panelGrid columns="2" cellpadding="10">
+                <p:graphicImage height="100px" width="100px" value="/girl.jpg" />
+                <h:outputText
+                        value="A bit slow but still good service." />
+                <h:outputText value="Jane Tan" /><p:rating value="4" readonly="true" />
+            </h:panelGrid>
+        </p:panel>
+        <p:button value="More Review">
+        </p:button>
+        <!--
+        <p:dataScroller chunkSize="3">
+        <f:facet name="header">
+            Reviews
+        </f:facet>
+        <f:facet name="loader">
+            <p:commandButton type="button" value="Load More Reviews" var="reviews"/>
+        </f:facet>
+
+            <p:outputPanel>
+                    <h:outputText value="Id:" style="font-weight: bold"/>
+                    <h:outputText value="John Doe"/>
+
+                    <h:outputText value="Service:" style="font-weight: bold"/>
+                    <h:outputText value="Fixing of laptop"/>
+
+                    <h:outputText value="Review:" style="font-weight: bold"/>
+                    <h:outputText value="Very Good"/>
+
+                    <h:outputText value="5 Star" style="font-weight: bold"/>
+            </p:outputPanel>
+            <p:outputPanel>
+                    <h:outputText value="Id:" style="font-weight: bold"/>
+                    <h:outputText value="Jane Doe"/>
+                    <h:outputText value="Service:" style="font-weight: bold"/>
+                    <h:outputText value="Fixing of laptop"/>
+
+                    <h:outputText value="Review:" style="font-weight: bold"/>
+                    <h:outputText value="Very effective"/>
+
+                    <h:outputText value="5 Star" style="font-weight: bold"/>
+
+            </p:outputPanel>
+    </p:dataScroller>
+    -->
+    </h:form>
+    </ui:define>
+    </ui:composition>
+</h:body>
+</html>
