@@ -6,18 +6,24 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
+    <ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
     <h:head bold="0.5px">Transaction History:</h:head>
     <div>
         <p bold="0.5px">Earned:Total:$500</p>
         <br></br>
-        Tasks:Fix air con
+        Tasks:Fix air con(+$500)
         <br></br>
     </div>
+    <br></br>
+    <br></br>
     <p>-------------------------------------------------</p>
     <br> </br>
     <div><p bold="0.5px">Outgoing:Paid $400</p>
         <br> </br>
-        <p>Tasks:XXX Helped to fix your computer</p></div>
+        <p>Tasks:XXX Helped to fix your computer($400)</p></div>
+    </ui:define>
+    </ui:composition>
 </f:view>
 </html>
 

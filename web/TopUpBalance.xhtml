@@ -6,12 +6,16 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
+    <ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
     <h:form>
     <h:head>Top up your Balance here</h:head>
     <br></br>
-    Amount to Top Up:<h:inputText> </h:inputText>
+    Amount to Top Up:<input type="int" > </input>
     <br></br>
         <h:commandButton value="Submit" action="TopUpSuccessful" />
     </h:form>
+    </ui:define>
+    </ui:composition>
 </f:view>
 </html>

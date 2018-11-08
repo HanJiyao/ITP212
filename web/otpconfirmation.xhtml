@@ -6,11 +6,15 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
+    <ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
     <h:form>
     <h:head>An OTP Has been sent to XXXX-XX28.</h:head>
     <p>Please key in your otp before it expires in 5 mins.</p>
     OTP:<input type="int" >  </input>
     <h:commandButton value="Submit" action="PaymentDetailsSaved" />
     </h:form>
+    </ui:define>
+    </ui:composition>
 </f:view>
 </html>
