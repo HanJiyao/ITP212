@@ -23,7 +23,7 @@ public class FilterView implements Serializable {
 
     @PostConstruct
     public void init() {
-        cars = service.createCars(10);
+        cars = service.createCars(50);
     }
 
     public boolean filterByPrice(Object value, Object filter, Locale locale) {
