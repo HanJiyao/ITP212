@@ -5,9 +5,20 @@
 	 xmlns:ui="http://java.sun.com/jsf/facelets">
 <body>
 <ui:composition>
-	<nav>
-		<div class="nav-wrapper">
-			<a href="#!" class="brand-logo"><i class="material-icons">cloud</i>Logo</a>
+	<nav style="position: fixed; top: 0;z-index: 1000">
+		<div class="nav-wrapper container">
+            <a href="#!" class="brand-logo">
+                <i class="material-icons">cloud</i>
+                ITP212
+            </a>
+            <ul style="padding-left: 12rem!important;">
+                <li>
+                    <a class="waves-effect waves-light btn" href="http://localhost:8080/ITP212/request_main.xhtml">Post Task</a>
+                </li>
+                <li>
+                    <a class="">My Task</a>
+                </li>
+            </ul>
 			<ul class="right hide-on-med-and-down">
 				<li><a href="sass.html"><i class="material-icons">search</i></a></li>
 				<li><a href="badges.html"><i class="material-icons">view_module</i></a></li>

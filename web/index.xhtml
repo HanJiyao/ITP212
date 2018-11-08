@@ -13,41 +13,48 @@
       <h:body>
          <ui:composition template="templates/template.xhtml">
             <ui:define name="content">
-               <h1>Welcome Page Content...</h1>
-               <h3>Now we know how to use JSF Templates</h3>
-               <h4>We can create multiple pages with the same template</h4>
-                <p:textEditor />
-                <style type="text/css">
-                    .ui-dashboard-column {width:200px;}
-                </style>
-                <div style="height:500px">
-                    <h:form>
-                        <p:growl id="msgs" showDetail="true" />
-                        <h:panelGrid columns="2">
-                            <p:dashboard id="board" model="#{dashboardManagedBean.model}">
-                                <p:ajax event="reorder" listener="#{dashboardManagedBean.handleReorder}" update="msgs" />
-                                <p:panel id="Finance" header="Finance" closable="true" toggleable="true">
-                                    <h:outputText value="Finance Content"></h:outputText>
-                                </p:panel>
-                                <p:panel id="Sports" header="Sports" closable="true" toggleable="true">
-                                    <h:outputText value="Sports Content"></h:outputText>
-                                </p:panel>
-                                <p:panel id="News" header="News" closable="true" toggleable="true">
-                                    <h:outputText value="News Content"></h:outputText>
-                                </p:panel>
-                                <p:panel id="Cooking" header="Cooking" closable="true" toggleable="true">
-                                    <h:outputText value="Cooking Content"></h:outputText>
-                                </p:panel>
-                                <p:panel id="Technology" header="Technology" closable="true" toggleable="true">
-                                    <h:outputText value="Technology Content"></h:outputText>
-                                </p:panel>
-                            </p:dashboard>
-                            <p:panel id="draggable">
-                                <h:outputLabel value="Drag Panel Into Your Dashboard"></h:outputLabel>
-                            </p:panel>
-                            <p:draggable for="draggable" helper="clone" dashboard="board"></p:draggable>
-                        </h:panelGrid>
-                    </h:form>
+                <div class="section no-pad-bot" id="index-banner">
+                    <div class="container">
+                        <br/><br/>
+                        <h1 class="header center" style="color: #ee6e73">Neighbour Handyman</h1>
+                        <div class="row center">
+                            <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5>
+                        </div>
+                        <div class="row center">
+                            <a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light ">Get Started</a>
+                        </div>
+                        <br/><br/>
+                    </div>
+                </div>
+                    <div class="section">
+                        <div class="row">
+                            <div class="col s12 m4">
+                                <div class="icon-block">
+                                    <h2 class="center light-blue-text"><i class="material-icons">flash_on</i></h2>
+                                    <h5 class="center">Speeds up development</h5>
+
+                                    <p class="light">We did most of the heavy lifting for you to provide a default stylings that incorporate our custom components. Additionally, we refined animations and transitions to provide a smoother experience for developers.</p>
+                                </div>
+                            </div>
+
+                            <div class="col s12 m4">
+                                <div class="icon-block">
+                                    <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+                                    <h5 class="center">User Experience Focused</h5>
+
+                                    <p class="light">By utilizing elements and principles of Material Design, we were able to create a framework that incorporates components and animations that provide more feedback to users. Additionally, a single underlying responsive system across all platforms allow for a more unified user experience.</p>
+                                </div>
+                            </div>
+
+                            <div class="col s12 m4">
+                                <div class="icon-block">
+                                    <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+                                    <h5 class="center">Easy to work with</h5>
+                                    <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
+                                </div>
+                            </div>
+                        </div>
+                    <br/><br/>
                 </div>
             </ui:define>
          </ui:composition>

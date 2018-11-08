@@ -12,46 +12,60 @@
     <h:body>
         <ui:composition template="templates/template.xhtml">
             <ui:define name="content">
-                <div class="request-form" style="max-width: 36rem; margin: auto;padding-top:5rem;margin-bottom: 5rem">
+                <div class="request-form" style="max-width: 36rem; margin: auto;padding-top:3rem;padding-bottom: 15rem">
                     <div class="card">
                         <div class="card-content" style="text-align: center">
                             <h5>Tell us what you need to be done</h5>
                         </div>
                         <div class="card-tabs">
                             <ul class="tabs tabs-fixed-width">
-                                <li class="tab"><a href="#test4">TASK INTEREST</a></li>
-                                <li class="tab"><a class="active" href="#test5">Test 2</a></li>
-                                <li class="tab"><a href="#test6">Test 3</a></li>
+                                <li class="tab" style="border-bottom:solid thin #ee6e73"><a class="active" href="http://localhost:8080/ITP212/request_main.xhtml" >TASK INTEREST</a></li>
+                                <li class="tab"><a href="http://localhost:8080/ITP212/request_option.xhtml">TASK OPTION</a></li>
+                                <li class="tab"><a href="http://localhost:8080/ITP212/request_budget.xhtml">TASK BUDGET</a></li>
+                                <li class="indicator" style=""/>
                             </ul>
                         </div>
                         <div class="card-content grey lighten-4">
-                            <div class="row">
-                                <h6 class="col s12">What do you need done?</h6>
-                            </div>
-                            <div class="row">
-                                <h:form class="col s12">
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <h:inputText id="request_title" type="text" class="validate"/>
-                                            <label for="request_title">Task Title</label>
-                                            <span class="helper-text" data-error="wrong" data-success="alright">This'll be title of your task - e.g. Help move my sofa</span>
+                            <div class="active">
+                                <div class="row">
+                                    <h6 class="col s12">What do you need done?</h6>
+                                </div>
+                                <div class="row">
+                                    <h:form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <input id="request_title" type="text" class="validate"/>
+                                                <label for="request_title">Task Title</label>
+                                                <span class="helper-text" data-error="wrong" data-success="alright">This'll be title of your task - e.g. Help move my sofa</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </h:form>
-                            </div>
-                            <div class="row">
-                                <h6 class="col s12">What are the details?</h6>
-                            </div>
-                            <div class="row">
-                                <h:form class="col s12">
-                                    <div class="row">
-                                        <div class="input-field col s12">
-                                            <h:inputTextarea id="request_details" class="materialize-textarea"/>
-                                            <label for="request_details">Task Details</label>
-                                            <span class="helper-text" data-error="wrong" data-success="alright">Be as specific as you can about what needs doing</span>
+                                    </h:form>
+                                </div>
+                                <div class="row">
+                                    <h6 class="col s12">What are the details?</h6>
+                                </div>
+                                <div class="row">
+                                    <h:form class="col s12">
+                                        <div class="row">
+                                            <div class="input-field col s12">
+                                                <textarea id="request_details" class="materialize-textarea"/>
+                                                <label for="request_details">Task Details</label>
+                                                <span class="helper-text" data-error="wrong" data-success="alright">Be as specific as you can about what needs doing</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </h:form>
+                                    </h:form>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <button class="btn waves-effect waves-light col s6" name="action" disabled="disabled">
+                                    <i class="material-icons left">keyboard_arrow_left</i>Back
+                                </button>
+                                <a href="http://localhost:8080/ITP212/request_option.xhtml">
+                                    <button class="btn waves-effect waves-light col s6" type="submit" name="action">Next
+                                        <i class="material-icons right">keyboard_arrow_right</i>
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>

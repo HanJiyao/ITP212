@@ -7,14 +7,20 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"/>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"/>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.modal').modal();
+            $('.datepicker').datepicker();
+            $('.timepicker').timepicker();
+        });
+    </script>
     <style type="text/css">
         body {
-            min-height: 100vh;
             margin: 0;
         }
         span {
@@ -23,13 +29,13 @@
     </style>
 </h:head>
 <h:body>
-    <div class="master-wrapper">
+    <div class="master-wrapper" style="background: #f9f9f9;position: relative;min-height: 100vh;">
         <div class="header">
             <ui:insert name="header">
                 <ui:include src="./header.xhtml"/>
             </ui:insert>
         </div>
-        <div class="content container mt-5 text-center">
+        <div class="content container text-center" style="padding-top: 5rem">
             <ui:insert name="content">
                 <ui:include src="./content.xhtml"/>
             </ui:insert>
@@ -40,5 +46,6 @@
             </ui:insert>
         </div>
     </div>
+
 </h:body>
 </html>

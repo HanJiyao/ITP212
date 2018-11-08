@@ -6,17 +6,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-    <h:head>Transaction History:</h:head>
-    <div>
-        <p>Earned:Total:$500</p>
-        <br></br>
-        Tasks:Fix air con
-        <br></br>
-    </div>
-    <br> </br>
-    <div><p>Outgoing:Paid $400</p>
-        <br> </br>
-        <p>Tasks:XXX Helped to fix your computer</p></div>
+    <h:form>
+    <h:head>An OTP Has been sent to XXXX-XX28.</h:head>
+    <p>Please key in your otp before it expires in 5 mins.</p>
+    OTP:<input type="int" >  </input>
+    <h:commandButton value="Submit" action="PaymentDetailsSaved" />
+    </h:form>
 </f:view>
 </html>
-
