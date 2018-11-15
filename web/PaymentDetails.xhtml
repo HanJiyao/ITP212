@@ -10,6 +10,9 @@
 <f:view>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+        <style type="text/css">
+            .error {color:red}
+        </style>
     </head>
     <h:body>
     <ui:composition template="/templates/template.xhtml">
@@ -31,11 +34,17 @@
                </br>
                Please Enter your Credit Card Details Below:
                <br></br>
-               Card Number:<input type="int" > </input>
+                Card Number:<h:inputText type="string" > </h:inputText>
                <br></br>
-               CVV:<input type="int" > </input>
+                CVV:<h:inputText type="int" > </h:inputText>
                <br></br>
-               Date Of Expiry:<input type="date" > </input>
+               Date Of Expiry:<h:inputText type="date"
+                label="Expiry Date"
+                id="expiry_date"
+                validatorMessage="Expiry Date must follow ">
+                <f:validateRegex pattern="\d{2}-\d{2}-\" />
+                <h:message for="expiry_date" styleClass="error" />
+            </h:inputText>
                <br></br>
                 <br></br>
                 <br></br>
