@@ -23,7 +23,7 @@ public class SimpleWebServiceJson {
     private String toCurrency = "SGD";
     private String input = "0.00";
     private String output = "0.00";
-    private String rate = "0.00";
+    private String rate = "1.00";
 
 	public String getFromCurrency() {
 		return fromCurrency;

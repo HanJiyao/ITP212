@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h1="http://java.sun.com/jsf/html">
+
+<h:head>
+   <title>
+      Web Service Client
+   </title>
+</h:head>
+
+<h:body>
+   <h3> Real Time Currency Rate </h3>
+   <h:form>
+        URL: <a href="webservices/myresource/apiresource" >#{simpleWebServiceJson.url}</a>
+        <br/>
+        <br/>
+        <h:selectOneMenu id="fromCurrency" value="#{simpleWebServiceJson.fromCurrency}" onchange="document.getElementsByClassName('submitBtn')[0].click()">
+         <f:selectItems value="#{currency.types}" />
+        </h:selectOneMenu>
+        Convert to:
+        <h:selectOneMenu id="toCurrency" value="#{simpleWebServiceJson.toCurrency}" onchange="document.getElementsByClassName('submitBtn')[0].click()">
+         <f:selectItems value="#{currency.types}" />
+        </h:selectOneMenu>
+        <br/>
+        <br/>
+        Current Rate: #{simpleWebServiceJson.rate}
+
+        <br/>
+        <br/>
+        Input value: <h:inputText autofocus="true" value="#{simpleWebServiceJson.input}" />
+        <br/>
+        <br/>
+        Output value: <h:inputText disabled="true" value="#{simpleWebServiceJson.output}"/>
+       <br/>
+       <br/>
+       <h:commandButton styleClass="submitBtn" value="Caculate" action="#{simpleWebServiceJson.callWebService()}"/>
+   </h:form>
+</h:body>
+</html>

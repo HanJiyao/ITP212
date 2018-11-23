@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <h:form>
+        <h:commandButton  value="Get Weather" action="#{weatherWebServiceJson.callWebService()}"/>
+        <br/>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"/>
+        <div id="chart_div" style="min-height: 800px"/>
+        <h:outputScript>
+            if('#{weatherWebServiceJson.jsonResponse}'!==''){
+            var psi = JSON.parse('#{weatherWebServiceJson.jsonResponse}');
+            google.charts.load('current', {packages: ['corechart', 'bar']});
+            google.charts.setOnLoadCallback(drawMultSeries);
+            console.log(psi.items[0].readings);
+            function drawMultSeries() {
+            var data = google.visualization.arrayToDataTable([
+            ['DataType', 'national', 'north', 'south', 'east', 'west', 'central'],
+            ['PSI',psi.items[0].readings.psi_twenty_four_hourly.national, psi.items[0].readings.psi_twenty_four_hourly.north,psi.items[0].readings.psi_twenty_four_hourly.south,psi.items[0].readings.psi_twenty_four_hourly.east,psi.items[0].readings.psi_twenty_four_hourly.west,psi.items[0].readings.psi_twenty_four_hourly.central],
+            ['PM10',psi.items[0].readings.pm10_twenty_four_hourly.national, psi.items[0].readings.pm10_twenty_four_hourly.north,psi.items[0].readings.pm10_twenty_four_hourly.south,psi.items[0].readings.pm10_twenty_four_hourly.east,psi.items[0].readings.pm10_twenty_four_hourly.west,psi.items[0].readings.pm10_twenty_four_hourly.central],
+            ['PM25',psi.items[0].readings.pm25_twenty_four_hourly.national, psi.items[0].readings.pm25_twenty_four_hourly.north,psi.items[0].readings.pm25_twenty_four_hourly.south,psi.items[0].readings.pm25_twenty_four_hourly.east,psi.items[0].readings.pm25_twenty_four_hourly.west,psi.items[0].readings.pm25_twenty_four_hourly.central],
+            ['O3',psi.items[0].readings.o3_eight_hour_max.national, psi.items[0].readings.o3_eight_hour_max.north,psi.items[0].readings.o3_eight_hour_max.south,psi.items[0].readings.o3_eight_hour_max.east,psi.items[0].readings.o3_eight_hour_max.west,psi.items[0].readings.o3_eight_hour_max.central],
+            ['SO2',psi.items[0].readings.so2_twenty_four_hourly.national, psi.items[0].readings.so2_twenty_four_hourly.north,psi.items[0].readings.so2_twenty_four_hourly.south,psi.items[0].readings.so2_twenty_four_hourly.east,psi.items[0].readings.so2_twenty_four_hourly.west,psi.items[0].readings.so2_twenty_four_hourly.central]
+            ]);
+
+            var options = {
+            title: 'Pollutant Standards Index (PSI)',
+            chartArea: {width: '50%'},
+            hAxis: {
+            title: 'reading value',
+            minValue: 0
+            },
+            vAxis: {
+            title: 'DataType'
+            }
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+            }
+            }
+        </h:outputScript>
+    </h:form>
+</f:view>
+</html>

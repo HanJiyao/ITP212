@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Simple REST Webservcies</title>
+</head>
+<body>
+	<form method="post" action="api/restServices/create">
+		<!-- name attribute use to identify form element from form input submission  !-->
+		Admin Num: <input type="text" id="adminNum" name="adminNum"/><br/>
+		Student Name: <input type="text" id="name" name="name"/><br/>
+		<input type="submit" value="Create Student"/>
+	</form>
+	
+	<hr>
+	<br>
+
+	<a href="api/restServices/plain"> Hello Plain </a>
+	<br>
+	<a href="api/restServices/xml"> Hello XML </a>
+	<br>
+	<a href="api/restServices/html"> Hello HTML </a>
+
+	<br>
+	<a href="api/restServices/listStudents">List Students JSON </a>
+	<br>
+	<a href="listStudents.html"> List Students client calling web service </a>
+</body>
+</html>

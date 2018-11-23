@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of students html </title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+</head>
+
+<body>
+    <h1> Hello students html </h1>
+    <a href="index.html"> Back to home page </a>
+    <form id="deletingStudentForm" method="post" action="api/restServices/delete">
+        <ul id="listStudentsUI">
+
+        </ul>
+    </form>
+</body>
+
+<script>
+
+    var appendingStudentsList = document.getElementById("listStudentsUI"); //unordered list
+
+    //get request from the web service /listStudents java
+    $.getJSON('/ITP212/api/restServices/listStudents', function(data) {
+        console.log(data);
+        for (i=0; i< data.length; i++) {
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode("admin num: " + data[i].adminNum + " name: " + data[i].name));
+            var button = document.createElement("button");
+            button.innerHTML = "Delete";
+            button.setAttribute('type', 'submit');
+            button.onclick = redirectToDeleted;
+            li.appendChild(button);
+            button.setAttribute("id", data[i].adminNum);
+            button.setAttribute("name", data[i].name);
+            appendingStudentsList.appendChild(li);
+        }
+
+        function redirectToDeleted() {
+            alert("button clicked deleting id " + this.id + " name: " + this.name);
+            $("#deletingStudentForm").attr('action', 'api/restServices/delete/' + this.id)
+        }
+    });
+</script>
+</html>
