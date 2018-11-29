@@ -9,15 +9,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.xml.bind.ValidationException;
-<<<<<<< Updated upstream
+
 // card is valid or not.
 import java.util.Scanner;
 
-=======
+
 // Java program to check if a given credit
 // card is valid or not.
 import java.util.Scanner;
->>>>>>> Stashed changes
+
 @ManagedBean
 public class cheee_validatepaymentdetails {
 
@@ -48,7 +48,7 @@ public class cheee_validatepaymentdetails {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-<<<<<<< Updated upstream
+
     public void validateTheDate(FacesContext context,
                                 UIComponent component,
                                 Object value) throws ValidationException, ValidatorException {
@@ -63,13 +63,7 @@ public class cheee_validatepaymentdetails {
 
     }
     // Java program to check if a given credit
-=======
-    public static void main(String[] args) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/yyyy");
-        LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
-    }
->>>>>>> Stashed changes
+
     // Main Method
     public static void main(String[] args)
     {
@@ -147,7 +141,6 @@ public class cheee_validatepaymentdetails {
         return number;
     }
 }
-    public class CreditCard {
 
 
 
