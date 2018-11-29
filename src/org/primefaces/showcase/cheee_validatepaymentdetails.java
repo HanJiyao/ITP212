@@ -142,6 +142,3 @@ public class cheee_validatepaymentdetails {
     }
 }
 
-
-
-}
