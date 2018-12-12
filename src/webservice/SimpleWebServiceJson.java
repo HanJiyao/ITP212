@@ -15,23 +15,23 @@ import java.io.StringReader;
 
 public class SimpleWebServiceJson {
 
-	private static final int OK_STATUS = Response.Status.OK.getStatusCode();
+    private static final int OK_STATUS = Response.Status.OK.getStatusCode();
 
-	private String url;
-	static String jsonResponse;
-	private String fromCurrency = "SGD";
+    private String url;
+    static String jsonResponse;
+    private String fromCurrency = "SGD";
     private String toCurrency = "SGD";
     private String input = "0.00";
     private String output = "0.00";
     private String rate = "1.00";
 
-	public String getFromCurrency() {
-		return fromCurrency;
-	}
+    public String getFromCurrency() {
+        return fromCurrency;
+    }
 
-	public void setFromCurrency(String fromCurrency) {
-		this.fromCurrency = fromCurrency;
-	}
+    public void setFromCurrency(String fromCurrency) {
+        this.fromCurrency = fromCurrency;
+    }
 
     public String getRate() {
         return rate;
@@ -42,85 +42,85 @@ public class SimpleWebServiceJson {
     }
 
     public String getToCurrency() {
-		return toCurrency;
-	}
+        return toCurrency;
+    }
 
-	public void setToCurrency(String toCurrency) {
-		this.toCurrency = toCurrency;
-	}
+    public void setToCurrency(String toCurrency) {
+        this.toCurrency = toCurrency;
+    }
 
-	public String getInput() {
-		return input;
-	}
+    public String getInput() {
+        return input;
+    }
 
-	public void setInput(String input) {
-		this.input = input;
-	}
+    public void setInput(String input) {
+        this.input = input;
+    }
 
-	public String getOutput() {
-		return output;
-	}
+    public String getOutput() {
+        return output;
+    }
 
-	public void setOutput(String output) {
-		this.output = output;
-	}
+    public void setOutput(String output) {
+        this.output = output;
+    }
 
-	public SimpleWebServiceJson(){
-		this.url = "https://currency-api.appspot.com/api/SGD/SGD.json";
-	}
+    public SimpleWebServiceJson(){
+        this.url = "https://currency-api.appspot.com/api/SGD/SGD.json";
+    }
 
-	public String getUrl() {
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	public String getJsonResponse() {
-		return jsonResponse;
-	}
+    public String getJsonResponse() {
+        return jsonResponse;
+    }
 
-	public void setJsonResponse(String jsonResponse) {
-		SimpleWebServiceJson.jsonResponse = jsonResponse;
-	}
+    public void setJsonResponse(String jsonResponse) {
+        SimpleWebServiceJson.jsonResponse = jsonResponse;
+    }
 
 
-	public void callWebService(){
+    public void callWebService(){
 
-		this.url = "https://currency-api.appspot.com/api/"+fromCurrency+"/"+toCurrency+".json";
+        this.url = "https://currency-api.appspot.com/api/"+fromCurrency+"/"+toCurrency+".json";
 
-		// call the service and get the response object
-		Response response = ClientBuilder.newClient()
-			.target(this.url)
-			.request(MediaType.APPLICATION_JSON)
-			.get();
-		// process the response object
-		StatusType status = response.getStatusInfo();
-		int statusCode = status.getStatusCode();
-		if (statusCode == OK_STATUS) {
-			System.out.println("Status is ok!!");
-			jsonResponse = response.readEntity(String.class);
-			JsonParser parser = Json.createParser(new StringReader(jsonResponse));
-			float rate = 0f;
-			// parse the file
-			while (parser.hasNext()) {
-				JsonParser.Event event = parser.next();
-				if (event.equals(JsonParser.Event.KEY_NAME)) {
-					String key = parser.getString();
-					parser.next();
-					if(key.equals("rate")){
-						String value = parser.getString();
-						rate = Float.parseFloat(value);
-						this.rate = Float.toString(rate);
+        // call the service and get the response object
+        Response response = ClientBuilder.newClient()
+                .target(this.url)
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+        // process the response object
+        StatusType status = response.getStatusInfo();
+        int statusCode = status.getStatusCode();
+        if (statusCode == OK_STATUS) {
+            System.out.println("Status is ok!!");
+            jsonResponse = response.readEntity(String.class);
+            JsonParser parser = Json.createParser(new StringReader(jsonResponse));
+            float rate = 0f;
+            // parse the file
+            while (parser.hasNext()) {
+                JsonParser.Event event = parser.next();
+                if (event.equals(JsonParser.Event.KEY_NAME)) {
+                    String key = parser.getString();
+                    parser.next();
+                    if(key.equals("rate")){
+                        String value = parser.getString();
+                        rate = Float.parseFloat(value);
+                        this.rate = Float.toString(rate);
                         this.output = String.format("%.2f", Float.parseFloat(input)*rate);
-					}
-				}
-			}
-			//this.parseJson(this.jsonResponse);
-		} else {
-			System.out.printf("Service returned status: \"%d %s\"\n",
-				statusCode, status.getReasonPhrase());
-		}
-	}
+                    }
+                }
+            }
+            //this.parseJson(this.jsonResponse);
+        } else {
+            System.out.printf("Service returned status: \"%d %s\"\n",
+                    statusCode, status.getReasonPhrase());
+        }
+    }
 }
