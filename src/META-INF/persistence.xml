@@ -6,6 +6,7 @@
         <jta-data-source>jdbc/ITP212</jta-data-source>
         <class>entity.User</class>
         <class>entity.Group</class>
+        <class>entity.Request</class>
 
         <properties>
             <!--  tables will be created only if they do not exist. Use for production
@@ -17,6 +18,8 @@
             -->
 
             <property name="eclipselink.logging.level" value="INFO"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/itp212"/>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
         </properties>
     </persistence-unit>
 </persistence>

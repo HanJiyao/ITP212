@@ -12,7 +12,6 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import ejb.UserEJB;
 import entity.User;
-import entity.Group;
 
 @ManagedBean
 @SessionScoped
