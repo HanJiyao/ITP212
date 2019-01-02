@@ -66,7 +66,7 @@ public class CreditCardDetailsController {
         logger.info("Adding Credit Card: " + theCcdetail);
         try {
             // add credit card to the database
-            //studentDbUtil.addStudent(theStudent);
+
             ccdetailsDbUtil.addCcdetail(theCcdetail);
         } catch (Exception exc) {
             // send this to server logs
@@ -130,12 +130,12 @@ public class CreditCardDetailsController {
 
         try {
 
-            // delete the student from the database
+            // delete the credit card from the database
             ccdetailsDbUtil.deleteCcdetail(ccdetailId);
 
         } catch (Exception exc) {
             // send this to server logs
-            logger.log(Level.SEVERE, "Error deleting student id: " + ccdetailId, exc);
+            logger.log(Level.SEVERE, "Error deleting creditcard detail id: " + ccdetailId, exc);
 
             // add error message for JSF page
             addErrorMessage(exc);

@@ -42,7 +42,7 @@
                                                                  required="true"
                                                                  requiredMessage="Your cvv is mandatory."/> 	<h:message for="expiry_date"  />
 
-                <h:inputHidden value="#{student.id}" />
+                <h:inputHidden value="#{creditCardDetails.id}" />
 
                 <h:commandButton value="Save" styleClass="save" action="#{creditCardDetailsController.updateCcdetail(creditCardDetails)}"/>
 

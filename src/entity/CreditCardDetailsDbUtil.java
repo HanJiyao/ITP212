@@ -272,10 +272,10 @@ public class CreditCardDetailsDbUtil {
                 String expiry_date=myRs.getString("expiry_date");
                 int postal_code=myRs.getInt("postal_code");
 
-                // create new student object
+                // create new Credit card object
                 CreditCardDetails tempCreditCard = new CreditCardDetails(id,cardNum,full_name,CVV,expiry_date,postal_code);
 
-                // add it to the list of students
+                // add it to the list of Credit card
                 CreditCardList.add(tempCreditCard);
             }
 

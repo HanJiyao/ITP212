@@ -31,12 +31,12 @@
 
             <h:messages globalOnly="true"/>
 
-            <h:button value="Add Student" styleClass="add-student-button" outcome="addCcdetails-form"/>
+            <h:button value="Add Credit card" styleClass="add-student-button" outcome="addCcdetails-form"/>
             <h:form>
 
                 <h:outputLabel>Search Credit Card:</h:outputLabel> <h:inputText value="#{creditCardDetailsController.theSearchCcdetail}" id="theSearchName" />
 
-                <h:commandButton value="Search" action="list-students?faces-redirect=true" styleClass="add-student-button" />
+                <h:commandButton value="Search" action="listccdetails?faces-redirect=true" styleClass="add-student-button" />
 
             </h:form>
 
