@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet("/ReviewServlet")
+public class ReviewServlet extends HttpServlet {
 
     @Resource(name = "jdbc/ITP212")
     private DataSource dataSource;

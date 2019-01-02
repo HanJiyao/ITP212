@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 
-@WebServlet("/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet("/CreditCardServlet")
+public class CreditCardServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
