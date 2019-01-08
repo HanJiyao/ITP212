@@ -1,0 +1,1 @@
+SELECT * FROM itp212.blog;
