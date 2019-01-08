@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{blogController.loadBlogs()}"/>
+</f:metadata>
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>List blog post</title>
+</h:head>
+<h:body>
+    <ui:composition template="templates/template.xhtml">
+        <ui:define name="content">
+            <h:button value="Create Blog Post"
+                      outcome="add-blogpost"/>
+            <h:form id="form">
+                <br></br>
+
+                <p:dataScroller value="#{blogController.blogs}" var="tmpBlog" chunkSize="5">
+
+                    <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
+
+                        <p:outputPanel>
+                            <h:outputText value="#{tmpBlog.id}" style="font-weight: bold; font-size: large; visibility: hidden "/>
+                            <h:outputText value="#{tmpBlog.blogTitle}" style="font-weight: bold; font-size: large "/>
+                            <br></br>
+                            <br></br>
+                            <h:outputText value="#{tmpBlog.blogContent}" style="font-weight: normal; font-size: medium"/>
+                            <hr/>
+                            <h:commandButton value="Delete Post"
+                                           onclick="if (!confirm('Are you sure you want to delete this post?')) return false"
+                                           action="#{blogController.deleteBlog(tmpBlog.id)}"
+                                            style="font-size: smaller"/> |
+                            <h:commandButton value="Update Post"
+                                             action="#{blogController.loadBlog(tmpBlog.id)}"
+                                             style="font-size: smaller"/>
+                        </p:outputPanel>
+                    </h:panelGrid>
+
+                </p:dataScroller>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>
