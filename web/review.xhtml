@@ -1,113 +1,252 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{reviewController.loadReviews()}"/>
+</f:metadata>
+
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </h:head>
+
+<!--<h:body>-->
+    <!--<ui:composition template="templates/template.xhtml">-->
+    <!--<ui:define name="content">-->
+    <!--<style type="text/css">-->
+        <!--.ui-dashboard-column {width:200px;}-->
+    <!--</style>-->
+
+    <!--<h3>Some listing here</h3>-->
+
+    <!--&lt;!&ndash;<h:panelGrid columns="2" cellpadding="5">&ndash;&gt;-->
+        <!--&lt;!&ndash;<p:rating value="4" readonly="true" /><h:outputText value="100 Reviews" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</h:panelGrid>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;&lt;!&ndash;<h:panelGrid columns="3" cellpadding="2">&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<p></p><p:rating value="5" readonly="true" /><h:outputText value="(20)" />&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<p></p><p:rating value="4" readonly="true" /><h:outputText value="(30)" />&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<p></p><p:rating value="3" readonly="true" /><h:outputText value="(20)" />&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<p></p><p:rating value="2" readonly="true" /><h:outputText value="(25)" />&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<p></p><p:rating value="1" readonly="true" /><h:outputText value="(5)" />&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;</h:panelGrid>&ndash;&gt;&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<h:form>&ndash;&gt;-->
+            <!--&lt;!&ndash;<h:outputLabel>Search student:</h:outputLabel> <h:inputText value="#{reviewController.theSearchName}" id="theSearchName" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<h:commandButton value="Search" action="review?faces-redirect=true" styleClass="add-student-button" />&ndash;&gt;-->
+        <!--&lt;!&ndash;</h:form>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<p:fieldset legend="Leave a review:" toggleable="true" closable="true" toggleSpeed="500">&ndash;&gt;-->
+            <!--&lt;!&ndash;<h:panelGrid columns="2" cellpadding="5">&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<h:form>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<h:inputText value="#{review.id}" id="id" requiredMessage="Please enter your id" /> <h:message for="id" />&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<h:outputLabel>Display Name:</h:outputLabel> <h:inputText value="#{review.displayName}" id="displayName" requiredMessage="Please enter your display name"/> <h:message for="displayName" />&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<h:panelGrid columns="2" cellpadding="2">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;<h:outputLabel>Rating:</h:outputLabel><p:rating id="rating" value="#{review.rating}" requiredMessage="Please Rate"/><h:message for="rating" />&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;</h:panelGrid>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;Upload Image: <p:fileUpload mode="simple" skinSimple="true"/>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<br/>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<h:inputTextarea rows="10" cols="100" queryDelay="750" minQueryLength="4" id="review" placeholder="Type your review here." requiredMessage="Please enter your review(s)" /><h:message for="review" id="" cols="30" rows="10"/>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<br/>&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<p:commandButton value="Submit" icon="ui-icon-check" action="#{reviewController.addReview(review)}"/>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;</h:form>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;</h:panelGrid>&ndash;&gt;-->
+        <!--&lt;!&ndash;</p:fieldset>&ndash;&gt;-->
+            <!--&lt;!&ndash;<br />&ndash;&gt;-->
+    <!--&lt;!&ndash;<h:outputLabel for="category" value="Category" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<h:form>&ndash;&gt;-->
+    <!--&lt;!&ndash;<p:selectOneMenu id="category" label="Category">&ndash;&gt;-->
+        <!--&lt;!&ndash;<f:selectItem itemLabel="Highest Rated Review" itemValue="" noSelectionOption="true" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<f:selectItem itemLabel="Latest Review" itemValue="1" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<f:selectItem itemLabel="Oldest Review" itemValue="2" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</p:selectOneMenu>&ndash;&gt;-->
+    <!--&lt;!&ndash;</h:form>&ndash;&gt;-->
+
+        <!--<h:form>-->
+            <!--<p:dataTable value="#{reviewController.reviews}" var="tempReview">-->
+                <!--<f:facet name="header">-->
+                    <!--Reviews-->
+                <!--</f:facet>-->
+                <!--<p:column>-->
+                    <!--HELLO??-->
+                    <!--#{tempReview.id}-->
+                    <!--<f:facet name="header">#{tempReview.displayName}</f:facet>-->
+                    <!--&lt;!&ndash;<h:outputText value="#{tempReview.displayName}" />&ndash;&gt;-->
+                <!--</p:column>-->
+                    <!--<h:outputText value="#{tempReview.reviewText}" />-->
+                    <!--<p:rating value="#{tempReview.rating}" readonly="true" />-->
+            <!--</p:dataTable>-->
+        <!--</h:form>-->
+
+
+        <!--&lt;!&ndash;-->
+        <!--<h:form>-->
+            <!--<p:panel id="basic" header="Review" style="margin-bottom:20px">-->
+                <!--<h:panelGrid columns="2" cellpadding="10">-->
+                    <!--<p:graphicImage height="100px" width="100px" value="/resources/pictures/girl.jpg" />-->
+                    <!--<h:outputText-->
+                            <!--value="Very effective! Trustworthy and worth the money. Fixed my laptop in less than an hour." />-->
+                    <!--<h:outputText value="John Doe" /><p:rating value="5" readonly="true" />-->
+                <!--</h:panelGrid>-->
+                <!--<hr />-->
+                <!--<h:panelGrid columns="2" cellpadding="10">-->
+                    <!--<p:graphicImage height="100px" width="100px" value="/resources/pictures/girl.jpg" />-->
+                    <!--<h:outputText-->
+                            <!--value="A bit slow but still good service." />-->
+                    <!--<h:outputText value="Jane Tan" /><p:rating value="4" readonly="true" />-->
+                <!--</h:panelGrid>-->
+            <!--</p:panel>-->
+            <!--<p:button value="More Review">-->
+            <!--</p:button>-->
+
+            <!--<p:dataScroller chunkSize="3">-->
+            <!--<f:facet name="header">-->
+                <!--Reviews-->
+            <!--</f:facet>-->
+            <!--<f:facet name="loader">-->
+                <!--<p:commandButton type="button" value="Load More Reviews" var="reviews"/>-->
+            <!--</f:facet>-->
+
+                <!--<p:outputPanel>-->
+                        <!--<h:outputText value="Id:" style="font-weight: bold"/>-->
+                        <!--<h:outputText value="John Doe"/>-->
+
+                        <!--<h:outputText value="Service:" style="font-weight: bold"/>-->
+                        <!--<h:outputText value="Fixing of laptop"/>-->
+
+                        <!--<h:outputText value="Review:" style="font-weight: bold"/>-->
+                        <!--<h:outputText value="Very Good"/>-->
+
+                        <!--<h:outputText value="5 Star" style="font-weight: bold"/>-->
+                <!--</p:outputPanel>-->
+                <!--<p:outputPanel>-->
+                        <!--<h:outputText value="Id:" style="font-weight: bold"/>-->
+                        <!--<h:outputText value="Jane Doe"/>-->
+                        <!--<h:outputText value="Service:" style="font-weight: bold"/>-->
+                        <!--<h:outputText value="Fixing of laptop"/>-->
+
+                        <!--<h:outputText value="Review:" style="font-weight: bold"/>-->
+                        <!--<h:outputText value="Very effective"/>-->
+
+                        <!--<h:outputText value="5 Star" style="font-weight: bold"/>-->
+
+                <!--</p:outputPanel>-->
+        <!--</p:dataScroller>-->
+            <!--</h:form>-->
+        <!--&ndash;&gt;-->
+    <!--</ui:define>-->
+    <!--</ui:composition>-->
+<!--</h:body>-->
+<!--</html>-->
 <h:body>
     <ui:composition template="templates/template.xhtml">
     <ui:define name="content">
     <style type="text/css">
-        .ui-dashboard-column {width:200px;}
+    .ui-dashboard-column {width:200px;}
+
+    .rev {
+        width: 50%
+    }
     </style>
+    <div id="wrapper">
+        <div id="header">
+            <h2>Listing</h2>
+        </div>
+    </div>
 
-    <h3>Some listing here</h3>
+    <div id="container">
 
-    <h:panelGrid columns="2" cellpadding="5">
-        <p:rating value="4" readonly="true" /><h:outputText value="100 Reviews" />
-    </h:panelGrid>
+        <div id="content">
 
-    <h:panelGrid columns="3" cellpadding="2">
-            <p></p><p:rating value="5" readonly="true" /><h:outputText value="(20)" />
-            <p></p><p:rating value="4" readonly="true" /><h:outputText value="(30)" />
-            <p></p><p:rating value="3" readonly="true" /><h:outputText value="(20)" />
-            <p></p><p:rating value="2" readonly="true" /><h:outputText value="(25)" />
-            <p></p><p:rating value="1" readonly="true" /><h:outputText value="(5)" />
-    </h:panelGrid>
+            <h:messages globalOnly="true" />
+            <!--  add a search box -->
+            <h:form>
 
-        <p:fieldset legend="Leave a review:" toggleable="true" closable="true" toggleSpeed="500">
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:form>
-                    <p>Display Name: <p:inputText /></p>
-                    <h:panelGrid columns="2" cellpadding="2">
-                        Rating:<p:rating value="3" />
-                    </h:panelGrid>
-                    Upload Image: <p:fileUpload mode="simple" skinSimple="true"/>
-                    <br/>
-                    <p:inputTextarea rows="10" cols="100" queryDelay="750" minQueryLength="4" placeholder="Type your review here." />
-                    <br/>
-                    <p:commandButton value="Submit" icon="ui-icon-check"/>
-                </h:form>
-            </h:panelGrid>
-        </p:fieldset>
-            <br />
-    <h:outputLabel for="category" value="Category" />
-    <h:form>
-    <p:selectOneMenu id="category" label="Category">
-        <f:selectItem itemLabel="Highest Rated Review" itemValue="" noSelectionOption="true" />
-        <f:selectItem itemLabel="Latest Review" itemValue="1" />
-        <f:selectItem itemLabel="Oldest Review" itemValue="2" />
-    </p:selectOneMenu>
-    </h:form>
-    <h:form>
-        <p:panel id="basic" header="Review" style="margin-bottom:20px">
-            <h:panelGrid columns="2" cellpadding="10">
-                <p:graphicImage height="100px" width="100px" value="/resources/pictures/girl.jpg" />
-                <h:outputText
-                        value="Very effective! Trustworthy and worth the money. Fixed my laptop in less than an hour." />
-                <h:outputText value="John Doe" /><p:rating value="5" readonly="true" />
-            </h:panelGrid>
-            <hr />
-            <h:panelGrid columns="2" cellpadding="10">
-                <p:graphicImage height="100px" width="100px" value="/resources/pictures/girl.jpg" />
-                <h:outputText
-                        value="A bit slow but still good service." />
-                <h:outputText value="Jane Tan" /><p:rating value="4" readonly="true" />
-            </h:panelGrid>
-        </p:panel>
-        <p:button value="More Review">
-        </p:button>
-        <!--
-        <p:dataScroller chunkSize="3">
-        <f:facet name="header">
-            Reviews
-        </f:facet>
-        <f:facet name="loader">
-            <p:commandButton type="button" value="Load More Reviews" var="reviews"/>
-        </f:facet>
+                <h:outputLabel>Search review:</h:outputLabel> <h:inputText value="#{reviewController.theSearchName}" id="theSearchName" />
 
-            <p:outputPanel>
-                    <h:outputText value="Id:" style="font-weight: bold"/>
-                    <h:outputText value="John Doe"/>
+                <p:commandButton value="Search" action="review?faces-redirect=true"/>
 
-                    <h:outputText value="Service:" style="font-weight: bold"/>
-                    <h:outputText value="Fixing of laptop"/>
+            </h:form>
 
-                    <h:outputText value="Review:" style="font-weight: bold"/>
-                    <h:outputText value="Very Good"/>
 
-                    <h:outputText value="5 Star" style="font-weight: bold"/>
-            </p:outputPanel>
-            <p:outputPanel>
-                    <h:outputText value="Id:" style="font-weight: bold"/>
-                    <h:outputText value="Jane Doe"/>
-                    <h:outputText value="Service:" style="font-weight: bold"/>
-                    <h:outputText value="Fixing of laptop"/>
+            <br/>
 
-                    <h:outputText value="Review:" style="font-weight: bold"/>
-                    <h:outputText value="Very effective"/>
+            <p:button value="Add Review" outcome="add-review-form.xhtml" />
 
-                    <h:outputText value="5 Star" style="font-weight: bold"/>
+            <br/>
 
-            </p:outputPanel>
-    </p:dataScroller>
-    -->
-    </h:form>
+            <div id="calculate">
+                <h:panelGrid columns="2" cellpadding="5" style="width:25%">
+                    Average Rating:<p:rating name="header" value="#{reviewController.ratee}" readonly="true" />
+                </h:panelGrid>
+            </div>
+
+            <h:form>
+
+                <h:dataTable value="#{reviewController.reviews}" var="tempReview">
+
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">User</f:facet>
+
+                        <!--  the value for each row -->
+                        #{tempReview.displayName}
+                    </h:column>
+
+                    <h:column styleClass="rev">
+                        <f:facet name="header">Reviews</f:facet>
+
+                        #{tempReview.reviewText}
+
+                    </h:column>
+
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Rating</f:facet>
+
+                        <!--  the value for each row -->
+                        <p:rating value="#{tempReview.rating}" readonly="true" />
+                    </h:column>
+
+                    <!--<h:column>-->
+                        <!--&lt;!&ndash; the column header &ndash;&gt;-->
+                        <!--<f:facet name="header">Rating</f:facet>-->
+
+                        <!--&lt;!&ndash;  the value for each row &ndash;&gt;-->
+                        <!--<p:rating value="#{tempReview.date}" readonly="true" />-->
+                    <!--</h:column>-->
+
+
+                    <!--<ui:fragment rendered="#{tempReview.reviewUId == session.reviewUId}">-->
+                    <h:column>
+                        <!-- column header -->
+
+                        <f:facet name="header"></f:facet>
+
+                        <!-- the value for each row -->
+                        <h:commandLink value="Update"
+                                       action="#{reviewController.loadReview(tempReview.id)}" />
+
+                        |
+
+                        <h:commandLink value="Delete"
+                                       onclick="if (!confirm('Are you sure you want to delete this review?'))return false"
+                                       action="#{reviewController.deleteReview(tempReview.id)}" />
+
+                    </h:column>
+                    <!--</ui:fragment>-->
+
+                </h:dataTable>
+
+            </h:form>
+
+        </div>
+
+    </div>
     </ui:define>
     </ui:composition>
 </h:body>

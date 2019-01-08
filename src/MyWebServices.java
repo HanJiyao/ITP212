@@ -8,8 +8,8 @@ import javax.ws.rs.ApplicationPath;
 //The java class declares root resource and provider classes
 public class MyWebServices extends ResourceConfig {
 
-	public MyWebServices (){
-		packages("example;webservice");
-	}
-	
+    public MyWebServices (){
+        packages("example;webservice");
+    }
+
 }

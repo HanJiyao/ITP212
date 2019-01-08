@@ -6,6 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
+
 <f:view>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
@@ -23,34 +24,8 @@
 
 
                 <h:form>
-                    <br>
 
-<<<<<<< Updated upstream
-                    </br>
-                    <br>
-                    </br>
-                    <h1>Payment Details</h1>
-                    <br>
-                    </br>
-                    Please Enter your Credit Card Details Below:
-                    <br></br>
-                    Card Number:<h:inputText type="string" > </h:inputText>
-                    <br></br>
-                    CVV:<h:inputText type="int" > </h:inputText>
-                    <br></br>
-                    Date Of Expiry:
-                    <h:inputText
-                            label="Expiry Date"
-                            id="expiry_date"
-                            validator="#{cheee_validatepaymentdetails.validateTheDate}"
-                            validatorMessage="Expiry Date must follow ">
-                        <f:validateRegex pattern="\d{2}-\d{2}-\" />
-                        <h:message for="expiry_date" styleClass="error" />
-                    </h:inputText>
-                    <br></br>
-                    <br></br>
-=======
-                </br>
+
                <br>
                </br>
                <h1>Payment Details</h1>
@@ -73,7 +48,7 @@
             </h:inputText>
                <br></br>
                 <br></br>
->>>>>>> Stashed changes
+
 
                     <br></br>
                     <h:commandButton value="Submit" action="otpconfirmation" />

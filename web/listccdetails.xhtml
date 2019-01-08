@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{creditCardDetailsController.loadCcdetails()}"/>
+</f:metadata>
+
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>Register your credit card</title>
+    <h:outputStylesheet library="css" name="style.css"/>
+
+</h:head>
+
+<h:body>
+
+    <div id="wrapper">
+        <div id="header">
+            <h2>Itp212</h2>
+        </div>
+    </div>
+
+    <div id="container">
+
+        <div id="content">
+
+            <h:messages globalOnly="true"/>
+
+            <h:button value="Add Credit card" styleClass="add-student-button" outcome="addCcdetails-form"/>
+            <h:form>
+
+                <h:outputLabel>Search Credit Card:</h:outputLabel> <h:inputText value="#{creditCardDetailsController.theSearchCcdetail}" id="theSearchName" />
+
+                <h:commandButton value="Search" action="listccdetails?faces-redirect=true" styleClass="add-student-button" />
+
+            </h:form>
+
+            <h:form>
+
+                <h:dataTable value="#{creditCardDetailsController.ccdetails}" var="tempCreditCard"
+                             styleClass="demo-table"
+                             headerClass="demo-table-header"
+                             rowClasses="demo-table-odd-row,demo-table-even-row">
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Card Number</f:facet>
+                        <!--  the value for each row -->
+                        #{tempCreditCard.cardNum}
+                    </h:column>
+
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Full Name</f:facet>
+
+                        <!--  the value for each row -->
+                        #{tempCreditCard.fullName}
+                    </h:column>
+
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">CVV</f:facet>
+
+                        <!--  the value for each row -->
+                        #{tempCreditCard.cvv}
+                    </h:column>
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Expiry Date</f:facet>
+
+                        <!--  the value for each row -->
+                        #{tempCreditCard.expiryDate}
+                    </h:column>
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Postal Code</f:facet>
+
+                        <!--  the value for each row -->
+                        #{tempCreditCard.postalCode}
+                    </h:column>
+
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Action</f:facet>
+
+                        <!--  the value for each row -->
+                        <h:commandLink value="Update"
+                                       action="#{creditCardDetailsController.loadCcdetail(tempCreditCard.id)}"/>
+                        |
+
+                        <h:commandLink value="Delete"
+                                       onclick="if (!confirm('Are you sure you want to delete this Credit Card?')) return false"
+                                       action="#{creditCardDetailsController.deleteCcdetail(tempCreditCard.id)}"/>
+
+                    </h:column>
+
+                </h:dataTable>
+
+            </h:form>
+
+        </div>
+
+    </div>
+
+</h:body>
+</html>

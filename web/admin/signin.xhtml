@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>login</title>
+</h:head>
+<h:body>
+    <ui:composition template="../templates/template.xhtml">
+        <ui:define name="content">
+            <div style="max-width: 36rem; margin: auto;padding-top:3rem;">
+                <div class="card">
+                    <div class="card-content" style="text-align: center">
+                        <h5>Please Login First</h5>
+                    </div>
+                    <h:form style="padding: 3rem">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h:outputLabel for="email">E-Mail:</h:outputLabel>
+                                <h:inputText id="email" value="#{loginView.email}" required="true"
+                                             requiredMessage="Please enter your e-mail address"/>
+                                <h:message for="email" style="color: red"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin: 0">
+                            <div class="input-field col s12">
+                                <h:outputLabel for="password">Password:</h:outputLabel>
+                                <h:inputSecret id="password" value="#{loginView.password}"
+                                               required="true" requiredMessage="Please enter password"/>
+                                <h:message for="password" style="color:red"/>
+                            </div>
+                        </div>
+                        <div style="text-align: center;margin-bottom: 2rem">
+                            <h:outputText
+                                value="#{loginView.validMessage}"
+                                render="#{loginView.validMessage != null}" style="color:red; font-size: 1.2rem"/>
+                        </div>
+                        <style type="text/css">
+                            .waves-button-input{
+                                color: white;
+                                display: block;
+                                height: 100%;
+                                width:100%;
+                                text-align: center;
+                            }
+                        </style>
+                        <div style="text-align: center">
+                            <h:commandButton
+                                    action="#{loginView.login}"
+                                    value="Login" styleClass="btn btn-large waves-effect waves-light"
+                                    style="font-size: 1.5rem;margin-bottom: 3rem;"/>
+                            <br/>
+                            <h:link value="Create new account" outcome="register" />
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

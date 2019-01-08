@@ -1,0 +1,1 @@
+INSERT INTO `review` VALUES (1,1,'John','This is GOOD!', 3.5);

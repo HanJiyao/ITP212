@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</h:head>
+
+<h:body>
+    <ui:composition template="templates/template.xhtml">
+        <ui:define name="content">
+            <style type="text/css">
+                .ui-dashboard-column {width:200px;}
+
+                .rev {
+                    width: 50%
+                }
+
+                .formClass{
+                    font-size: 150%;
+                }
+            </style>
+
+            <div id="container">
+                <h3>Add Your Review</h3>
+
+                <h:messages globalOnly="true" />
+
+                <h:form id="form" style="margin-top: 10px;" >
+                    <h:panelGrid columns="3">
+
+                        <h:outputLabel styleClass="formClass">Display Name:</h:outputLabel> <h:inputText value="#{review.displayName}" id="dn" required="true" requiredMessage="Please input a display name."/> <h:message for="dn" />
+
+                        <h:outputLabel styleClass="formClass">Rating:</h:outputLabel><p:rating value="#{review.rating}" id="rate" required="true" requiredMessage="Please rate the service."/> <h:message for="rate" />
+
+                        <h:outputLabel styleClass="formClass">Review:</h:outputLabel> <h:inputText value="#{review.reviewText}" id="reviewInput" required="true" requiredMessage="Please input a review before submitting."/> <h:message for="reviewInput" />
+
+                        <h:inputHidden value="#{review.id}" />
+
+                        <!--<h:inputHidden value="#{review.reviewUId}" />-->
+
+                        <br/>
+                        <p:commandButton value="Add Review" styleClass="save" action="#{reviewController.addReview(review)}" />
+
+                    </h:panelGrid>
+                </h:form>
+
+                <div style="clear: both;"></div>
+                <p:button outcome="review" value="Back to all review" icon="pi pi-angle-double-left" />
+                <!--<p><h:outputLink value="review.xhtml">All review</h:outputLink></p>-->
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>
