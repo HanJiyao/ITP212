@@ -38,11 +38,12 @@
 
                         <h:outputLabel styleClass="formClass">Rating:</h:outputLabel><p:rating value="#{review.rating}" id="rate" required="true" requiredMessage="Please rate the service."/> <h:message for="rate" />
 
-                        <h:outputLabel styleClass="formClass">Review:</h:outputLabel> <h:inputText value="#{review.reviewText}" id="reviewInput" required="true" requiredMessage="Please input a review before submitting."/> <h:message for="reviewInput" />
+                        <h:outputLabel styleClass="formClass">Review:</h:outputLabel><h:inputText value="#{review.reviewText}" id="reviewInput" required="true" requiredMessage="Please input a review before submitting."/> <h:message for="reviewInput" />
 
                         <h:inputHidden value="#{review.id}" />
 
                         <!--<h:inputHidden value="#{review.reviewUId}" />-->
+                        <h:outputLabel styleClass="formClass">Image:<p:fileUpload value="#{review.reviewPhoto}" multiple="true" mode="simple" skinSimple="true" dragDropSupport="true" allowTypes="/(\.|\/)(jpe?g|png)$/"/></h:outputLabel>
 
                         <br/>
                         <p:commandButton value="Add Review" styleClass="save" action="#{reviewController.addReview(review)}" />

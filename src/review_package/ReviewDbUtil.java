@@ -1,22 +1,27 @@
 package review_package;
 
+import org.primefaces.model.UploadedFile;
+
+import java.io.*;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Timestamp;
 
 public class ReviewDbUtil {
 
     private static ReviewDbUtil instance;
     private DataSource dataSource;
     private String jndiName = "jdbc/ITP212";
+//    private UploadedFile reviewImage;
+    private File filename;
+
 
     public static ReviewDbUtil getInstance() throws Exception {
         if (instance == null) {
@@ -64,10 +69,12 @@ public class ReviewDbUtil {
                 String displayName = myRs.getString("displayName");
                 String reviewText = myRs.getString("reviewText");
                 int rating = myRs.getInt("rating");
- //               Timestamp date = myRs.getTimestamp("date");
+                Date reviewDate = myRs.getDate("reviewDate");
+                Time reviewTime = myRs.getTime("reviewDate");
+                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
 
                 // add it to the list of students
                 reviews.add(tempReview);
@@ -87,10 +94,12 @@ public class ReviewDbUtil {
         PreparedStatement myStmt = null;
 
         try {
+            // Load driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Connect to the database
             myConn = getConnection();
 
-            String sql = "insert into review (reviewUId, displayName, reviewText, rating) values (?, ?, ?, ?)";
-
+            String sql = "insert into review (reviewUId, displayName, reviewText, rating, reviewPhoto) values (?, ?, ?, ?, ?)";
             myStmt = myConn.prepareStatement(sql);
 
             // set params
@@ -98,9 +107,12 @@ public class ReviewDbUtil {
             myStmt.setString(2, theReview.getDisplayName());
             myStmt.setString(3, theReview.getReviewText());
             myStmt.setInt(4, theReview.getRating());
+            myStmt.setBinaryStream(5, theReview.getReviewPhoto());
 
             myStmt.execute();
-        }
+
+
+    }
         finally {
             close (myConn, myStmt);
         }
@@ -135,8 +147,11 @@ public class ReviewDbUtil {
                 String reviewText = myRs.getString("reviewText");
                 int rating = myRs.getInt("rating");
 //                Timestamp date = myRs.getTimestamp("date");
+                Date reviewDate = myRs.getDate("reviewDate");
+                Time reviewTime = myRs.getTime("reviewDate");
+                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
 
-                theReview = new Review(id, reviewUId, displayName, reviewText, rating);
+                theReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
             }
             else {
                 throw new Exception("Could not find review id: " + reviewId);
@@ -158,17 +173,22 @@ public class ReviewDbUtil {
             myConn = getConnection();
 
             String sql = "update review"
-                    + " set reviewUId=?, displayName=?, reviewText=?, rating=?, date=NOW()"
+                    + " set reviewUId=?, displayName=?, reviewText=?, rating=?, reviewPhoto=?"
                     + " where id=?";
 
             myStmt = myConn.prepareStatement(sql);
+
+            //read the file
+//            File file = filename;
+//            FileInputStream input = new FileInputStream(file);
 
             // set params
             myStmt.setInt(1, theReview.getReviewUId());
             myStmt.setString(2, theReview.getDisplayName());
             myStmt.setString(3, theReview.getReviewText());
             myStmt.setInt(4, theReview.getRating());
-            myStmt.setInt(5, theReview.getId());
+            myStmt.setBinaryStream(5, theReview.getReviewPhoto());
+            myStmt.setInt(6, theReview.getId());
 
             myStmt.execute();
         }
@@ -230,7 +250,7 @@ public class ReviewDbUtil {
             exc.printStackTrace();
         }
     }
-    public List<Review> searchReviews(String theSearchName)  throws Exception {
+    public List<Review> searchReviews(String theSearchName) throws Exception {
         List<Review> reviews = new ArrayList<>();
 
         Connection myConn = null;
@@ -274,19 +294,88 @@ public class ReviewDbUtil {
                 String displayName = myRs.getString("displayName");
                 int rating = myRs.getInt("rating");
                 String reviewText = myRs.getString("reviewText");
-//                Timestamp date = myRs.getTimestamp("date");
+                Date reviewDate = myRs.getDate("reviewDate");
+                Time reviewTime = myRs.getTime("reviewDate");
+                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
 
                 // add it to the list of reviews
                 reviews.add(tempReview);
             }
 
             return reviews;
+
         } finally {
             // clean up JDBC objects
             close(myConn, myStmt, myRs);
+        }
+    }
+
+    public List<Review> searchReviewsName(String searchUser) throws Exception {
+        List<Review> reviews = new ArrayList<>();
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+        int reviewId;
+
+        try {
+
+            // get connection to database
+            myConn = dataSource.getConnection();
+
+            //
+            // only search by name if theSearchName is not empty
+            //
+            if (searchUser != null && searchUser.trim().length() > 0) {
+                // create sql to search for students by name
+                String sql = "select * from review where lower(displayName) like ?";
+                // create prepared statement
+                myStmt = myConn.prepareStatement(sql);
+                // set params
+                String searchUserLike = "%" + searchUser.toLowerCase() + "%";
+                myStmt.setString(1, searchUserLike);
+
+            } else {
+                // create sql to get all reviews
+                String sql = "select * from review order by displayName";
+                // create prepared statement
+                myStmt = myConn.prepareStatement(sql);
+            }
+
+            // execute statement
+            myRs = myStmt.executeQuery();
+
+            // retrieve data from result set row
+            while (myRs.next()) {
+
+                // retrieve data from result set row
+                int id = myRs.getInt("id");
+                int reviewUId = myRs.getInt("reviewUId");
+                int rating = myRs.getInt("rating");
+                String displayName = myRs.getString("displayName");
+                String reviewText = myRs.getString("reviewText");
+//                Timestamp date = myRs.getTimestamp("date");
+                Date reviewDate = myRs.getDate("reviewDate");
+                Time reviewTime = myRs.getTime("reviewDate");
+                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
+
+                // create new review object
+                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+
+                // add it to the list of reviews
+                reviews.add(tempReview);
+            }
+
+            return reviews;
+
+        } finally {
+            // clean up JDBC objects
+            close(myConn, myStmt, myRs);
+
+            //clear search bar
         }
     }
         public int ratingTotal() throws Exception {
@@ -310,29 +399,43 @@ public class ReviewDbUtil {
                 // process result set
                 while (myRs.next()) {
                     int rates = myRs.getInt("rateSum");
-//
-//                    // retrieve data from result set row
-//
-//
-//                    // create new review object
-////                    rate.add(ratingList);
-////                    if(!rate.isEmpty()){
-////                        for (Float rate1 : rate){
-////                            ratingttl += rate1;
-////                        }
-////                        return ratingttl / rate.size();
-////                    }
-//                }
-                    //               ratingttl = ratingsum / .size();
-
-                     rateSum = rates;
+                   rateSum = rates;
 
                 }
             } finally {
                 close(myConn, myStmt, myRs);
             }
             return rateSum;
-
     }
+//    private byte[] toByteArrayImpl(Blob fromBlob, ByteArrayOutputStream baos) throws SQLException,
+//            IOException
+//    {
+//        byte[] buf = new byte[4000];
+//        InputStream is = fromBlob.getBinaryStream();
+//        try
+//        {
+//            for (;;)
+//            {
+//                int dataSize = is.read(buf);
+//                if (dataSize == -1)
+//                    break;
+//                baos.write(buf, 0, dataSize);
+//            }
+//        }
+//        finally
+//        {
+//            if (is != null)
+//            {
+//                try
+//                {
+//                    is.close();
+//                }
+//                catch (IOException ex)
+//                {}
+//            }
+//        }
+//        return baos.toByteArray();
+//    }
+
 }
 

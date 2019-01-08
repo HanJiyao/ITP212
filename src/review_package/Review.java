@@ -1,7 +1,12 @@
 package review_package;
+import org.primefaces.model.UploadedFile;
+
 import javax.faces.bean.ManagedBean;
-import java.time.LocalDateTime;
-import java.sql.Timestamp;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.Date;
+import java.sql.Time;
 
 @ManagedBean
 public class Review {
@@ -11,17 +16,21 @@ public class Review {
     private String displayName;
     private String reviewText;
     private int rating;
-//    private Timestamp date;
+    private Date reviewDate;
+    private Time reviewTime;
+    private InputStream reviewPhoto;
 
     public Review(){
     }
-    public Review(int id, int reviewUId, String displayName, String reviewText, int rating) {
+    public Review(int id, int reviewUId, String displayName, String reviewText, int rating, Date reviewDate, Time reviewTime, InputStream reviewPhoto) {
         this.id = id;
         this.reviewUId = reviewUId;
         this.displayName = displayName;
         this.reviewText = reviewText;
         this.rating = rating;
-    //    this.date = date;
+        this.reviewDate = reviewDate;
+        this.reviewTime = reviewTime;
+        this.reviewPhoto = reviewPhoto;
     }
 
     public int getId() {
@@ -64,13 +73,33 @@ public class Review {
         this.rating = rating;
     }
 
-//    public void setDate(Timestamp date) {
-//        this.date = date;
-//    }
+    public Date getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(Date reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+
+    public Time getReviewTime() {
+        return reviewTime;
+    }
+
+    public void setReviewTime(Time reviewTime) {
+        this.reviewTime = reviewTime;
+    }
+
+    public InputStream getReviewPhoto() {
+        return reviewPhoto;
+    }
+
+    public void setReviewPhoto(InputStream reviewPhoto) {
+        this.reviewPhoto = reviewPhoto;
+    }
 
     @Override
     public String toString() {
         return "Review [id=" + id + ", review user Id=" + reviewUId + "Display Name=" + displayName + ", Review="
-                + reviewText + ", rating=" + rating + "]";
+                + reviewText + ", rating=" + rating + ", Review Date= " + reviewDate + ", Review Time= " + reviewTime + "]";
     }
 }

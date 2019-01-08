@@ -1,11 +1,21 @@
 package review_package;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.time.LocalDateTime;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -20,10 +30,12 @@ public class ReviewController {
     private List<Review> reviews;
     private ReviewDbUtil reviewDbUtil;
     private int ratee;
-  //  private List<Float> ratingList;
     private Logger logger = Logger.getLogger(getClass().getName());
 
     private String theSearchName;
+    private String searchUser;
+    private static final int BUFFER_SIZE = 6124;
+    private String folderToUpload;
 
     public ReviewController() throws Exception {
         reviews = new ArrayList<>();
@@ -40,12 +52,20 @@ public class ReviewController {
 
         logger.info("theSearchName = " + theSearchName);
 
+        logger.info("searchUser = " + searchUser);
+
         try {
 
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 //search for reviews by name
                 reviews = reviewDbUtil.searchReviews(theSearchName);
             }
+
+            else if (searchUser != null && searchUser.trim().length() > 0) {
+                //search for reviews by name
+                reviews = reviewDbUtil.searchReviewsName(searchUser);
+            }
+
             else {
                 //get all reviews from database
                 reviews = reviewDbUtil.getReviews();
@@ -60,6 +80,7 @@ public class ReviewController {
         finally {
             //reset the search info
             theSearchName = null;
+            searchUser = null;
         }
     }
 
@@ -154,11 +175,56 @@ public class ReviewController {
         return "review?faces-redirect=true";
     }
 
+//    public void addPhoto(FileUploadEvent event) {
+//
+//        ExternalContext extContext =
+//                FacesContext.getCurrentInstance().getExternalContext();
+//        File result = new File(extContext.getRealPath
+//                ("//WEB-INF//files//" + event.getFile().getFileName()));
+//        System.out.println(extContext.getRealPath
+//                ("//WEB-INF//files//" + event.getFile().getFileName()));
+//
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(result);
+//
+//            byte[] buffer = new byte[BUFFER_SIZE];
+//
+//            int bulk;
+//            InputStream inputStream = event.getFile().getInputstream();
+//            while (true) {
+//                bulk = inputStream.read(buffer);
+//                if (bulk < 0) {
+//                    break;
+//                }
+//                fileOutputStream.write(buffer, 0, bulk);
+//                fileOutputStream.flush();
+//            }
+//
+//            fileOutputStream.close();
+//            inputStream.close();
+//
+//            FacesMessage msg =
+//                    new FacesMessage("File Description", "file name: " +
+//                            event.getFile().getFileName() + "<br/>file size: " +
+//                            event.getFile().getSize() / 1024 +
+//                            " Kb<br/>content type: " +
+//                            event.getFile().getContentType() +
+//                            "<br/><br/>The file was uploaded.");
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//
+//            FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+//                    "The files were not uploaded!", "");
+//            FacesContext.getCurrentInstance().addMessage(null, error);
+//        }
+//}
+
     public int getRatee() throws Exception {
         ratee = reviewDbUtil.ratingTotal();
         return ratee;
     }
-
 
     private void addErrorMessage(Exception exc) {
         FacesMessage message = new FacesMessage("Error: " + exc.getMessage());
@@ -173,16 +239,13 @@ public class ReviewController {
         this.theSearchName = theSearchName;
     }
 
-//    public void ratingMoreThanFive(FacesContext context, UIComponent comp, Object value){
-//
-//        String rateMore = (String) value;
-//
-//        if (rateMore.length() > 5){
-//            ((UIInput)comp).setValid(false);
-//
-//            FacesMessage message = new FacesMessage("Please rate from 1 to 5");
-//        }
-//    }
+    public String getSearchUser() {
+        return searchUser;
+    }
+
+    public void setSearchUser(String searchUser) {
+        this.searchUser = searchUser;
+    }
 
 }
 
