@@ -17,7 +17,7 @@ public class BlogDbUtil {
     private static BlogDbUtil instance;
     private DataSource dataSource;
     private String theSearchName;
-    private String jndiName = "jdbc/itp212";
+    private String jndiName = "jdbc/ITP212";
 
     public static BlogDbUtil getInstance() throws Exception {
         if (instance == null) {
