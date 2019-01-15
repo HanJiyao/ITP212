@@ -1,8 +1,7 @@
-package entity;
+package payment;
 
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.Objects;
 @ManagedBean
 

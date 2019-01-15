@@ -1,3 +1,5 @@
+package example;
+
 import javax.faces.bean.ManagedBean;
 import java.util.Arrays;
 import java.util.List;

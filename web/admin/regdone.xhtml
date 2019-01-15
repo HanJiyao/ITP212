@@ -9,9 +9,15 @@
 <h:body>
 <ui:composition template="../templates/template.xhtml">
     <ui:define name="content">
-        <h3>Your account has been successfully created</h3>
-        <br/><br/>
-        <h:link value="Sign in with your new account" outcome="signin" />
+        <div style="max-width: 36rem; margin: auto;padding-top:3rem;">
+            <div class="card">
+                <div class="card-content" style="text-align: center">
+                    <h5>Your account has been successfully created</h5>
+                    <br/>
+                    <h:link value="Sign in with your new account" outcome="signin" />
+                </div>
+            </div>
+        </div>
     </ui:define>
 </ui:composition>
 </h:body>
