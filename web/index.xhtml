@@ -56,6 +56,15 @@
                         </div>
                     <br/><br/>
                 </div>
+                <script type="text/javascript">
+                    console.log("HELLO");
+                    $(function () { //ready
+                        if (sessionStorage.reloadAfterPageLoad) {
+                            toastr.info('If all three of these are referenced correctly, then this should toast should pop-up.');
+                        }
+                    });
+
+                </script>
             </ui:define>
          </ui:composition>
       </h:body>

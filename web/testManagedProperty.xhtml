@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>managedproperty Page</title>
+
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+
+            <h:form>
+                <p:remoteCommand name="rcName" update="msgs" actionListener="#{testController.beanMethod}" />
+                <p:growl id="msgs" showDetail="true" />
+                <h3>Hello #{loginView.authenticatedUser.name}</h3>
+                <p:commandButton type="button" onclick="rcName([{name:'model', value:'Buick Encore'}, {name:'year', value:2015}]);" value="Pass Parameters 1" /><br/>
+                <p:commandButton type="button" onclick="clicked();" value="Pass Parameters 2" />
+            </h:form>
+
+            <script type="text/javascript">
+                console.log("HELLO");
+                function clicked(){
+                    rcName([{name:'model', value: 'Chevy Volt'}, {name:'year', value:2016}]);
+                }
+            </script>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+
+</html>

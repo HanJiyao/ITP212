@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Private Page</title>
+
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+            <h:form>
+                <h:commandLink action="#{loginView.logout}" value="Logout"/>
+            </h:form>
+            <h3>Hello #{loginView.authenticatedUser.name}</h3>
+            <p>Your user id is #{loginView.authenticatedUser.email}</p>
+            <p>This is a private page, which requires login to access.</p>
+            <h4> managed proeptrty : #{testController.model} </h4>
+            <h:form>
+                <!--
+                <h:inputText value="#{testController.testInputWithoutObject}" id="request_title"
+                             type="text" class="validate" required="true"
+                             requiredMessage="Please fill in the task title"/>
+                <h:message for="request_title" style="color: red"/>
+                             !-->
+
+                <h:inputText value="#{testYongRui.firstInput}"
+                            />
+
+                <h:inputText value="#{testYongRui.secondInput}"
+                             />
+
+                <h:commandButton class="btn btn-large waves-effect waves-light col s6"
+                                 action="#{testController.testInputMethod(testYongRui)}" value="Submit to bean"/>
+
+
+                <button id="normalBtn" class="btn waves-effect waves-light"
+                        onclick="callJava(); return false;"> Submit normal btn
+                    <i class="material-icons right">send</i>
+                </button>
+
+                <button id="e" class="btn waves-effect waves-light"
+                        onclick="window.location.href='http://localhost:8080/itp212Kraken12_war_exploded/index.xhtml'; return false;"> lknpcb normal btn
+                    <i class="material-icons right">send</i>
+                </button>
+                <p:remoteCommand name="myCommand" actionListener="#{testController.testInputMethod(testYongRui)}"/>
+
+            </h:form>
+            <script type="text/javascript">
+                console.log("HELLO");
+                $(function () { //ready
+                    //toastr.info('If all three of these are referenced correctly, then this should toast should pop-up.');
+                });
+
+                function callJava() {
+                    var yesOrNo = myCommand();
+                    console.log(yesOrNo);
+                    console.log("setTestInputWithoutObject --> " + "#{testController.testInputWithoutObject}");
+                    console.log("callingj ava bean");
+                    if ("#{testController.testInputWithoutObject}" == "helloTEST") {
+                        //alert("HEL");
+                        sessionStorage.reloadAfterPageLoad = true;
+                        toastr.info('If all three of these are referenced correctly, then this should toast should pop-up.');
+                        window.location.href = "http://localhost:8080/itp212Kraken12_war_exploded/index.xhtml";
+                        toastr.info('If all three of these are referenced correctly, then this should toast should pop-up.');
+                    }
+                }
+            </script>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+
+</html>
