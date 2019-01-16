@@ -17,6 +17,11 @@ import java.util.logging.Logger;
 public class TestController {
 
     private Logger logger = Logger.getLogger(getClass().getName());
+    private TestSQL testSQL;
+
+    public TestController() throws Exception {
+        testSQL = TestSQL.getInstance();
+    }
     private String testInputWithoutObject;
 
     public String getTestInputWithoutObject() {
@@ -55,7 +60,7 @@ public class TestController {
 
     private int year;
 
-    public void beanMethod() {
+    public void beanMethod() throws Exception {
         // OR - retrieve values inside beanMethod
         Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         //String model1 = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("model");
@@ -73,6 +78,8 @@ public class TestController {
         logger.severe("USER --> ");
         logger.severe(usergg.toString());
 
+        logger.severe("calling test SQL");
+        testSQL.getStudents();
     }
 
 }
