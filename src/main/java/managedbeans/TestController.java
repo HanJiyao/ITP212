@@ -1,14 +1,11 @@
 package managedbeans;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import entity.User;
 
-import javax.faces.annotation.ManagedProperty;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
