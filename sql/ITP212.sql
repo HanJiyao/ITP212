@@ -35,14 +35,15 @@ CREATE TABLE `blog` (
 
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `image` VARCHAR(100) NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
-  `desc` VARCHAR(45) NULL,
-  `type` VARCHAR(45) NOT NULL,
-  `quantity` INT NOT NULL,
-  `price` FLOAT(10,2) NOT NULL,
-  `discount` FLOAT(3,2) NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `desc` varchar(45) DEFAULT NULL,
+  `type` varchar(45) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` float(10,2) NOT NULL,
+  `discount` float(3,2) DEFAULT NULL,
   `user` varchar(255) NOT NULL,
-  `created` DATE NULL,
-  PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
+  `created` datetime DEFAULT CURRENT_TIMESTAMP,
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
