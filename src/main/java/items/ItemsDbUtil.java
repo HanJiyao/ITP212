@@ -21,7 +21,7 @@ public class ItemsDbUtil {
     public static Connection getConnection(){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String db_url ="jdbc:mysql://localhost:3306/itp212",
+            String db_url ="jdbc:mysql://localhost:3306/itp212?autoReconnect=true&useSSL=false",
             db_userName = "root",
             db_password = "mysql";
             connObj = DriverManager.getConnection(db_url,db_userName,db_password);

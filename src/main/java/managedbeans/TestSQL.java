@@ -2,6 +2,7 @@ package managedbeans;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.User;
+import org.primefaces.json.JSONObject;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -68,6 +69,12 @@ public class TestSQL {
                 System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(tempStudent));
                 // add it to the list of students
                 allUSERS.add(tempStudent);
+                String jsonString = new JSONObject()
+                        .put("JSON1", email)
+                        .put("JSON2", password)
+                        .put("JSON3", name).toString();
+
+                System.out.println(jsonString);
             }
 
             logger.severe("ALL USERS COMING SOON" + allUSERS);
@@ -75,6 +82,7 @@ public class TestSQL {
             ObjectMapper mapper = new ObjectMapper();
             logger.severe("Last");
             System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(allUSERS));
+
         }
         finally {
             close (myConn, myStmt, myRs);
