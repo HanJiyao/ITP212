@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+<h:head>
+	<title>JSF Websocket Chat</title>
+	<script>
+		function onMessage(message, channel, event){
+		    console.log("message --> " + message);
+		    console.log("Chanel " + channel);
+		    console.log("event --> " + JSON.stringify(event));
+			var parsedData = JSON.parse(message);
+			console.log(parsedData.userId)
+			console.log(message);
+			var m = "message:" + message + ", channel:" + channel + ", event:" + event;
+			var ul = document.getElementById("messages");
+			var li = document.createElement("li");
+			var messageArea = document.getElementById('messageArea');
+			li.appendChild(document.createTextNode(message));
+			ul.appendChild(li);
+			messageArea.value += message + "\n";
+		}
+	</script>
+</h:head>
+<h:body>
+	<h1>JSF Websocket Chat </h1>
+	<h2>Channel : <h:outputText value="#{chat.channel}"/></h2>
+	<ul id="messages">
+	</ul>
+	<hr/>
+
+	<textarea id="messageArea" readonly="readonly" cols="55" rows="20"></textarea>
+	<h:form id="form">
+		<div>
+			<br/>
+			 <h:outputText value="#{chat.userId}"/>
+			<br/>
+			<h:inputText id="messageInput" value="#{chat.message}" size="50"/>
+			<h:commandButton
+					id="pushToUserChannel"
+					action="#{chatServer.pushUserChannel(chat)}" value="Send Message"
+			>
+				<f:ajax execute="@form" render="messageInput"/>
+			</h:commandButton>
+		</div>
+	</h:form>
+
+	<!--
+	 <f:websocket channel="sessionChannel" scope="session" onmessage="onMessage" />
+	 <f:websocket channel="viewChannel" scope="view" onmessage="onMessage" />
+	-->
+	<f:websocket channel="applicationChannel" scope="application" onmessage="onMessage" />
+	<f:websocket channel="userChannel" user="#{chat.channel}" onmessage="onMessage"/>
+</h:body>
+</html>
