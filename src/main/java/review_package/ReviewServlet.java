@@ -1,4 +1,4 @@
-package main.java.review_package;
+package review_package;
 
 import java.io.IOException;
 import java.io.PrintWriter;

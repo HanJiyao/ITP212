@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>register</title>
+</h:head>
+<f:view>
+
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
+        <div style="max-width: 36rem; margin: auto;padding-top:3rem;">
+            <div class="card">
+                <div class="card-content" style="text-align: center">
+                    <h5>Create New Account</h5>
+                </div>
+                <h:form style="padding: 3rem">
+                    <!-- register a PostValidateEvent -->
+                    <f:event listener="#{registerView.validatePassword}"
+                             type="postValidate" />
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h:outputLabel for="name">Name:</h:outputLabel>
+                                <h:inputText id="name" value="#{registerView.name}" required="true"
+                                             requiredMessage="Please enter your name" maxlength="30"/>
+                                <h:message for="name" style="color: red"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h:outputLabel for="email">E-Mail:</h:outputLabel>
+                                <h:inputText id="email" value="#{registerView.email}" required="true"
+                                             requiredMessage="Please enter your e-mail address">
+                                    <f:validator validatorId="emailValidator" />
+                                </h:inputText>
+                                <h:message for="email" style="color: red"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h:outputLabel for="password">Password:</h:outputLabel>
+                                <h:inputSecret id="password" value="#{registerView.password}"
+                                               required="true" requiredMessage="Please enter password"
+                                               validatorMessage="Password must contain atleast one lowercase character,
+                                uppercase character, a digit and it's length must be between 6 and 20 characters">
+                                    <!--<f:validateRegex pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})" />-->
+                                </h:inputSecret>
+                                <h:message for="password" style="color: red"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h:outputLabel for="confirmpassword">Confirm password:</h:outputLabel>
+                                <h:inputSecret id="confirmpassword"
+                                               value="#{registerView.confirmPassword}" required="true"
+                                               requiredMessage="Please confirm your password"/>
+                                <h:message for="confirmpassword" style="color: red"/>
+                            </div>
+                        </div>
+                    <style type="text/css">
+                        .waves-button-input{
+                            color: white;
+                            display: block;
+                            height: 100%;
+                            width:100%;
+                            text-align: center;
+                        }
+                    </style>
+                    <div style="text-align: center">
+                        <h:commandButton action="#{registerView.register}" value="Register"
+                                         styleClass="btn-large waves-effect waves-light"
+                                         style="font-size: 1.5rem;margin-bottom: 2rem;" ajax="false" />
+                        <br/>
+                        <h:link value="I already have an account" outcome="signin"/>
+                    </div>
+                </h:form>
+            </div>
+        </div>
+    </ui:define>
+    </ui:composition>
+</h:body>
+</f:view>
+</html>

@@ -1,4 +1,4 @@
-package main.java.review_package;
+package review_package;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;

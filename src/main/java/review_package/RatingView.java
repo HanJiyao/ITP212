@@ -1,4 +1,4 @@
-package main.java.review_package;
+package review_package;
 import org.primefaces.event.RateEvent;
 
 import javax.faces.application.FacesMessage;
