@@ -44,8 +44,6 @@
                 <h:commandLink action="#{loginView.logout}" value="Logout" />
             </h:form>
             <h3>Hello #{loginView.authenticatedUser.name}</h3>
-            <p>Your user id is #{loginView.authenticatedUser.email}</p>
-            <p>This is a private page, which requires login to access.</p>
 
             <p:button value="Add Review" outcome="add-review-form.xhtml" />
 
@@ -53,7 +51,7 @@
 
             <div id="calculate">
                 <h:panelGrid columns="2" cellpadding="5" style="width:25%">
-                    Average Rating:<p:rating name="header" value="#{reviewController.ratee}" readonly="true" />
+                    Average Rating:<p:rating name="header" value="#{reviewController.ratee}" readonly="true" /> #{reviewController.numRate} Users
                 </h:panelGrid>
             </div>
 

@@ -34,18 +34,18 @@
                 <h:form id="formReview" method="post" enctype="multipart/form-data" style="margin-top: 10px;" >
                     <h:panelGrid columns="3">
 
-                        <p:outputLabel for="dn" value="*Display Name:" styleClass="formClass" /><p:inputText value="#{review.displayName}" id="dn" class="validate" required="true" requiredMessage="Please input a display name."/> <p:message for="dn" />
+                        <p:outputLabel for="dn" value="Review Title:" styleClass="formClass" /><p:inputText value="#{review.displayName}" id="dn" class="validate" required="true" requiredMessage="Please input a display name."/> <p:message for="dn" />
 
-                        <p:outputLabel for="rate" value="*Rating:" styleClass="formClass" /><p:rating value="#{review.rating}" id="rate" required="true" requiredMessage="Please rate the service."/> <p:message for="rate" />
+                        <p:outputLabel for="rate" value="Rating:" styleClass="formClass" /><p:rating value="#{review.rating}" id="rate" required="true" requiredMessage="Please rate the service."/> <p:message for="rate" />
 
                         <p:outputLabel for="rt" value="Display Name:" styleClass="formClass" /><p:inputText value="#{review.reviewTitle}" id="rt" class="validate"/> <p:message for="rt" />
 
-                        <p:outputLabel for="reviewInput" value="*Review:" styleClass="formClass" /><p:inputText value="#{review.reviewText}" required="true" class="validate" requiredMessage="Please input a review before submitting." id="reviewInput" /> <p:message for="reviewInput" />
+                        <p:outputLabel for="reviewInput" value="Review:" styleClass="formClass" /><p:inputText value="#{review.reviewText}" required="true" class="validate" requiredMessage="Please input a review before submitting." id="reviewInput" /> <p:message for="reviewInput" />
 
                         <h:inputHidden value="#{review.id}" />
 
                         <!--<h:inputHidden value="#{review.reviewUId}" />-->
-                        <p:outputLabel styleClass="formClass">Image:<p:fileUpload fileUploadListener="#{reviewController.saveFile}" value="#{reviewController.uploadedFile}" mode="simple" skinSimple="true" dragDropSupport="true" allowTypes="/(\.|\/)(jpe?g|png)$/"/></p:outputLabel>
+                        <p:outputLabel styleClass="formClass">Image:<p:fileUpload fileUploadListener="#{reviewController.saveFile(review.reviewPhoto, reviewController.uploadedFile ,review)}" value="#{reviewController.uploadedFile}" mode="simple" skinSimple="true" dragDropSupport="true" allowTypes="/(\.|\/)(jpe?g|png)$/"/></p:outputLabel>
 
                         <br/>
                         <p:commandButton update="formReview" value="Add Review" type="submit" styleClass="save" action="#{reviewController.addReview(review)}" />

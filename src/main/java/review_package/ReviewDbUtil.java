@@ -1,4 +1,4 @@
-package main.java.review_package;
+package review_package;
 
 import org.primefaces.model.UploadedFile;
 
@@ -410,6 +410,34 @@ public class ReviewDbUtil {
                 close(myConn, myStmt, myRs);
             }
             return rateSum;
+    }
+    public int ratingNum() throws Exception {
+
+        int rateNo = 0;
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "select count(*) as rateNo from review";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+
+            // process result set
+            while (myRs.next()) {
+                int rates = myRs.getInt("rateNo");
+                rateNo = rates;
+
+            }
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+        return rateNo;
     }
 }
 
