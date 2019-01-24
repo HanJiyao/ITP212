@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
@@ -16,15 +16,17 @@
 </h:head>
 
 <h:body>
+    <ui:composition template="../templates/template.xhtml">
+    <ui:define name="content">
 
     <div id="wrapper">
         <div id="header">
-            <h2>FooBar University</h2>
+            <h2>Add Credit Card Details</h2>
         </div>
     </div>
 
     <div id="container">
-        <h3>Add Credit Card Details</h3>
+
 
         <h:messages globalOnly="true" />
 
@@ -51,6 +53,8 @@
         <p><h:outputLink value="listccdetails.xhtml">Back to List</h:outputLink></p>
 
     </div>
+    </ui:define>
+    </ui:composition>
 </h:body>
 </html>
 
