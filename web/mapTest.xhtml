@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>map test Page</title>
+</h:head>
+<style type="text/css">
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+    }
+    #instructions {
+        position: absolute;
+        margin: 20px;
+        width: 25%;
+        top: 0;
+        bottom: 0;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        overflow-y: scroll;
+        font-family: sans-serif;
+    }
+    #map {
+        position:absolute; top:0; bottom:0; width:100%;
+    }
+
+</style>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+
+                <div id='map' style='width: 900px; height: 800px;'></div>
+                <div id='instructions'></div>
+
+
+            <script type="text/javascript">
+                console.log("HELLO");
+                mapboxgl.accessToken = 'pk.eyJ1IjoiamF2YWl0cDIxMiIsImEiOiJjanBtdDNpdm0wc2VpNDRtdWEyYmx2eWV3In0.JBBTugfEWzwos4VT345fLw';
+                var map = new mapboxgl.Map({
+                    container: 'map',
+                    style: 'mapbox://styles/mapbox/streets-v11',
+                    center: [-84.5125, 39.1015],
+                    zoom: 12
+                });
+                map.on('load', function() {
+                    getRoute();
+                });
+
+                function getRoute() {
+                    var start = [-84.518641, 39.134270];
+                    var end = [-84.512023, 39.102779];
+                    //var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?geometries=geojson&amp;access_token=' + mapboxgl.accessToken;
+                    var directionsRequest = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&amp;geometries=geojson&amp;access_token=' + mapboxgl.accessToken;
+                    $.ajax({
+                        method: 'GET',
+                        url: directionsRequest,
+                    }).done(function(data) {
+                        var route = data.routes[0].geometry;
+                        map.addLayer({
+                            id: 'route',
+                            type: 'line',
+                            source: {
+                                type: 'geojson',
+                                data: {
+                                    type: 'Feature',
+                                    geometry: route
+                                }
+                            },
+                            paint: {
+                                'line-width': 2
+                            }
+                        });
+
+                        map.addLayer({
+                            id: 'start',
+                            type: 'circle',
+                            source: {
+                                type: 'geojson',
+                                data: {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: start
+                                    }
+                                }
+                            }
+                        });
+                        map.addLayer({
+                            id: 'end',
+                            type: 'circle',
+                            source: {
+                                type: 'geojson',
+                                data: {
+                                    type: 'Feature',
+                                    geometry: {
+                                        type: 'Point',
+                                        coordinates: end
+                                    }
+                                }
+                            }
+                        });
+                        var instructions = document.getElementById('instructions');
+                        var steps = data.routes[0].legs[0].steps;
+                        steps.forEach(function(step) {
+                            instructions.insertAdjacentHTML('beforeend', '<p>' + step.maneuver.instruction + '</p>');
+                        });
+                    }); //end of done function
+                } //end of getRoute() function
+
+            </script>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+
+</html>

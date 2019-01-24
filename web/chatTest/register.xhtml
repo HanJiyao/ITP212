@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+	  xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+>
+<h:head>
+	<title>JSF Websocket Chat Example</title>
+
+</h:head>
+<h:body>
+	<h1>Register Channel</h1>
+	<ul id="messages">
+	</ul>
+	<hr/>
+	<h:form id="form">
+		<div>
+			Channel : <h:inputText id="channel" value="#{chat.channel}"/>
+		</div>
+
+		<div>
+			<h:outputLabel for="chatFrom" size="20"/>
+			User ID : <h:inputText id="chatFrom" value="#{chat.userId}"/>
+		</div>
+		<br/>
+		<h:commandButton id="registerChannel" action="chat" value="Register Channel"/>
+
+	</h:form>
+
+</h:body>
+</html>
