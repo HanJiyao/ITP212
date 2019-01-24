@@ -53,7 +53,7 @@ public class ReviewDbUtil {
         try {
             myConn = getConnection();
 
-            String sql = "select * from review order by rating DESC";
+            String sql = "select * from review order by reviewDate DESC";
 
             myStmt = myConn.createStatement();
 
@@ -133,7 +133,7 @@ public class ReviewDbUtil {
         try {
             myConn = getConnection();
 
-            String sql = "select * from review where id=? order by rating";
+            String sql = "select * from review where id=? order by reviewDate DESC";
 
             myStmt = myConn.prepareStatement(sql);
 

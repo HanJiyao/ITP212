@@ -27,11 +27,11 @@
             </style>
 
             <div id="container">
-                <h3>Add Your Review</h3>
+                <h3>Add Review</h3>
 
                 <h:messages globalOnly="true" />
 
-                <h:form id="formReview" method="post" enctype="multipart/form-data" style="margin-top: 10px;" >
+                <h:form id="formReview" style="margin-top: 10px;" >
                     <h:panelGrid columns="3">
 
                         <p:outputLabel for="dn" value="Review Title:" styleClass="formClass" /><p:inputText value="#{review.displayName}" id="dn" class="validate" required="true" requiredMessage="Please input a display name."/> <p:message for="dn" />
@@ -44,14 +44,13 @@
 
                         <h:inputHidden value="#{review.id}" />
 
-                        <!--<h:inputHidden value="#{review.reviewUId}" />-->
-                        <p:outputLabel styleClass="formClass">Image:<p:fileUpload fileUploadListener="#{reviewController.saveFile(review.reviewPhoto, reviewController.uploadedFile ,review)}" value="#{reviewController.uploadedFile}" mode="simple" skinSimple="true" dragDropSupport="true" allowTypes="/(\.|\/)(jpe?g|png)$/"/></p:outputLabel>
-
-                        <br/>
-                        <p:commandButton update="formReview" value="Add Review" type="submit" styleClass="save" action="#{reviewController.addReview(review)}" />
-
                     </h:panelGrid>
+
+                    <p:commandButton update="formReview" value="Add Review" type="submit" styleClass="save" action="#{reviewController.addReview(review)}" />
+
                 </h:form>
+
+                <br/>
 
                 <div style="clear: both;"></div>
                 <p:button outcome="review" value="Back to all review" icon="pi pi-angle-double-left" />

@@ -16,35 +16,42 @@
 
 <h:body>
     <ui:composition template="../templates/template.xhtml">
-    <ui:define name="content">
-    <style type="text/css">
-        .ui-dashboard-column {width:200px;}
+        <ui:define name="content">
+            <style type="text/css">
+                .ui-dashboard-column {width:200px;}
 
-        .rev {
-            width: 50%
-        }
-    </style>
+                .rev {
+                    width: 50%
+                }
+
+                .formClass{
+                    font-size: 150%;
+                }
+            </style>
 
 
-        <!--<h:form>-->
-        <!--<p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="showReview">-->
+            <!--<h:form>-->
+            <!--<p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="showReview">-->
             <!--<h:outputText value="#{review.reviewText}" />-->
             <!--<h:outputText value="Confirm review?" style="font-size:36px;" action="#{reviewController.updateReview(review)}"/>-->
-        <!--</p:notificationBar>-->
-        <!--</h:form>-->
+            <!--</p:notificationBar>-->
+            <!--</h:form>-->
 
             <h3>Update Review</h3>
 
             <h:messages globalOnly="true" />
 
-            <h:form id="form" style="margin-top: 10px;" >
+            <h:form id="formReview" style="margin-top: 10px;">
+
                 <h:panelGrid columns="3">
 
-                    <h:outputLabel styleClass="formClass">Display Name:</h:outputLabel> <p:inputText value="#{review.displayName}" id="dnEdit"/> <h:message for="dnEdit" />
+                    <p:outputLabel for="dnEdit" value="Review Title:" styleClass="formClass" /><p:inputText value="#{review.displayName}" id="dnEdit" class="validate" required="true" requiredMessage="Please input a display name."/> <p:message for="dnEdit" />
 
-                    <h:outputLabel styleClass="formClass">Rating:</h:outputLabel><p:rating value="#{review.rating}" id="rateEdit"/> <h:message for="rateEdit" />
+                    <p:outputLabel for="rateEdit" value="Rating:" styleClass="formClass" /><p:rating value="#{review.rating}" id="rateEdit" required="true" requiredMessage="Please rate the service."/> <p:message for="rateEdit" />
 
-                    <h:outputLabel styleClass="formClass">Review:</h:outputLabel> <p:inputText value="#{review.reviewText}" id="reviewEdit" /> <h:message for="reviewEdit" />
+                    <p:outputLabel for="rtEdit" value="Display Name:" styleClass="formClass" /><p:inputText value="#{review.reviewTitle}" id="rtEdit" class="validate"/> <p:message for="rtEdit" />
+
+                    <p:outputLabel for="reviewEdit" value="Review:" styleClass="formClass" /><p:inputText value="#{review.reviewText}" id="reviewEdit" class="validate"/> <p:message for="reviewEdit" />
 
                     <h:inputHidden value="#{review.id}" />
 
@@ -55,17 +62,17 @@
             </h:form>
 
             <!--<p:dialog header="Your Updated Review:" widgetVar="showReview" modal="true" appendTo="@(body)">-->
-                <!--<h:form id="displayEdit">-->
-                    <!--&lt;!&ndash;<h:panelGrid id="display" columns="2" cellpadding="5">&ndash;&gt;-->
-                    <!--<h:inputHidden value=".id}" />-->
-                    <!--<h:outputText value="#{review.reviewText}" />-->
-                    <!--<p:commandButton value="Confirm" action="#{reviewController.updateReview(review)}"/>-->
-                    <!--<p:commandButton value="Cancel" onclick="PF('showReview').hide();" />-->
-                    <!--&lt;!&ndash;</h:panelGrid>&ndash;&gt;-->
-                <!--</h:form>-->
+            <!--<h:form id="displayEdit">-->
+            <!--&lt;!&ndash;<h:panelGrid id="display" columns="2" cellpadding="5">&ndash;&gt;-->
+            <!--<h:inputHidden value=".id}" />-->
+            <!--<h:outputText value="#{review.reviewText}" />-->
+            <!--<p:commandButton value="Confirm" action="#{reviewController.updateReview(review)}"/>-->
+            <!--<p:commandButton value="Cancel" onclick="PF('showReview').hide();" />-->
+            <!--&lt;!&ndash;</h:panelGrid>&ndash;&gt;-->
+            <!--</h:form>-->
             <!--</p:dialog>-->
 
-    </ui:define>
+        </ui:define>
     </ui:composition>
 
 </h:body>
