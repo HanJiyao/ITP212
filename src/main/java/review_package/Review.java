@@ -12,6 +12,7 @@ import java.sql.Time;
 public class Review {
 
     private int id;
+    //reviewUId is the person that uploaded the review
     private int reviewUId;
     private String displayName;
     private String reviewTitle;
@@ -20,10 +21,14 @@ public class Review {
     private Date reviewDate;
     private Time reviewTime;
     private String reviewPhoto;
+    //the person this review is for
+    private String reviewFor;
+    //the obj the review is for
+    private String reviewItem;
 
     public Review(){
     }
-    public Review(int id, int reviewUId, String displayName, String reviewTitle, String reviewText, int rating, Date reviewDate, Time reviewTime, String reviewPhoto) {
+    public Review(int id, int reviewUId, String displayName, String reviewTitle, String reviewText, int rating, Date reviewDate, Time reviewTime, String reviewPhoto, String reviewFor, String reviewItem) {
         this.id = id;
         this.reviewUId = reviewUId;
         this.displayName = displayName;
@@ -33,6 +38,8 @@ public class Review {
         this.reviewDate = reviewDate;
         this.reviewTime = reviewTime;
         this.reviewPhoto = reviewPhoto;
+        this.reviewFor = reviewFor;
+        this.reviewItem = reviewItem;
     }
 
     public int getId() {
@@ -107,9 +114,25 @@ public class Review {
         this.reviewPhoto = reviewPhoto;
     }
 
+    public String getReviewFor() {
+        return reviewFor;
+    }
+
+    public void setReviewFor(String reviewFor) {
+        this.reviewFor = reviewFor;
+    }
+
+    public String getReviewItem() {
+        return reviewItem;
+    }
+
+    public void setReviewItem(String reviewItem) {
+        this.reviewItem = reviewItem;
+    }
+
     @Override
     public String toString() {
         return "Review [id=" + id + ", review user Id=" + reviewUId + "Display Name=" + displayName + ", Review="
-                + reviewText + ", rating=" + rating + ", Review Date= " + reviewDate + ", Review Time= " + reviewTime + "]";
+                + reviewText + ", rating=" + rating + ", Review Date= " + reviewDate + ", Review Time= " + reviewTime + "Review For:" + reviewFor + "Review Item:" + reviewItem + "]";
     }
 }

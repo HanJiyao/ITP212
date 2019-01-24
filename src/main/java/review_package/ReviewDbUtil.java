@@ -72,9 +72,11 @@ public class ReviewDbUtil {
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
                 String reviewPhoto = myRs.getString("reviewPhoto");
+                String reviewFor = myRs.getString("reviewFor");
+                String reviewItem = myRs.getString("reviewItem");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto, reviewFor, reviewItem);
 
                 // add it to the list of students
                 reviews.add(tempReview);
@@ -99,7 +101,7 @@ public class ReviewDbUtil {
             // Connect to the database
             myConn = getConnection();
 
-            String sql = "insert into review (reviewUId, displayName, reviewTitle, reviewText, rating, reviewPhoto) values (?, ?, ?, ?, ?, ?)";
+            String sql = "insert into review (reviewUId, displayName, reviewTitle, reviewText, rating, reviewPhoto, reviewFor, reviewItem) values (?, ?, ?, ?, ?, ?, ?, ?)";
             myStmt = myConn.prepareStatement(sql);
 
             // set params
@@ -109,6 +111,8 @@ public class ReviewDbUtil {
             myStmt.setString(4, theReview.getReviewText());
             myStmt.setInt(5, theReview.getRating());
             myStmt.setString(6, theReview.getReviewPhoto());
+            myStmt.setString(7, theReview.getReviewFor());
+            myStmt.setString(8, theReview.getReviewItem());
 
             myStmt.execute();
 
@@ -151,8 +155,10 @@ public class ReviewDbUtil {
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
                 String reviewPhoto = myRs.getString("reviewPhoto");
+                String reviewFor = myRs.getString("reviewFor");
+                String reviewItem = myRs.getString("reviewItem");
 
-                theReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                theReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto, reviewFor, reviewItem);
             }
             else {
                 throw new Exception("Could not find review id: " + reviewId);
@@ -300,9 +306,11 @@ public class ReviewDbUtil {
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
                 String reviewPhoto = myRs.getString("reviewPhoto");
+                String reviewFor = myRs.getString("reviewFor");
+                String reviewItem = myRs.getString("reviewItem");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto, reviewFor, reviewItem);
 
                 // add it to the list of reviews
                 reviews.add(tempReview);
@@ -365,9 +373,11 @@ public class ReviewDbUtil {
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
                 String reviewPhoto = myRs.getString("reviewPhoto");
+                String reviewFor = myRs.getString("reviewFor");
+                String reviewItem = myRs.getString("reviewItem");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto, reviewFor, reviewItem);
 
                 // add it to the list of reviews
                 reviews.add(tempReview);
