@@ -19,10 +19,13 @@ CREATE TABLE `user_groups` (
 DROP TABLE IF EXISTS `review`;
 CREATE TABLE IF NOT EXISTS `review` (
   `id` INT NOT NULL AUTO_INCREMENT,
+  `reviewTitle` VARCHAR(45) NULL,
   `reviewUId` INT NULL,
   `displayName` VARCHAR(45) NOT NULL,
-  `reviewText` VARCHAR(45) NULL,
-  `rating` INT NULL,
+  `reviewText` VARCHAR(1000) NOT NULL,
+  `rating` INT NOT NULL,
+  `reviewDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reviewPhoto` VARCHAR(45) NULL;
   PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
  
 DROP TABLE IF EXISTS `blog`;
