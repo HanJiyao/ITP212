@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <title>Create New Product</title>
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+            <div class="container">
+                <div style="max-width: 36rem; margin: auto;padding-top:3rem;">
+                    <div class="card">
+                        <div class="card">
+                            <div class="card-content" style="text-align: center">
+                                <h5>Create New Product</h5>
+                            </div>
+                            <h:form style="padding: 3rem">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <h:outputLabel for="name">Name:</h:outputLabel>
+                                        <h:inputText id="name" value="#{editItemObj.name}" required="true"
+                                                     requiredMessage="Please enter your product name"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <h:outputLabel for="type">Type:</h:outputLabel>
+                                        <h:inputText id="type" value="#{editItemObj.type}" required="true"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <h:outputLabel for="desc">Description:</h:outputLabel>
+                                        <h:inputText id="desc" value="#{editItemObj.desc}"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <h:outputLabel for="quantity">Quantity:</h:outputLabel>
+                                        <h:inputText a:type="number" id="quantity" value="#{editItemObj.quantity}" required="true"
+                                                     requiredMessage="Please enter your product quantity"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <h:outputLabel for="price">Price:</h:outputLabel>
+                                        <h:inputText a:type="number" id="price" value="#{editItemObj.price}" required="true"
+                                                     requiredMessage="Please enter your product price"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <h:outputLabel for="discount">Discount:</h:outputLabel>
+                                        <h:inputText a:type="number" id="discount" value="#{editItemObj.discount}" />
+                                    </div>
+                                </div>
+                                <style type="text/css">
+                                    .waves-button-input{
+                                        color: white;
+                                        display: block;
+                                        height: 100%;
+                                        width:100%;
+                                        text-align: center;
+                                    }
+                                </style>
+                                <div class="row">
+                                    <div class="col s6" style="text-align: right" >
+                                        <h:commandButton
+                                                action="#{item.updateItem(editItemObj)}"
+                                                value="Save" styleClass="btn btn-large waves-effect waves-light"
+                                                style="font-size: 1.5rem;margin-bottom: 3rem;"/>
+                                        <br/>
+                                    </div>
+                                    <div class="col s6" style="text-align: left" >
+                                        <h:link outcome="items" value="Back" styleClass="btn btn-large waves-effect waves-light grey"/>
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

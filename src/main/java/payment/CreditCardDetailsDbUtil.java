@@ -13,19 +13,16 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class CreditCardDetailsDbUtil {
-
     private static CreditCardDetailsDbUtil instance;
     private DataSource dataSource;
     private String jndiName = "jdbc/ITP212";
     //private String jndiName = "jdbc/SQLite";
-
     public static CreditCardDetailsDbUtil getInstance() throws Exception {
         if (instance == null) {
             instance = new CreditCardDetailsDbUtil();
         }
         return instance;
     }
-
 
     private CreditCardDetailsDbUtil() throws Exception {
         dataSource = getDataSource();
@@ -88,7 +85,7 @@ public class CreditCardDetailsDbUtil {
         try {
             myConn = getConnection();
 
-            String sql = "insert into credit_card_details (id,card_num,full_name,CVV,expiry_date,postal_code) values (?, ?, ?,?,?,?)";
+            String sql = "insert into credit_card_details (id,card_num,full_name,CVV,expiry_date,postal_code) values (?,?,?,?,?,?)";
 
             myStmt = myConn.prepareStatement(sql);
 
@@ -156,7 +153,7 @@ public class CreditCardDetailsDbUtil {
         try {
             myConn = getConnection();
 
-            String sql = "update credit_card_details " + " set id=?, full_name=?, postal_code=?, card_num=?,CVV=?,expiry_date=?" + " where id=?";
+            String sql = "update credit_card_details " + " set full_name=?, postal_code=?, card_num=?,CVV=?,expiry_date=?" + " where id=?";
 
             myStmt = myConn.prepareStatement(sql);
 
@@ -172,9 +169,7 @@ public class CreditCardDetailsDbUtil {
         } finally {
             close(myConn, myStmt);
         }
-
     }
-
     public void deleteCcdetail(int ccdetailId) throws Exception {
 
         Connection myConn = null;
