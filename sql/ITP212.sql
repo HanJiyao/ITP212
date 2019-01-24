@@ -47,3 +47,14 @@ CREATE TABLE IF NOT EXISTS `items` (
   `image` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `credit_card_details`;
+CREATE TABLE IF NOT EXISTS `credit_card_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(45) NOT NULL,
+  `card_num` varchar(45) DEFAULT NULL,
+  `CVV` int(11) NOT NULL,
+  `postal_code` INT NOT NULL,
+  `expiry_date` DATE NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;

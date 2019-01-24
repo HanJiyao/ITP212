@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
 <h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,6 +15,8 @@
 </h:head>
 
 <h:body>
+    <ui:composition template="../templates/template.xhtml">
+    <ui:define name="content">
 
     <div id="wrapper">
         <div id="header">
@@ -40,8 +41,10 @@
                                                                    requiredMessage="Your cvv is mandatory."/> 	<h:message for="CVV"  />
                 <h:outputLabel>Expiry Date:</h:outputLabel> <h:inputText value="#{creditCardDetails.expiryDate}" id="expiry_date"
                                                                  required="true"
-                                                                 requiredMessage="Your cvv is mandatory."/> 	<h:message for="expiry_date"  />
-
+                                                                 requiredMessage="Your expiry date is mandatory."/> 	<h:message for="expiry_date"  />
+                <h:outputLabel>Postal Code:</h:outputLabel> <h:inputText value="#{creditCardDetails.postalCode}" id="postal_code"
+                                                                         required="true"
+                                                                         requiredMessage="Your Postal Code is mandatory."/>   <h:message for="postal_code"/>
                 <h:inputHidden value="#{creditCardDetails.id}" />
 
                 <h:commandButton value="Save" styleClass="save" action="#{creditCardDetailsController.updateCcdetail(creditCardDetails)}"/>
@@ -54,5 +57,7 @@
         <p><h:outputLink value="listccdetails.xhtml">Back to List</h:outputLink></p>
 
     </div>
+    </ui:define>
+    </ui:composition>
 </h:body>
 </html>

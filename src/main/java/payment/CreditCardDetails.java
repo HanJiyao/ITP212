@@ -6,27 +6,27 @@ import java.util.Objects;
 @ManagedBean
 
 @Entity
-@Table(name = "credit_card_details", schema = "itp212")
-public class CreditCardDetails {
-    private int id;
-    private int cardNum;
-    private String fullName;
-    private int cvv;
-    private String expiryDate;
-    private int postalCode;
+    @Table(name = "credit_card_details", schema = "itp212")
+    public class CreditCardDetails {
+        private int id;
+        private int cardNum;
+        private String fullName;
+        private int cvv;
+        private String expiryDate;
+        private int postalCode;
 
-    public CreditCardDetails() {
-    }
+        public CreditCardDetails() {
+        }
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
-        return id;
-    }
+        @Id
+        @Column(name = "id", nullable = false)
+        public int getId() {
+            return id;
+        }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+        public void setId(int id) {
+            this.id = id;
+        }
 
     @Basic
     @Column(name = "card_num", nullable = false)
