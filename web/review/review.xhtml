@@ -21,7 +21,11 @@
     .ui-dashboard-column {width:200px;}
 
     .rev {
-        width: 50%
+        width: 70%
+    }
+
+    .titleSize{
+        font-size: 120%;
     }
     </style>
     <div id="wrapper">
@@ -34,18 +38,14 @@
 
         <div id="content">
 
-            <h:messages globalOnly="true" />
-            <!--  add a search box -->
-            <!--<h:form>-->
-
-                <!--<h:outputLabel>Search review:</h:outputLabel> <h:inputText value="#{reviewController.theSearchName}" id="theSearchName" />-->
-
-                <!--<p:commandButton value="Search" action="review?faces-redirect=true"/>-->
-
-            <!--</h:form>-->
-
-
             <br/>
+
+            <h:form>
+                <h:commandLink action="#{loginView.logout}" value="Logout" />
+            </h:form>
+            <h3>Hello #{loginView.authenticatedUser.name}</h3>
+            <p>Your user id is #{loginView.authenticatedUser.email}</p>
+            <p>This is a private page, which requires login to access.</p>
 
             <p:button value="Add Review" outcome="add-review-form.xhtml" />
 
@@ -59,32 +59,42 @@
 
             <h:form>
 
-                <p:dataTable var="tempReview" value="#{reviewController.reviews}"  paginator="true" rows="3"
+                <p:dataTable var="tempReview" value="#{reviewController.reviews}"  paginator="true" rows="3" widgetVar="tableReview"
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
-                    <p:column sortBy="#{tempReview.displayName}">
-                        <!-- the column header -->
-                        <f:facet name="header">
-                            User
-                            <h:inputText value="#{reviewController.searchUser}" id="searchUser" />
-                        </f:facet>
-                        <h:outputText value="#{tempReview.displayName}" />
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            Search Reviews:
+                            <h:inputText value="#{reviewController.theSearchName}" id="theSearchName" />
+                        </p:outputPanel>
+                    </f:facet>
+                    <!--<p:column sortBy="#{tempReview.displayName}">-->
+                        <!--&lt;!&ndash; the column header &ndash;&gt;-->
+                        <!--<f:facet name="header">-->
+                            <!--User-->
+                            <!--<h:inputText value="#{reviewController.searchUser}" id="searchUser" />-->
+                        <!--</f:facet>-->
+                        <!--<h:outputText value="#{tempReview.displayName}" />-->
 
-                        <!--&lt;!&ndash;  the value for each row &ndash;&gt;-->
-                        <!--#{tempReview.displayName}-->
-                    </p:column>
+                        <!--&lt;!&ndash;&lt;!&ndash;  the value for each row &ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;#{tempReview.displayName}&ndash;&gt;-->
+                    <!--</p:column>-->
 
                     <p:column headerText="Reviews" sortBy="#{tempReview.reviewText}" styleClass="rev">
                         <f:facet name="header">
                             Reviews
-                            <h:inputText value="#{reviewController.theSearchName}" id="theSearchName" />
+                            <!--<h:inputText value="#{reviewController.theSearchName}" id="theSearchName" />-->
                         </f:facet>
+
+                        <h:outputText styleClass="titleSize" value="#{tempReview.reviewTitle}"/>
+
+                        <br/>
 
                         <h:outputText value="#{tempReview.reviewText}" />
                         <br/>
                         <span style="font-size: small">
                         Posted at:
-                        #{tempReview.reviewDate} | #{tempReview.reviewTime}
+                        #{tempReview.reviewDate} | #{tempReview.reviewTime} by #{tempReview.displayName}
                         </span>
                     </p:column>
 

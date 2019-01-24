@@ -1,4 +1,4 @@
-package review_package;
+package main.java.review_package;
 
 import org.primefaces.model.UploadedFile;
 
@@ -19,7 +19,6 @@ public class ReviewDbUtil {
     private static ReviewDbUtil instance;
     private DataSource dataSource;
     private String jndiName = "jdbc/ITP212";
-//    private UploadedFile reviewImage;
     private File filename;
 
 
@@ -67,14 +66,15 @@ public class ReviewDbUtil {
                 int id = myRs.getInt("id");
                 int reviewUId = myRs.getInt("reviewUId");
                 String displayName = myRs.getString("displayName");
+                String reviewTitle = myRs.getString("reviewTitle");
                 String reviewText = myRs.getString("reviewText");
                 int rating = myRs.getInt("rating");
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
-                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
+                String reviewPhoto = myRs.getString("reviewPhoto");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
 
                 // add it to the list of students
                 reviews.add(tempReview);
@@ -99,15 +99,16 @@ public class ReviewDbUtil {
             // Connect to the database
             myConn = getConnection();
 
-            String sql = "insert into review (reviewUId, displayName, reviewText, rating, reviewPhoto) values (?, ?, ?, ?, ?)";
+            String sql = "insert into review (reviewUId, displayName, reviewTitle, reviewText, rating, reviewPhoto) values (?, ?, ?, ?, ?, ?)";
             myStmt = myConn.prepareStatement(sql);
 
             // set params
             myStmt.setInt(1, theReview.getReviewUId());
             myStmt.setString(2, theReview.getDisplayName());
-            myStmt.setString(3, theReview.getReviewText());
-            myStmt.setInt(4, theReview.getRating());
-            myStmt.setBinaryStream(5, theReview.getReviewPhoto());
+            myStmt.setString(3, theReview.getReviewTitle());
+            myStmt.setString(4, theReview.getReviewText());
+            myStmt.setInt(5, theReview.getRating());
+            myStmt.setString(6, theReview.getReviewPhoto());
 
             myStmt.execute();
 
@@ -144,14 +145,14 @@ public class ReviewDbUtil {
                 int id = myRs.getInt("id");
                 int reviewUId = myRs.getInt("reviewUId");
                 String displayName = myRs.getString("displayName");
+                String reviewTitle = myRs.getString("reviewTitle");
                 String reviewText = myRs.getString("reviewText");
                 int rating = myRs.getInt("rating");
-//                Timestamp date = myRs.getTimestamp("date");
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
-                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
+                String reviewPhoto = myRs.getString("reviewPhoto");
 
-                theReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                theReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
             }
             else {
                 throw new Exception("Could not find review id: " + reviewId);
@@ -173,7 +174,7 @@ public class ReviewDbUtil {
             myConn = getConnection();
 
             String sql = "update review"
-                    + " set reviewUId=?, displayName=?, reviewText=?, rating=?, reviewPhoto=?"
+                    + " set reviewUId=?, displayName=?, reviewTitle=?, reviewText=?, rating=?, reviewPhoto=?"
                     + " where id=?";
 
             myStmt = myConn.prepareStatement(sql);
@@ -185,10 +186,11 @@ public class ReviewDbUtil {
             // set params
             myStmt.setInt(1, theReview.getReviewUId());
             myStmt.setString(2, theReview.getDisplayName());
-            myStmt.setString(3, theReview.getReviewText());
-            myStmt.setInt(4, theReview.getRating());
-            myStmt.setBinaryStream(5, theReview.getReviewPhoto());
-            myStmt.setInt(6, theReview.getId());
+            myStmt.setString(3, theReview.getReviewTitle());
+            myStmt.setString(4, theReview.getReviewText());
+            myStmt.setInt(5, theReview.getRating());
+            myStmt.setString(6, theReview.getReviewPhoto());
+            myStmt.setInt(7, theReview.getId());
 
             myStmt.execute();
         }
@@ -268,7 +270,7 @@ public class ReviewDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
                 // create sql to search for students by name
-                String sql = "select * from review where lower(reviewText) like ?";
+                String sql = "select * from review where lower(reviewText) OR lower(displayName) like ?";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
                 // set params
@@ -293,13 +295,14 @@ public class ReviewDbUtil {
                 int reviewUId = myRs.getInt("reviewUId");
                 String displayName = myRs.getString("displayName");
                 int rating = myRs.getInt("rating");
+                String reviewTitle = myRs.getString("reviewTitle");
                 String reviewText = myRs.getString("reviewText");
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
-                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
+                String reviewPhoto = myRs.getString("reviewPhoto");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
 
                 // add it to the list of reviews
                 reviews.add(tempReview);
@@ -356,14 +359,15 @@ public class ReviewDbUtil {
                 int reviewUId = myRs.getInt("reviewUId");
                 int rating = myRs.getInt("rating");
                 String displayName = myRs.getString("displayName");
+                String reviewTitle = myRs.getString("reviewTitle");
                 String reviewText = myRs.getString("reviewText");
 //                Timestamp date = myRs.getTimestamp("date");
                 Date reviewDate = myRs.getDate("reviewDate");
                 Time reviewTime = myRs.getTime("reviewDate");
-                InputStream reviewPhoto = myRs.getBinaryStream("reviewPhoto");
+                String reviewPhoto = myRs.getString("reviewPhoto");
 
                 // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
+                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto);
 
                 // add it to the list of reviews
                 reviews.add(tempReview);
@@ -407,35 +411,5 @@ public class ReviewDbUtil {
             }
             return rateSum;
     }
-//    private byte[] toByteArrayImpl(Blob fromBlob, ByteArrayOutputStream baos) throws SQLException,
-//            IOException
-//    {
-//        byte[] buf = new byte[4000];
-//        InputStream is = fromBlob.getBinaryStream();
-//        try
-//        {
-//            for (;;)
-//            {
-//                int dataSize = is.read(buf);
-//                if (dataSize == -1)
-//                    break;
-//                baos.write(buf, 0, dataSize);
-//            }
-//        }
-//        finally
-//        {
-//            if (is != null)
-//            {
-//                try
-//                {
-//                    is.close();
-//                }
-//                catch (IOException ex)
-//                {}
-//            }
-//        }
-//        return baos.toByteArray();
-//    }
-
 }
 

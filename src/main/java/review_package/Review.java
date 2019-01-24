@@ -1,4 +1,4 @@
-package review_package;
+package main.java.review_package;
 import org.primefaces.model.UploadedFile;
 
 import javax.faces.bean.ManagedBean;
@@ -14,18 +14,20 @@ public class Review {
     private int id;
     private int reviewUId;
     private String displayName;
+    private String reviewTitle;
     private String reviewText;
     private int rating;
     private Date reviewDate;
     private Time reviewTime;
-    private InputStream reviewPhoto;
+    private String reviewPhoto;
 
     public Review(){
     }
-    public Review(int id, int reviewUId, String displayName, String reviewText, int rating, Date reviewDate, Time reviewTime, InputStream reviewPhoto) {
+    public Review(int id, int reviewUId, String displayName, String reviewTitle, String reviewText, int rating, Date reviewDate, Time reviewTime, String reviewPhoto) {
         this.id = id;
         this.reviewUId = reviewUId;
         this.displayName = displayName;
+        this.reviewTitle = reviewTitle;
         this.reviewText = reviewText;
         this.rating = rating;
         this.reviewDate = reviewDate;
@@ -55,6 +57,14 @@ public class Review {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getReviewTitle() {
+        return reviewTitle;
+    }
+
+    public void setReviewTitle(String reviewTitle) {
+        this.reviewTitle = reviewTitle;
     }
 
     public String getReviewText() {
@@ -89,11 +99,11 @@ public class Review {
         this.reviewTime = reviewTime;
     }
 
-    public InputStream getReviewPhoto() {
+    public String getReviewPhoto() {
         return reviewPhoto;
     }
 
-    public void setReviewPhoto(InputStream reviewPhoto) {
+    public void setReviewPhoto(String reviewPhoto) {
         this.reviewPhoto = reviewPhoto;
     }
 
