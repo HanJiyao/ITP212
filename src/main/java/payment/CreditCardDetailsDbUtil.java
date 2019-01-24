@@ -158,18 +158,19 @@ public class CreditCardDetailsDbUtil {
             myStmt = myConn.prepareStatement(sql);
 
             // set params
-            myStmt.setInt(1, theCcdetail.getId());
-            myStmt.setInt(2, theCcdetail.getCardNum());
-            myStmt.setString(3, theCcdetail.getFullName());
+            myStmt.setString(1, theCcdetail.getFullName());
+            myStmt.setInt(2, theCcdetail.getPostalCode());
+            myStmt.setInt(3, theCcdetail.getCardNum());
             myStmt.setInt(4,theCcdetail.getCvv());
             myStmt.setString(5,theCcdetail.getExpiryDate());
-            myStmt.setInt(6, theCcdetail.getPostalCode());
+            myStmt.setInt(6, theCcdetail.getId());
 
             myStmt.execute();
         } finally {
             close(myConn, myStmt);
         }
     }
+
     public void deleteCcdetail(int ccdetailId) throws Exception {
 
         Connection myConn = null;
