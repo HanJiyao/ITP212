@@ -49,18 +49,21 @@
                              rowClasses="demo-table-odd-row,demo-table-even-row">
                     <h:column>
                         <!-- the column header -->
+                        <f:facet name="header">Full Name</f:facet>
+
+                        <!--  the value for each row -->
+                        #{tempCreditCard.fullName}
+
+
+                    </h:column>
+                    <h:column>
+                        <!-- the column header -->
                         <f:facet name="header">Card Number</f:facet>
                         <!--  the value for each row -->
                         #{tempCreditCard.cardNum}
                     </h:column>
 
-                    <h:column>
-                        <!-- the column header -->
-                        <f:facet name="header">Full Name</f:facet>
 
-                        <!--  the value for each row -->
-                        #{tempCreditCard.fullName}
-                    </h:column>
 
                     <h:column>
                         <!-- the column header -->

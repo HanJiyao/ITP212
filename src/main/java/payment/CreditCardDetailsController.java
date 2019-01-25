@@ -86,7 +86,7 @@ public class CreditCardDetailsController {
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 
                 Map<String, Object> requestMap = externalContext.getRequestMap();
-                requestMap.put("Credit Card detail", theCcdetail);
+                requestMap.put("creditCardDetails", theCcdetail);
 
             } catch (Exception exc) {
                 // send this to server logs
@@ -107,20 +107,17 @@ public class CreditCardDetailsController {
 
         try {
 
-            // update Credit card in the database
             ccdetailsDbUtil.updateCcdetail(theCcdetail);
 
         } catch (Exception exc) {
             // send this to server logs
             logger.log(Level.SEVERE, "Error updating Credit Card info: " + theCcdetail, exc);
-
             // add error message for JSF page
             addErrorMessage(exc);
-
             return null;
         }
 
-        return "list-ccdetails?faces-redirect=true";
+        return "listccdetails?faces-redirect=true";
     }
 
     public String deleteCcdetail(int ccdetailId) {
