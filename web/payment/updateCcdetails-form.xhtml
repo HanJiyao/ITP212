@@ -32,9 +32,10 @@
         <h:form id="form" style="margin-top: 10px;" >
             <h:panelGrid columns="3">
 
+                <h:outputLabel>Full Name:</h:outputLabel> <h:inputText value="#{creditCardDetails.fullName}" id="full_name" requiredMessage="Your Full name is mandatory."/><h:message for="full_name" />
                 <h:outputLabel>Card Number:</h:outputLabel> <h:inputText value="#{creditCardDetails.cardNum}" id="card_num" /> <h:message for="card_num" />
 
-                <h:outputLabel>Full Name:</h:outputLabel> <h:inputText value="#{creditCardDetails.fullName}" id="full_name" requiredMessage="Your Full name is mandatory."/><h:message for="full_name" />
+
 
                 <h:outputLabel>CVV:</h:outputLabel> <h:inputText value="#{creditCardDetails.cvv}" id="CVV"
                                                                    required="true"

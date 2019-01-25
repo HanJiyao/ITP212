@@ -8,6 +8,8 @@
         <class>entity.Group</class>
         <class>entity.Request</class>
         <class>entity.UserGroups</class>
+        <class>payment.CreditCardDetailsEntity</class>
+        <class>payment.CreditCardDetails</class>
 
         <properties>
             <!--  tables will be created only if they do not exist. Use for production

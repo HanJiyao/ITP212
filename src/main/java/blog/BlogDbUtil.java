@@ -63,10 +63,11 @@ public class BlogDbUtil {
                 int id = myRs.getInt("id");
                 String blogTitle = myRs.getString("blogTitle");
                 String blogContent = myRs.getString("blogContent");
-
+                String blogCategory = myRs.getString("blogCategory");
+                String blogPoster = myRs.getString("blogPoster");
 
                 // create new student object
-               Blog tempBlog = new Blog(id, blogTitle, blogContent);
+               Blog tempBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogPoster);
 
                 // add it to the list of students
                 blogs.add(tempBlog);
@@ -87,13 +88,15 @@ public class BlogDbUtil {
         try {
             myConn = getConnection();
 
-            String sql = "insert into blog (blogTitle, blogContent) values (?, ?)";
+            String sql = "insert into blog (blogTitle, blogContent, blogCategory, blogPoster) values (?, ?, ?, ?)";
 
             myStmt = myConn.prepareStatement(sql);
 
             // set params
             myStmt.setString(1, theBlog.getBlogTitle());
             myStmt.setString(2, theBlog.getBlogContent());
+            myStmt.setString(3, theBlog.getBlogCategory());
+            myStmt.setString(4, theBlog.getBlogPoster());
 
             myStmt.execute();
         }
@@ -128,8 +131,10 @@ public class BlogDbUtil {
                 int id = myRs.getInt("id");
                 String blogTitle = myRs.getString("blogTitle");
                 String blogContent = myRs.getString("blogContent");
+                String blogCategory = myRs.getString("blogCategory");
+                String blogPoster = myRs.getString("blogPoster");
 
-                theBlog = new Blog(id, blogTitle, blogContent);
+                theBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogPoster);
             }
             else {
                 throw new Exception("Could not find blog id: " + blogId);
@@ -151,7 +156,7 @@ public class BlogDbUtil {
             myConn = getConnection();
 
             String sql = "update blog "
-                    + " set blogTitle=?, blogContent=?"
+                    + " set blogTitle=?, blogContent=?, blogPoster=?"
                     + " where id=?";
 
             myStmt = myConn.prepareStatement(sql);
@@ -159,7 +164,8 @@ public class BlogDbUtil {
             // set params
             myStmt.setString(1, theBlog.getBlogTitle());
             myStmt.setString(2, theBlog.getBlogContent());
-            myStmt.setInt(3, theBlog.getId());
+            myStmt.setString(3, theBlog.getBlogPoster());
+            myStmt.setInt(4, theBlog.getId());
 
             myStmt.execute();
         }
@@ -270,11 +276,12 @@ public class BlogDbUtil {
                 int id = myRs.getInt("id");
                 String blogContent = myRs.getString("blogContent");
                 String blogTitle = myRs.getString("blogTitle");
-
+                String blogCategory = myRs.getString("blogCategory");
+                String blogPoster = myRs.getString("blogPoster");
 
 
                 // create new student object
-                Blog tempBlog = new Blog(id, blogTitle, blogContent);
+                Blog tempBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogPoster);
 
                 // add it to the list of students
                 blogs.add(tempBlog);

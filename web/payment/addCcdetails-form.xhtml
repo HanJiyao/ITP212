@@ -9,6 +9,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>Add Credit Card</title>
+    <style type="text/css">
+        .error {color:red}
+    </style>
 
     <h:outputStylesheet library="css" name="style.css"  />
     <h:outputStylesheet library="css" name="add-student-style.css"  />
@@ -32,17 +35,26 @@
 
         <h:form id="form" style="margin-top: 10px;" >
             <h:panelGrid columns="3">
-                <h:outputLabel>Card Number:</h:outputLabel> <h:inputText value="#{creditCardDetails.cardNum}" id="cardNum" /> <h:message for="cardNum" />
+                <h:outputLabel/>
+                    Card Number:
+                <h:inputText value="#{creditCardDetails.cardNum}"
+                             required="true"
+                             requiredMessage="Your Card Num is mandatory."
+                             id="cardNum" />
+                <h:message for="cardNum" styleClass="error"/>
                 <h:outputLabel>Full Name:</h:outputLabel> <h:inputText value="#{creditCardDetails.fullName}" id="fullName" /> <h:message for="fullName" />
                 <h:outputLabel>CVV</h:outputLabel> <h:inputText value="#{creditCardDetails.cvv}" id="cvv"
                                                                    required="true"
-                                                                   requiredMessage="Your cvv is mandatory."/> 	<h:message for="cvv" />
-                <h:outputLabel>Expiry Date</h:outputLabel> <h:inputText value="#{creditCardDetails.expiryDate}" id="expiryDate"
+                                                                   requiredMessage="Your cvv is mandatory."/>
+                <h:message for="cvv" styleClass="error" />
+                <h:outputLabel>Expiry Date:</h:outputLabel> <h:inputText value="#{creditCardDetails.expiryDate}" id="expiryDate"
                                                                 required="true"
-                                                                requiredMessage="Your Expiry Date is mandatory."/> 	<h:message for="cvv" />
-                <h:outputLabel>Postal Code</h:outputLabel> <h:inputText value="#{creditCardDetails.postalCode}" id="postalCode"
+                                                                requiredMessage="Your Credit card Expiry Date is mandatory."/>
+                <h:message for="expiryDate" styleClass="error"/>
+                <h:outputLabel>Postal Code:</h:outputLabel> <h:inputText value="#{creditCardDetails.postalCode}" id="postalCode"
                                                                 required="true"
-                                                                requiredMessage="Your Expiry Date is mandatory."/> 	<h:message for="cvv" />
+                                                                requiredMessage="Your postal code is mandatory."/>
+                <h:message for="postalCode" styleClass="error"/>
                 <h:outputLabel /> <h:commandButton value="Save" styleClass="save" action="#{creditCardDetailsController.addCcdetail(creditCardDetails)}"/>
 
             </h:panelGrid>
