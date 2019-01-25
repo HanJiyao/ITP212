@@ -35,6 +35,8 @@ CREATE TABLE `blog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `blogTitle` varchar(45) DEFAULT NULL,
   `blogContent` varchar(45) DEFAULT NULL,
+  `blogCategory` varchar(45) DEFAULT NULL,
+  `blogPoster` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8;
 

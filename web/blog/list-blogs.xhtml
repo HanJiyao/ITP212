@@ -34,6 +34,10 @@
                             <br></br>
                             <br></br>
                             <h:outputText value="#{tmpBlog.blogContent}" style="font-weight: normal; font-size: medium"/>
+                            <br/>
+                            By: <h:outputText value="#{tmpBlog.blogPoster}" style="font-weight: normal; font-size: smaller"/>
+                            <br/>
+                            Category: <h:outputText value="#{tmpBlog.blogCategory}" style="font-weight: normal; font-size: small"/>
                             <hr/>
                             <h:commandButton value="Delete Post"
                                            onclick="if (!confirm('Are you sure you want to delete this post?')) return false"
