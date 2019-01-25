@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>Explore New Flavor</title>
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+    <ui:define name="content">
+    <style type="text/css">
+        .searchActive{
+            color: #f80!important;
+            border:2px solid #f80;
+        }
+        .productCard{
+            transition: box-shadow 0.3s, border 0.3s;
+            border: thin solid rgba(0, 0, 0, 0);
+        }
+        .productCard:hover{
+            border: thin solid #f80;
+            box-shadow: 0 0 10px #f80;
+        }
+    </style>
+    <div class="card" style="margin: 0.9rem">
+        <div class="row" style="padding: 2rem">
+            <h:form id="searchTool">
+                    <div class="row">
+                        <div class="input-field col l3 s12">
+                            <h:outputStylesheet>
+                                .dropdown-content li>a, .dropdown-content li>span {
+                                    color: blue!important;
+                                }
+                                .waves-effect.waves-light.btn-large.col.l3.white{
+                                    color: #424242;
+                                }
+                            </h:outputStylesheet>
+                            <h:selectOneMenu id="type" value="#{itemSearch.type}" style="color: purple">
+                                <f:selectItem itemLabel="Choose Category" itemDisabled="true" />
+                                <f:selectItem itemValue="Appetizer/Starters" itemLabel="Appetizer/Starters" />
+                                <f:selectItem itemValue="Breads/Rolls/Muffins" itemLabel="Breads/Rolls/Muffins" />
+                                <f:selectItem itemValue="Cakes/Cupcakes" itemLabel="Cakes/Cupcakes" />
+                                <f:selectItem itemValue="Desserts" itemLabel="Desserts" />
+                                <f:selectItem itemValue="Pasta/Noodles" itemLabel="Pasta/Noodles" />
+                                <f:selectItem itemValue="Pizzas" itemLabel="Pizzas" />
+                                <f:selectItem itemValue="Salads" itemLabel="Salads" />
+                                <f:selectItem itemValue="Side Dishes" itemLabel="Side Dishes" />
+                                <f:selectItem itemValue="Soups/Stews" itemLabel="Soups/Stews" />
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="col l9 s12 row">
+                            <div class="input-field col s8" style="padding: 0">
+                                <input id="keyword" type="text" class="validate"/>
+                                <label for="keyword">Search Your Flavor</label>
+                            </div>
+                            <a class="waves-effect waves-light btn-large col s4 indigo" style="margin-top: 5px;font-size: 1.6rem"><i class="material-icons right">search</i>Search</a>
+                        </div>
+                    </div>
+                    <div class="row" style="margin: 0">
+                        <div class="col l9 s12" style="margin-top: 8px">
+                            <div class="row">
+                                <a class="waves-effect waves-light btn-large col l3 s12 indigo">Popularity</a>
+                                <a class="waves-effect waves-light btn-large col l3 s12 white">Rating</a>
+                                <a class="waves-effect waves-light btn-large col l3 s12 white">Price</a>
+                                <a class="waves-effect waves-light btn-large col l3 s12 white">Discount</a>
+                            </div>
+                        </div>
+                        <div class="col l3 s12" style="padding-left:20px">
+                            <div class="row" style="margin: 0">
+                                <div class="input-field col l5 s12">
+                                    <input type="text" id="priceMin" value="#{itemSearch.min}"/>
+                                    <label for="priceMin">Min (S$)</label>
+                                </div>
+                                <div class="col l2 s12 text-center" style="padding-top:30px">to</div>
+                                <div class="input-field col l5 s12">
+                                    <input type="text" id="priceMax" value="#{itemSearch.max}"/>
+                                    <label for="priceMax">Max (S$)</label>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </h:form>
+        </div>
+    </div>
+    <h5 style="margin-top: 2rem;margin-left: 3rem">
+        <h:graphicImage library="pictures" name="search.png" style="border-radius: 50%;height: 50px;width: 50px;box-shadow: 0 2px 5px #999999;"/>
+        <span style="vertical-align: 15px;padding-left: 30px">#{itemSearch.size} results for "#{itemSearch.keyword}" from #{itemSearch.type} category</span>
+    </h5>
+    <div class="row">
+        <ui:repeat value="#{itemSearch.getItemsList()}" var="item">
+            <div class="col l3 s12">
+                <div class="card sticky-action">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <h:graphicImage height="200" library="food" name="#{item.image}" class="activator" />
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">#{item.name}<i class="material-icons right">more_vert</i></span>
+                        <p>#{item.type}</p>
+                        <br/>
+                        <i class="material-icons">
+                            store
+                        </i>
+                        <small style="vertical-align: 6px"> #{item.user}</small>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">#{item.name}<i class="material-icons right">close</i></span>
+                        <p>#{item.desc}</p>
+                    </div>
+                    <div class="card-action row" style="margin: 0;text-align: center">
+                        <a class="col s12 l6" href="#" style="margin: 0">Add Cart</a>
+                        <a class="col s12 l6" href="#" style="margin: 0">More</a>
+                    </div>
+                </div>
+            </div>
+        </ui:repeat>
+    </div>
+    </ui:define>
+    </ui:composition>
+</h:body>
+</html>

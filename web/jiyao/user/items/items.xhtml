@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>Product Management</title>
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+            <h:outputStylesheet>
+                .foodTable tr{
+                    border-bottom: #E0E0E0 solid 1px !important;
+                }
+            </h:outputStylesheet>
+            <h:form id="itemForm">
+                <h:commandLink action="create.xhtml?faces-redirect=true" value="Create New Product" class="btn-large waves-effect waves-light purple" style="margin-top: 3rem;margin-bottom: 1rem;"/>
+            <h:dataTable id="itemTable" binding="#{table}" value="#{item.getUserItemList(loginView.authenticatedUser.email)}" var="item" class="striped highlight centered responsive-table foodTable">
+                <h:column style="padding: 3rem">
+                    <f:facet name="header">Preview</f:facet>
+                    <h:graphicImage height="80" width="80" library="food" name="#{item.image}" style="border-radius:100%"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Index</f:facet>
+                    <h:outputText value="#{table.rowIndex + 1}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{item.name}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Type</f:facet>
+                    <h:outputText value="#{item.type}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Description</f:facet>
+                    <h:outputText value="#{item.desc}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Quantity</f:facet>
+                    <h:outputText value="#{item.quantity}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Price</f:facet>
+                    <h:outputText value="#{item.price}" styleClass="priceDisplay"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Discount (%)</f:facet>
+                    <h:outputText value="#{item.discount}" styleClass="discountDisplay"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Created</f:facet>
+                    <h:outputText value="#{item.created}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Update</f:facet>
+                    <h:commandLink action="#{item.editItem(item.id)}"
+                                   style="color: white;width: 50px;height: 50px;padding-top: 5px;font-size: 2rem;"
+                                   class="btn btn-floating waves-effect waves-light purple" >
+                        <i class="material-icons">edit</i>
+                    </h:commandLink>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:commandLink action="#{item.deleteItem(item.id,item.image)}"
+                                   style="color: white;width: 50px;height: 50px;padding-top: 5px;font-size: 2rem;"
+                                   class="btn btn-floating waves-effect waves-light red" >
+                        <i class="material-icons">delete</i>
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
