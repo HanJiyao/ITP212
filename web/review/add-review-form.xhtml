@@ -3,7 +3,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
 <h:head>
@@ -24,7 +25,26 @@
                 .formClass{
                     font-size: 150%;
                 }
+
+                .login{
+                    text-align: center;
+                    height: 200px;
+                    width: 400px;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    margin-top: -100px;
+                    margin-left: -200px;
+                }
             </style>
+
+            <c:if test="#{empty loginView.authenticatedUser.email}">
+
+                <h1 class="login"><a href="http://localhost:8080/ITP212/jiyao/admin/signin.xhtml">Please Login To Add Review</a></h1>
+
+            </c:if>
+
+            <c:if test="#{not empty loginView.authenticatedUser.email}">
 
             <div id="container">
                 <h3>Add Review</h3>
@@ -56,7 +76,7 @@
                 <p:button outcome="review" value="Back to all review" icon="pi pi-angle-double-left" />
                 <!--<p><h:outputLink value="review.xhtml">All review</h:outputLink></p>-->
             </div>
-
+            </c:if>
         </ui:define>
     </ui:composition>
 

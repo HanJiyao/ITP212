@@ -2,7 +2,7 @@ package review_package;
 
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-
+import jiyao.managedbeans.LoginView;
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -63,7 +63,7 @@ public class ReviewController {
 
         logger.info("theSearchName = " + theSearchName);
 
-        logger.info("searchUser = " + searchUser);
+//        logger.info("searchUser = " + searchUser);
 
         try {
 
@@ -72,10 +72,10 @@ public class ReviewController {
                 reviews = reviewDbUtil.searchReviews(theSearchName);
             }
 
-            else if (searchUser != null && searchUser.trim().length() > 0) {
-                //search for reviews by name
-                reviews = reviewDbUtil.searchReviewsName(searchUser);
-            }
+//            else if (searchUser != null && searchUser.trim().length() > 0) {
+//                //search for reviews by name
+//                reviews = reviewDbUtil.searchReviewsName(searchUser);
+//            }
 
             else {
                 //get all reviews from database
@@ -91,7 +91,7 @@ public class ReviewController {
         finally {
             //reset the search info
             theSearchName = null;
-            searchUser = null;
+//            searchUser = null;
         }
     }
 
@@ -101,6 +101,7 @@ public class ReviewController {
 
         try {
 
+      //      theReview.setReviewUId();
             // add review to the database
             reviewDbUtil.addReview(theReview);
 

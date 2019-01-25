@@ -64,7 +64,7 @@ public class ReviewDbUtil {
 
                 // retrieve data from result set row
                 int id = myRs.getInt("id");
-                int reviewUId = myRs.getInt("reviewUId");
+                String reviewUId = myRs.getString("reviewUId");
                 String displayName = myRs.getString("displayName");
                 String reviewTitle = myRs.getString("reviewTitle");
                 String reviewText = myRs.getString("reviewText");
@@ -105,7 +105,7 @@ public class ReviewDbUtil {
             myStmt = myConn.prepareStatement(sql);
 
             // set params
-            myStmt.setInt(1, theReview.getReviewUId());
+            myStmt.setString(1, theReview.getReviewUId());
             myStmt.setString(2, theReview.getDisplayName());
             myStmt.setString(3, theReview.getReviewTitle());
             myStmt.setString(4, theReview.getReviewText());
@@ -147,7 +147,7 @@ public class ReviewDbUtil {
             // retrieve data from result set row
             if (myRs.next()) {
                 int id = myRs.getInt("id");
-                int reviewUId = myRs.getInt("reviewUId");
+                String reviewUId = myRs.getString("reviewUId");
                 String displayName = myRs.getString("displayName");
                 String reviewTitle = myRs.getString("reviewTitle");
                 String reviewText = myRs.getString("reviewText");
@@ -190,7 +190,7 @@ public class ReviewDbUtil {
 //            FileInputStream input = new FileInputStream(file);
 
             // set params
-            myStmt.setInt(1, theReview.getReviewUId());
+            myStmt.setString(1, theReview.getReviewUId());
             myStmt.setString(2, theReview.getDisplayName());
             myStmt.setString(3, theReview.getReviewTitle());
             myStmt.setString(4, theReview.getReviewText());
@@ -275,13 +275,14 @@ public class ReviewDbUtil {
             // only search by name if theSearchName is not empty
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
-                // create sql to search for students by name
-                String sql = "select * from review where lower(reviewText) OR lower(displayName) like ?";
+                // create sql to search for reviews by name
+                String sql = "select * from review where lower(reviewText) like ? OR lower(displayName) like ?";
                 // create prepared statement
                 myStmt = myConn.prepareStatement(sql);
                 // set params
                 String theSearchNameLike = "%" + theSearchName.toLowerCase() + "%";
                 myStmt.setString(1, theSearchNameLike);
+                myStmt.setString(2, theSearchNameLike);
 
             } else {
                 // create sql to get all reviews
@@ -298,7 +299,7 @@ public class ReviewDbUtil {
 
                 // retrieve data from result set row
                 int id = myRs.getInt("id");
-                int reviewUId = myRs.getInt("reviewUId");
+                String reviewUId = myRs.getString("reviewUId");
                 String displayName = myRs.getString("displayName");
                 int rating = myRs.getInt("rating");
                 String reviewTitle = myRs.getString("reviewTitle");
@@ -324,74 +325,74 @@ public class ReviewDbUtil {
         }
     }
 
-    public List<Review> searchReviewsName(String searchUser) throws Exception {
-        List<Review> reviews = new ArrayList<>();
-
-        Connection myConn = null;
-        PreparedStatement myStmt = null;
-        ResultSet myRs = null;
-        int reviewId;
-
-        try {
-
-            // get connection to database
-            myConn = dataSource.getConnection();
-
-            //
-            // only search by name if theSearchName is not empty
-            //
-            if (searchUser != null && searchUser.trim().length() > 0) {
-                // create sql to search for students by name
-                String sql = "select * from review where lower(displayName) like ?";
-                // create prepared statement
-                myStmt = myConn.prepareStatement(sql);
-                // set params
-                String searchUserLike = "%" + searchUser.toLowerCase() + "%";
-                myStmt.setString(1, searchUserLike);
-
-            } else {
-                // create sql to get all reviews
-                String sql = "select * from review order by displayName";
-                // create prepared statement
-                myStmt = myConn.prepareStatement(sql);
-            }
-
-            // execute statement
-            myRs = myStmt.executeQuery();
-
-            // retrieve data from result set row
-            while (myRs.next()) {
-
-                // retrieve data from result set row
-                int id = myRs.getInt("id");
-                int reviewUId = myRs.getInt("reviewUId");
-                int rating = myRs.getInt("rating");
-                String displayName = myRs.getString("displayName");
-                String reviewTitle = myRs.getString("reviewTitle");
-                String reviewText = myRs.getString("reviewText");
-//                Timestamp date = myRs.getTimestamp("date");
-                Date reviewDate = myRs.getDate("reviewDate");
-                Time reviewTime = myRs.getTime("reviewDate");
-                String reviewPhoto = myRs.getString("reviewPhoto");
-                String reviewFor = myRs.getString("reviewFor");
-                String reviewItem = myRs.getString("reviewItem");
-
-                // create new review object
-                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto, reviewFor, reviewItem);
-
-                // add it to the list of reviews
-                reviews.add(tempReview);
-            }
-
-            return reviews;
-
-        } finally {
-            // clean up JDBC objects
-            close(myConn, myStmt, myRs);
-
-            //clear search bar
-        }
-    }
+//    public List<Review> searchReviewsName(String searchUser) throws Exception {
+//        List<Review> reviews = new ArrayList<>();
+//
+//        Connection myConn = null;
+//        PreparedStatement myStmt = null;
+//        ResultSet myRs = null;
+//        int reviewId;
+//
+//        try {
+//
+//            // get connection to database
+//            myConn = dataSource.getConnection();
+//
+//            //
+//            // only search by name if theSearchName is not empty
+//            //
+//            if (searchUser != null && searchUser.trim().length() > 0) {
+//                // create sql to search for students by name
+//                String sql = "select * from review where lower(displayName) like ?";
+//                // create prepared statement
+//                myStmt = myConn.prepareStatement(sql);
+//                // set params
+//                String searchUserLike = "%" + searchUser.toLowerCase() + "%";
+//                myStmt.setString(1, searchUserLike);
+//
+//            } else {
+//                // create sql to get all reviews
+//                String sql = "select * from review order by displayName";
+//                // create prepared statement
+//                myStmt = myConn.prepareStatement(sql);
+//            }
+//
+//            // execute statement
+//            myRs = myStmt.executeQuery();
+//
+//            // retrieve data from result set row
+//            while (myRs.next()) {
+//
+//                // retrieve data from result set row
+//                int id = myRs.getInt("id");
+//                String reviewUId = myRs.getString("reviewUId");
+//                int rating = myRs.getInt("rating");
+//                String displayName = myRs.getString("displayName");
+//                String reviewTitle = myRs.getString("reviewTitle");
+//                String reviewText = myRs.getString("reviewText");
+////                Timestamp date = myRs.getTimestamp("date");
+//                Date reviewDate = myRs.getDate("reviewDate");
+//                Time reviewTime = myRs.getTime("reviewDate");
+//                String reviewPhoto = myRs.getString("reviewPhoto");
+//                String reviewFor = myRs.getString("reviewFor");
+//                String reviewItem = myRs.getString("reviewItem");
+//
+//                // create new review object
+//                Review tempReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto, reviewFor, reviewItem);
+//
+//                // add it to the list of reviews
+//                reviews.add(tempReview);
+//            }
+//
+//            return reviews;
+//
+//        } finally {
+//            // clean up JDBC objects
+//            close(myConn, myStmt, myRs);
+//
+//            //clear search bar
+//        }
+//    }
         public int ratingTotal() throws Exception {
 
             //    List<Float> ratingList = new ArrayList<>();
