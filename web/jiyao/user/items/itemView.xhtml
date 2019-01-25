@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>Explore New Flavor</title>
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="pt-lg-5 pl-lg-5">
+                            <div class="prodImgContainer"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 pt-5">
+                        <div class="pt-0 pl-4 pr-4 mr-lg-5 ">
+                            <h3 class="font-weight-normal pb-1"><%=product.productName%></h3>
+                            <a href="#review">
+                                <div class="star-ratings" style="width: 118px;">
+                                    <div class="star-ratings-top text-warning font-weight-bold" style="font-size: 1.2rem;">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.2rem">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <span class="grey-text" style="font-size: 0.9rem;vertical-align: 6px"> (<%=product.reviewCount%> reviews) </span>
+                            </a>
+                            <div class="pt-2 grey-text">
+                                <i class="material-icons" style="vertical-align:-5px">store</i> <%=product.userID%>
+                            </div>
+                            <h1 class="text-danger font-weight-normal pt-4 pb-4 mt-4 mb-4" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0">
+                                <div class="text-dark mb-2" style="font-size: 1.2rem;"><del class="pr-2 grey-text">S$<%=Math.round(product.price/(1-product.discount_percentage),2)%></del> - <%=product.discount_percentage*100%>%</div>
+                                <span style="position: relative">
+                                SGD <%if(offerData){%>
+                                        <%if(offerData.dataValues.accepted){%> <%=offerData.dataValues.offerPrice%> <%} else {%> <%=product.price%> <%}%>
+                                    <%}else{%>
+                                        <%=product.price%>
+                                    <%}%>
+                                <%if(offerData){%>
+                                    <%if(offerData.dataValues.accepted == null){%>
+                                    <div class="bg-warning text-white font-weight-bold" style="border-radius: 50%;height: 30px;width: 30px; box-shadow: #e0e0e0 0 5px 10px;position: absolute;top:-6px;right:-42px;">
+                                        <i class="material-icons" style="font-size: 1.5rem;vertical-align: 20px;padding: 3px">
+                                            hourglass_empty
+                                        </i>
+                                    </div>
+                                    <%}else if(offerData.dataValues.accepted){%>
+                                        <div class="bg-success text-white font-weight-bold" style="border-radius: 50%;height: 30px;width: 30px; box-shadow: #e0e0e0 0 5px 10px;position: absolute;top:-6px;right:-42px;">
+                                            <i class="material-icons" style="font-size: 1.5rem;vertical-align: 20px;padding: 3px">
+                                                done
+                                            </i>
+                                        </div>
+                                    <%} else {%>
+                                        <div class="bg-danger text-white font-weight-bold" style="border-radius: 50%;height: 30px;width: 30px; box-shadow: #e0e0e0 0 5px 10px;position: absolute;top:-6px;right:-42px;">
+                                            <i class="material-icons" style="font-size: 1.5rem;vertical-align: 20px;padding: 3px">
+                                                highlight_off
+                                            </i>
+                                        </div>
+                                    <%}%>
+                                <%}%>
+                            </span>
+                            </h1>
+                            <div class="row mt-5">
+                                <h6 class="col-sm-3">
+                                    Description
+                                </h6>
+                                <h6 class="col font-weight-normal">
+                                    <%=product.productDesc%>
+                                </h6>
+                            </div>
+                            <div class="row mt-3">
+                                <h6 class="col-sm-3">
+                                    Type
+                                </h6>
+                                <h6 class="col font-weight-normal">
+                                    <%=product.productType%>
+                                </h6>
+                            </div>
+                            <div class="row mt-3">
+                                <h6 class="col-sm-3">
+                                    Availability
+                                </h6>
+                                <h6 class="col font-weight-normal">
+                                    <%=product.quantity%> in stock
+                                </h6>
+                            </div>
+                            <% if (product.quantity!=0) {%>
+                            <div class="row mt-3 pb-5">
+                                <h6 class="col-sm-3">Quantity</h6>
+                                <div class="col">
+                                    <div class="btn-group number-spinner">
+                                            <span class="input-prepend data-dwn">
+                                                <button id="numDown" class="btn btn-light p-0" data-dir="dwn"style="border-radius:50%!important;width:36px;height:36px;" disabled>
+                                                    <i class="material-icons" style="vertical-align: -7px;">remove</i>
+                                                </button>
+                                            </span>
+                                        <style>
+                                            #quantity{
+                                                border:none;
+                                                outline:none!important;
+                                                text-align: center;
+                                                font-size: 1.2rem;
+                                                width: 100%;
+                                                max-width: 50px;
+                                            }
+                                        </style>
+                                        <input type="text" name="quantity" id="quantity" value="1" min="1" max="<%=product.quantity%>">
+                                        <span class="input-append data-up">
+                                                <button id="numUp" class="btn btn-light p-0" data-dir="up"style="border-radius:50%!important;width:36px;height:36px;">
+                                                    <i class="material-icons" style="vertical-align: -7px;">add</i>
+                                                </button>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="javascript">
+                                $(function () {
+                                    var quantity = parseInt(#{itemObj.quantity});
+                                    $(".number-spinner button").mousedown(function () {
+                                        btn = $(this);
+                                        input = btn.closest('.number-spinner').find('input');
+                                        btn.closest('.number-spinner').find('button').prop("disabled", false);
+                                        if (btn.attr('data-dir') == 'up') {
+                                            if (input.attr('max') == undefined || parseInt(input.val()) < parseInt(input.attr('max'))-1) {
+                                                input.val(parseInt(input.val()) + 1);
+                                            } else {
+                                                input.val(parseInt(input.val()) + 1);
+                                                btn.prop("disabled", true);
+                                            }
+                                        } else {
+                                            if (input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min'))+1) {
+                                                input.val(parseInt(input.val()) - 1);
+                                            } else {
+                                                input.val(parseInt(input.val()) - 1);
+                                                btn.prop("disabled", true);
+                                            }
+                                        }
+                                    })
+                                    $("#quantity").blur(()=>{
+                                        var quantityInput = parseInt($("#quantity").val());
+                                    if (quantityInput <= 0 || quantityInput > quantity || !Number.isInteger(parseInt($("#quantity").val().trim()))){
+                                        $("#selectErr").click();
+                                        $("#quantity").val(1);
+                                    };
+                                    if (quantityInput == quantity){
+                                        $("#numUp").attr("disabled", true);
+                                    } else {
+                                        $("#numUp").attr("disabled", false);
+                                    }
+                                    if (quantityInput == 1){
+                                        $("#numDown").attr("disabled", true);
+                                    } else {
+                                        $("#numDown").attr("disabled", false);
+                                    }
+                                })
+                                });
+                            </script>
+                            <div class="row pb-5">
+                                <a class="col pr-0" href="#">
+                                    <button type="button" id="addCart" class="btn btn-warning btn-block font-weight-bold waves-effect waves-light" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;">
+                                        <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
+                                    </button>
+                                    <button disabled type="button" id="addCartSuccess" class="btn btn-light font-weight-bold text-success btn-block sr-only" style="font-size:1.2rem;color:#00C851!important;-webkit-border-radius:10em!important;border-radius:10em!important;">
+                                        <i class="material-icons text-success pr-2" style="vertical-align:-10px;font-size:2rem;">done_outline</i> Add Successfully
+                                    </button>
+                                </a>
+                                <div class="modal fade" id="modalAbandonedCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
+                                    <div class="modal-dialog modal-notify modal-info" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-warning">
+                                                <p class="heading"><%=product.productName%> in the Cart
+                                                </p>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true" class="white-text">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <p class="text-center">
+                                                            <i class="fa fa-shopping-cart fa-4x text-warning"></i>
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p>Do you need more time to make a purchase decision?</p>
+                                                        <p>No pressure, your product will be waiting for you in the cart.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="/cart"><button type="button" style="border-radius:10em!important;" class="btn btn-warning waves-effect waves-light">Go to cart</button></a>
+                                                <button type="button" style="border-radius:10em!important;" class="btn btn-light waves-effect" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3 pb-5">
+                                    <h6 class="col-sm-3">Quantity</h6>
+                                    <div class="col">Sorry, this item is temporarily unavailable</div>
+                                </div>
+                                <div class="row pb-5">
+                                    <a class="col pr-0" href="#">
+                                        <button disabled type="button" id="addCart" class="btn btn-light btn-block" style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;" data-toggle="modal" data-target="#modalAbandonedCart">
+                                            <i class="material-icons text-white pr-2" style="vertical-align:-10px;font-size:2rem;">add_shopping_cart</i> Add to Cart
+                                        </button>
+                                    </a>
+                                    <div class="col-2 pl-4">
+                                        <button class="text-center btn btn-white m-0 p-0" id="addWishList" style="height: 60px;width: 60px;border-radius: 50%;">
+                                            <i class="material-icons text-light" style="vertical-align:-36px;font-size:3rem;" id="wishIcon">favorite</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 justify-content-center" style="border-top: solid thin #e0e0e0" id="review">
+                        <h4>Ratings & Reviews </h4>
+                        <div class="row pb-5" style="border-bottom:thin solid #e0e0e0;">
+                            <div class="col-lg-4">
+                                <div class="font-weight-normal text-warning" style="font-size: 5rem">
+                                    <span class="grey-text" style="font-size: 1.5rem">out of 5</span>
+                                </div>
+                                <div class="star-ratings" style="width: 181px;vertical-align: 6px;">
+                                    <div class="star-ratings-top text-warning font-weight-bold" style="font-size: 1.8rem;">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="star-ratings-bottom text-light font-weight-bold" style="font-size: 1.8rem">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                                <script>
+                                    var width
+                                    $(".star-ratings-top").css("width",width)
+                                </script>
+                                <div class="font-weight-light text-dark pl-2" style="font-size: 1.5rem;display: inline-block">
+                                    <span id="reviewCount">
+                                        <i class="material-icons grey-text" style="vertical-align: -3px;">person</i>
+                                        <%=product.reviewCount%>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 pt-2">
+                                <div class="row">
+                                    <div class="p-1 pl-lg-5 col-3 grey-text">5 stars</div>
+                                    <div class="p-2 col">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" id="progressStar5" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 p-1 pr-5 grey-text" id="star5">
+                                        0
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="p-1 pl-lg-5 col-3 grey-text">4 stars</div>
+                                    <div class="p-2 col">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" id="progressStar4" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 p-1 pr-5 grey-text" id="star4">
+                                        0
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="p-1 pl-lg-5 col-3 grey-text">3 stars</div>
+                                    <div class="p-2 col">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" id="progressStar3" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 p-1 pr-5 grey-text" id="star3">
+                                        0
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="p-1 pl-lg-5 col-3 grey-text">2 stars</div>
+                                    <div class="p-2 col">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" id="progressStar2" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 p-1 pr-5 grey-text" id="star2">
+                                        0
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="p-1 pl-lg-5 col-3 grey-text">1 star</div>
+                                    <div class="p-2 col">
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" id="progressStar1" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="<%=product.reviewCount%>"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-1 p-1 pr-5 grey-text" id="star1">
+                                        0
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% for (var i=0;i<reviews.length;i++){%>
+                        <div class="row p-md-4" style="border-bottom: solid thin #e0e0e0;">
+                            <div class="col-lg-1 text-lg-right">
+                                <img class="mr-2 mb-3" style="border-radius: 50%; box-shadow: 3px 3px 10px #e0e0e0" alt="avatar" src="<%=reviewsAvatars[i]%>" />
+                            </div>
+                            <div class="col">
+                                <h5 class="font-weight-bold"><%=reviews[i].dataValues.title%></h5>
+                                <h6>
+                                    <%for (var j=0; j< 5; j++) {%>
+                                    <i class="material-icons text-light startRating<%=i%><%=j%>" style="font-size: 1rem">star</i>
+                                    <%}%>
+                                    <span class="grey-text font-weight-normal"> on <span id="reviewDate<%=i%>"></span></span>
+                                </h6>
+                                <div class="grey-text" style="font-size: 1rem"> by <%=reviews[i].dataValues.first_name%> <%=reviews[i].dataValues.last_name%> </div>
+                                <div class="pt-3"><%=reviews[i].dataValues.content%></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

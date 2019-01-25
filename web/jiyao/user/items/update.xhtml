@@ -7,7 +7,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-    <title>Create New Product</title>
+    <title>Update Product #{editItemObj.name}</title>
+    <small>By #{loginView.authenticatedUser.email}</small>
 </h:head>
 <h:body>
     <ui:composition template="/templates/template.xhtml">
@@ -17,20 +18,46 @@
                     <div class="card">
                         <div class="card">
                             <div class="card-content" style="text-align: center">
-                                <h5>Create New Product</h5>
+                                <h5>Update #{editItemObj.name}</h5>
                             </div>
-                            <h:form style="padding: 3rem">
+                            <h:form style="padding: 3rem" enctype="multipart/form-data"  prependId="false">
+                                <div class="row">
+                                    <div class="file-field input-field">
+                                        <div class="btn purple">
+                                            <span>Food Image</span>
+                                            <h:inputFile value="#{item.uploadedFile}"/>
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" value="#{editItemObj.image}"/>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <h:outputLabel for="name">Name:</h:outputLabel>
+                                        <h:outputLabel for="name">Food Name:</h:outputLabel>
                                         <h:inputText id="name" value="#{editItemObj.name}" required="true"
                                                      requiredMessage="Please enter your product name"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <h:outputLabel for="type">Type:</h:outputLabel>
-                                        <h:inputText id="type" value="#{editItemObj.type}" required="true"/>
+                                        <h:outputStylesheet>
+                                            .dropdown-content li>a, .dropdown-content li>span {
+                                                color: purple!important;
+                                            }
+                                        </h:outputStylesheet>
+                                        <h:selectOneMenu id="type" value="#{editItemObj.type}" style="color: purple">
+                                            <f:selectItem itemLabel="Choose Food Category" itemDisabled="true" />
+                                            <f:selectItem itemValue="Appetizer/Starters" itemLabel="Appetizer/Starters" />
+                                            <f:selectItem itemValue="Breads/Rolls/Muffins" itemLabel="Breads/Rolls/Muffins" />
+                                            <f:selectItem itemValue="Cakes/Cupcakes" itemLabel="Cakes/Cupcakes" />
+                                            <f:selectItem itemValue="Desserts" itemLabel="Desserts" />
+                                            <f:selectItem itemValue="Pasta/Noodles" itemLabel="Pasta/Noodles" />
+                                            <f:selectItem itemValue="Pizzas" itemLabel="Pizzas" />
+                                            <f:selectItem itemValue="Salads" itemLabel="Salads" />
+                                            <f:selectItem itemValue="Side Dishes" itemLabel="Side Dishes" />
+                                            <f:selectItem itemValue="Soups/Stews" itemLabel="Soups/Stews" />
+                                        </h:selectOneMenu>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -50,13 +77,13 @@
                                     <div class="input-field col s12">
                                         <h:outputLabel for="price">Price:</h:outputLabel>
                                         <h:inputText a:type="number" id="price" value="#{editItemObj.price}" required="true"
-                                                     requiredMessage="Please enter your product price"/>
+                                                     requiredMessage="Please enter your product price" a:min="0" a:max="99999" a:step="0.01"/>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <h:outputLabel for="discount">Discount:</h:outputLabel>
-                                        <h:inputText a:type="number" id="discount" value="#{editItemObj.discount}" />
+                                        <h:inputText a:type="number" id="discount" value="#{editItemObj.discount}" a:min="0" a:max="100"/>
                                     </div>
                                 </div>
                                 <style type="text/css">
@@ -70,10 +97,11 @@
                                 </style>
                                 <div class="row">
                                     <div class="col s6" style="text-align: right" >
-                                        <h:commandButton
-                                                action="#{item.updateItem(editItemObj)}"
-                                                value="Save" styleClass="btn btn-large waves-effect waves-light"
-                                                style="font-size: 1.5rem;margin-bottom: 3rem;"/>
+                                        <h:commandLink
+                                                action="#{item.updateItem(editItemObj,item.UpdateImage())}"
+                                                value="Save" styleClass="btn btn-large waves-effect waves-light purple"
+                                                style="font-size: 1.5rem;margin-bottom: 3rem;">
+                                        </h:commandLink>
                                         <br/>
                                     </div>
                                     <div class="col s6" style="text-align: left" >

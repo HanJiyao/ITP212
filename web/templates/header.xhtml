@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	 xmlns:h="http://java.sun.com/jsf/html"
-	 xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <body>
 <ui:composition>
 	<nav style="position: fixed; top: 0;z-index: 1000">
@@ -11,14 +11,12 @@
                 <i class="material-icons">cloud</i>
                 ITP212
             </a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a href="#" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul style="padding-left: 15rem!important;" class="hide-on-med-and-down">
                 <li>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/user/request/main">Post Task</h:link>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/yongrui/yongruiTest"> test yr </h:link>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/yongrui/testManagedProperty"> managedproperty </h:link>
                     <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/admin/signin"> login </h:link>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/items/items"> items </h:link>
+                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/user/items/search"> item search </h:link>
+                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/user/items/items"> items </h:link>
                     <h:link styleClass="waves-effect waves-light btn" outcome="/yongrui/mapTest"> maptest </h:link>
                     <h:link styleClass="waves-effect waves-light btn" outcome="/payment/listccdetails">Add payment details</h:link>
                 </li>
