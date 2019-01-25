@@ -1,12 +1,15 @@
 package review_package;
 import org.primefaces.model.UploadedFile;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 public class Review {

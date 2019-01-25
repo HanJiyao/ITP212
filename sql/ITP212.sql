@@ -19,7 +19,7 @@ CREATE TABLE `user_groups` (
 DROP TABLE IF EXISTS `review`;
 CREATE TABLE IF NOT EXISTS `review` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `reviewTitle` VARCHAR(45) NULL,
+  `reviewTitle` VARCHAR(255) NULL,
   `reviewUId` VARCHAR(255) NULL,
   `displayName` VARCHAR(45) NOT NULL,
   `reviewText` VARCHAR(1000) NOT NULL,

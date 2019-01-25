@@ -16,6 +16,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -34,6 +35,8 @@ import javax.xml.ws.Response;
 public class ReviewController {
 
     private List<Review> reviews;
+    private ArrayList reviewsUser;
+    private String userEmail;
     private ReviewDbUtil reviewDbUtil;
     private int ratee;
     private int numrate;
@@ -45,8 +48,6 @@ public class ReviewController {
     private String folderToUpload;
     private UploadedFile uploadedFile;
     //private String folder = "..\\..\\..\\web\\resources\\pictures";
-
-
 
     public ReviewController() throws Exception {
         reviews = new ArrayList<>();
@@ -95,13 +96,15 @@ public class ReviewController {
         }
     }
 
-    public String addReview(Review theReview){
+
+
+    public String addReview(Review theReview, String user){
 
         logger.info("Adding review: " + theReview);
 
         try {
 
-      //      theReview.setReviewUId();
+            theReview.setReviewUId(user);
             // add review to the database
             reviewDbUtil.addReview(theReview);
 
@@ -115,7 +118,7 @@ public class ReviewController {
             return null;
         }
 
-        return "review?faces-redirect=true";
+        return "/review/review?faces-redirect=true";
     }
 
     public String loadReview(int reviewId){
@@ -140,7 +143,7 @@ public class ReviewController {
             return null;
         }
 
-        return  "update-review.xhtml";
+        return "update-review.xhtml";
     }
 
     public String updateReview(Review theReview) {
@@ -161,7 +164,7 @@ public class ReviewController {
             return null;
         }
 
-        return "review?faces-redirect=true";
+        return "review.xhtml?faces-redirect=true";
     }
 
     public String deleteReview(int reviewId) {
@@ -185,7 +188,7 @@ public class ReviewController {
 //        if (reviews.contains(reviewId)){
 //            reviews.remove(reviewId);
  //       }
-        return "review?faces-redirect=true";
+        return "review.xhtml?faces-redirect=true";
     }
 
     public int getNumRate() throws Exception {
@@ -198,87 +201,62 @@ public class ReviewController {
         return ratee;
     }
 
+//    public List<Review> getUserReview(String user) throws Exception{
+//        reviews = reviewDbUtil.getUserReview(user);
+//        return reviews;
+//    }
+
+    public ArrayList getUserReview(String user) throws Exception{
+        reviewsUser = reviewDbUtil.getUsersReview(user);
+        return reviewsUser;
+    }
+
+    public void usersReviews() {
+        logger.info("Loading reviews");
+
+        logger.info("User Email = " + userEmail);
+
+        try {
+            reviewsUser = reviewDbUtil.getUsersReview(userEmail);
+
+
+        } catch (Exception exc) {
+            // send this to server logs
+            logger.log(Level.SEVERE, "Error loading reviews", exc);
+
+            //add error message for JSF page
+            addErrorMessage(exc);
+        }
+    }
+
+    public ArrayList usersReviews(String user){
+
+        logger.info("loading review for: " + user);
+//
+        try{
+//            //get review from database
+            return reviewsUser = reviewDbUtil.getUsersReview(user);
+
+//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//
+//            Map<String, Object> requestMap = externalContext.getRequestMap();
+//            requestMap.put("review", reviewsUser);
+        } catch (Exception exc){
+            //send this to server logs
+            logger.log(Level.SEVERE, "Error loading user's review :" + user, exc);
+
+            addErrorMessage(exc);
+
+            return null;
+        }
+//
+    }
+
+
     private void addErrorMessage(Exception exc) {
         FacesMessage message = new FacesMessage("Error: " + exc.getMessage());
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-
-//    public void reviewImage() throws Exception {
-//        File uploads = new File("/path/to/uploads");
-//        File file = File.createTempFile("somefilename-", ".ext", uploads);
-//
-//        try (InputStream input = file.getInputStream()) {
-//            Files.copy(input, new File(uploads, filename).toPath());
-//        }
-//        catch (IOException e) {
-//            // Show faces message?
-//        }
-//
-//    }
-//        public UploadedFile getUploadedFile() {
-//            return uploadedFile;
-//        }
-//
-//        public void setUploadedFile(UploadedFile uploadedFile) {
-//            this.uploadedFile = uploadedFile;
-//        }
-
-//        public void saveFile(){
-//            try (InputStream input = uploadedFile.getInputStream()) {
-//            String fileName = uploadedFile.getSubmittedFileName();
-//                Files.copy(input, new File(folder, fileName).toPath());
-//            }
-//            catch (Exception exc) {
-//                //send this to server logs
-//                logger.log(Level.SEVERE, "Error adding image", exc);
-//
-//                // add error message for JSF page
-//                addErrorMessage(exc);
-//            }
-//        }
-
-//    public void saveFile(String fileName, InputStream in, Review theReview) {
-//        try {
-//            // write the inputStream to a FileOutputStream
-//            String username = System.getProperty("user.name");
-//            String reviewPic = generateRandomHex() + fileName;
-//            if (!reviewPic.contains(".jpg")) {
-//                String[] temp = reviewPic.split("\\.");
-//                String filename = temp[0];
-//                reviewPic = filename + ".jpg";
-//            }
-//            theReview.setReviewPhoto(reviewPic);
-//            OutputStream out = new FileOutputStream(new File("C:\\Users\\Asus\\Desktop\\PROJECT\\ITP212\\out\\artifacts\\ITP212\\resources\\pictures\\" + reviewPic));
-//            int read = 0;
-//            byte[] bytes = new byte[1024];
-//
-//            while ((read = in.read(bytes)) != -1) {
-//                out.write(bytes, 0, read);
-//            }
-//
-//            in.close();
-//            out.flush();
-//            out.close();
-//
-//            System.out.println("New file created!");
-//        } catch (IOException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-//
-//    public String generateRandomHex() {
-//        Random random = new Random();
-//        String new_string = "";
-//
-//        for (int i = 0; i < 8; i++) {
-//            int val = random.nextInt();
-//            String hex = new String();
-//            hex = Integer.toHexString(val);
-//            new_string = new_string += hex;
-//        }
-//
-//        return new_string;
-//    }
 
     public String getTheSearchName() {
         return theSearchName;
