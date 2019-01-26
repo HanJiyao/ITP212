@@ -63,3 +63,16 @@ CREATE TABLE IF NOT EXISTS `credit_card_details` (
   `expiry_date` DATE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `delivery`;
+CREATE TABLE `delivery` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+   `buyerID` varchar(255) NOT NULL,
+   `sellerID` varchar(255) NOT NULL,
+   `buyerLOCATION` varchar(255) NOT NULL,
+   `deliverymenLOCATION` varchar(255) NOT NULL,
+	`shopLOCATION` varchar(255) NOT NULL,
+    `deliverySTATUS` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8;
