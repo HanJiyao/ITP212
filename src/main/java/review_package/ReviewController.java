@@ -36,7 +36,7 @@ import javax.xml.ws.Response;
 public class ReviewController {
 
     private List<Review> reviews;
-    private ArrayList reviewsUser;
+    private List<Review> reviewsUser;
     private String userEmail;
     private ReviewDbUtil reviewDbUtil;
     private int ratee;
@@ -200,13 +200,20 @@ public class ReviewController {
         return reviewDbUtil.ratingTotal(userName);
     }
 
+    public int userAvg(String user) throws Exception {
+        return reviewDbUtil.avgTotal(user);
+    }
+
+    public int rateUser(String userName) throws Exception {
+        return reviewDbUtil.ratingReceived(userName);
+    }
+
 //    public List<Review> getUserReview(String user) throws Exception{
 //        reviews = reviewDbUtil.getUserReview(user);
 //        return reviews;
 //    }
 
-
-    public ArrayList getUserReview(String user) throws Exception{
+    public List<Review> getUserReview(String user) throws Exception{
         reviewsUser = reviewDbUtil.getUsersReview(user);
         return reviewsUser;
     }
@@ -229,13 +236,15 @@ public class ReviewController {
         }
     }
 
-    public ArrayList usersReviews(String user){
+    public List<Review> usersReviews(String user){
 
         logger.info("loading review for: " + user);
 //
         try{
 //            //get review from database
-            return reviewsUser = reviewDbUtil.getUsersReview(user);
+            reviewsUser = reviewDbUtil.getUsersReview(user);
+
+            return reviewsUser;
 
 //            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 //
@@ -252,6 +261,48 @@ public class ReviewController {
 //
     }
 
+    public void yourReviews() {
+        logger.info("Loading reviews");
+
+        logger.info("User Email = " + userEmail);
+
+        try {
+            reviewsUser = reviewDbUtil.getYourReview(userEmail);
+
+
+        } catch (Exception exc) {
+            // send this to server logs
+            logger.log(Level.SEVERE, "Error loading reviews", exc);
+
+            //add error message for JSF page
+            addErrorMessage(exc);
+        }
+    }
+
+    public List<Review> yourReviews(String user){
+
+        logger.info("loading review for: " + user);
+//
+        try{
+//            //get review from database
+            reviewsUser = reviewDbUtil.getYourReview(user);
+
+            return reviewsUser;
+
+//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//
+//            Map<String, Object> requestMap = externalContext.getRequestMap();
+//            requestMap.put("review", reviewsUser);
+        } catch (Exception exc){
+            //send this to server logs
+            logger.log(Level.SEVERE, "Error loading user's review :" + user, exc);
+
+            addErrorMessage(exc);
+
+            return null;
+        }
+//
+    }
 
     private void addErrorMessage(Exception exc) {
         FacesMessage message = new FacesMessage("Error: " + exc.getMessage());

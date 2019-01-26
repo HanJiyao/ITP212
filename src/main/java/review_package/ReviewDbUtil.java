@@ -257,6 +257,7 @@ public class ReviewDbUtil {
             exc.printStackTrace();
         }
     }
+
     public List<Review> searchReviews(String theSearchName) throws Exception {
         List<Review> reviews = new ArrayList<>();
 
@@ -324,10 +325,75 @@ public class ReviewDbUtil {
         }
     }
 
+//    public void compareId(String reviewItemId) throws Exception {
+//
+//        if (reviewItemId == )
+////        Connection myConn = null;
+////        PreparedStatement myStmt = null;
+////        ResultSet myRs = null;
+////
+////        try {
+////            myConn = dataSource.getConnection();
+////            myRs = myStmt.executeQuery();
+////
+////            while (myRs.next()) {
+////                String reviewItem = myRs.getString("reviewItem");
+////
+////
+////            }
+////        }finally {
+////            close (myConn, myStmt);
+////        }
+//    }
 
 
-    public ArrayList<Review> getUsersReview(String user) throws Exception {
-        ArrayList<Review> reviews = new ArrayList<>();
+    public List<Review> getYourReview(String user) throws Exception {
+        List<Review> reviews = new ArrayList<>();
+
+        Connection myConn = null;
+        PreparedStatement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "select * from review where reviewFor='"+user+"' order by reviewDate DESC";
+            myStmt = myConn.prepareStatement(sql);
+
+            myRs = myStmt.executeQuery();
+
+            Review theReview = null;
+
+            // retrieve data from result set row
+            while (myRs.next()) {
+                int id = myRs.getInt("id");
+                String reviewUId = myRs.getString("reviewUId");
+                String displayName = myRs.getString("displayName");
+                String reviewTitle = myRs.getString("reviewTitle");
+                String reviewText = myRs.getString("reviewText");
+                int rating = myRs.getInt("rating");
+                Date reviewDate = myRs.getDate("reviewDate");
+                Time reviewTime = myRs.getTime("reviewDate");
+                String reviewPhoto = myRs.getString("reviewPhoto");
+                String reviewFor = myRs.getString("reviewFor");
+                String reviewItem = myRs.getString("reviewItem");
+
+                theReview = new Review(id, reviewUId, displayName, reviewTitle, reviewText, rating, reviewDate, reviewTime, reviewPhoto, reviewFor, reviewItem);
+
+                reviews.add(theReview);
+            }
+
+            System.out.println(reviews);
+            return reviews;
+        }
+        finally {
+            close (myConn, myStmt, myRs);
+        }
+    }
+
+
+    public List<Review> getUsersReview(String user) throws Exception {
+        List<Review> reviews = new ArrayList<>();
 
         Connection myConn = null;
         PreparedStatement myStmt = null;
@@ -370,35 +436,6 @@ public class ReviewDbUtil {
         }
     }
 
-        public int ratingTotal(String userName) throws Exception {
-
-            int rateSum = 0;
-
-            Connection myConn = null;
-            Statement myStmt = null;
-            ResultSet myRs = null;
-
-            try {
-                myConn = getConnection();
-
-                String sql = "select avg(rating) as rateSum from review where reviewUId='"+userName+"'";
-
-                myStmt = myConn.createStatement();
-
-                myRs = myStmt.executeQuery(sql);
-
-                // process result set
-                while (myRs.next()) {
-                    int rates = myRs.getInt("rateSum");
-                   rateSum = rates;
-
-                }
-            } finally {
-                close(myConn, myStmt, myRs);
-            }
-            return rateSum;
-    }
-
     public int ratingNum(String userName) throws Exception {
 
         int rateNo = 0;
@@ -411,6 +448,93 @@ public class ReviewDbUtil {
             myConn = getConnection();
 
             String sql = "select count(*) as rateNo from review where reviewUId='"+userName+"'";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+
+            // process result set
+            while (myRs.next()) {
+                int rates = myRs.getInt("rateNo");
+                rateNo = rates;
+
+            }
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+        return rateNo;
+    }
+
+    public int ratingTotal(String userName) throws Exception {
+
+        int rateSum = 0;
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "select avg(rating) as rateSum from review where reviewUId='"+userName+"'";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+
+            // process result set
+            while (myRs.next()) {
+                int rates = myRs.getInt("rateSum");
+                rateSum = rates;
+
+            }
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+        return rateSum;
+    }
+
+    public int avgTotal(String userName) throws Exception {
+
+        int rateSum = 0;
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "select avg(rating) as rateSum from review where reviewFor='"+userName+"'";
+
+            myStmt = myConn.createStatement();
+
+            myRs = myStmt.executeQuery(sql);
+
+            // process result set
+            while (myRs.next()) {
+                int rates = myRs.getInt("rateSum");
+                rateSum = rates;
+
+            }
+        } finally {
+            close(myConn, myStmt, myRs);
+        }
+        return rateSum;
+    }
+
+    public int ratingReceived(String userName) throws Exception {
+
+        int rateNo = 0;
+
+        Connection myConn = null;
+        Statement myStmt = null;
+        ResultSet myRs = null;
+
+        try {
+            myConn = getConnection();
+
+            String sql = "select count(*) as rateNo from review where reviewFor='"+userName+"'";
 
             myStmt = myConn.createStatement();
 
