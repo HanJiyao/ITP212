@@ -9,10 +9,12 @@ CREATE TABLE `users` (
   `mobile` varchar(10) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `postal_code` varchar(10) DEFAULT NULL,
+  `longitude` FLOAT( 10, 6 ) DEFAULT NULL,
+  `latitude` FLOAT( 10, 6 ) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
+  `balance` float(10,2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `user_groups`;
 CREATE TABLE `user_groups` (
@@ -32,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `reviewDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reviewPhoto` VARCHAR(45) NULL,
   `reviewFor` VARCHAR(255) NULL,
-  `reviewItem` VARCHAR(255) NULL;
+  `reviewItem` VARCHAR(255) NULL,
   PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
  
 DROP TABLE IF EXISTS `blog`;
@@ -55,6 +57,30 @@ create table credit_card_details (
   postal_code int                      not null,
   constraint credit_card_details_card_num_uindex unique (card_num));
  
+ DROP TABLE IF EXISTS `items`;
+ CREATE TABLE `items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `desc` varchar(45) DEFAULT NULL,
+  `type` varchar(45) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` float(10,2) NOT NULL,
+  `discount` float(3,2) DEFAULT NULL,
+  `user` varchar(255) NOT NULL,
+  `created` datetime DEFAULT current_timestamp(),
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_date` datetime DEFAULT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `total_price` float(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
  DROP TABLE IF EXISTS `order_details`;
  CREATE TABLE `order_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,22 +93,12 @@ create table credit_card_details (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_date` datetime DEFAULT NULL,
-  `user_id` int(11) NOT NULL,
-  `total_price` float(10,2) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `transaction_date` datetime NOT NULL,
-  `payment_made_to` int(11) DEFAULT NULL,
-  `payment_received_from` int(11) DEFAULT NULL,
+  `transaction_made_to_seller` int(11) DEFAULT NULL,
+  `transaction_received_from_buyer` int(11) DEFAULT NULL,
   `description` varchar(255) NOT NULL,
   `debit` float(10,2) DEFAULT 0.00,
   `credit` float(10,2) DEFAULT 0.00,
