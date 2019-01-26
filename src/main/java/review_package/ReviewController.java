@@ -206,11 +206,6 @@ public class ReviewController {
 //        return reviews;
 //    }
 
-    public ArrayList getUserReview(String user) throws Exception{
-        reviewsUser = reviewDbUtil.getUsersReview(user);
-        return reviewsUser;
-    }
-
     public void usersReviews() {
         logger.info("Loading reviews");
 
@@ -229,7 +224,7 @@ public class ReviewController {
         }
     }
 
-    public ArrayList usersReviews(String user){
+    public ArrayList usersRev(String user){
 
         logger.info("loading review for: " + user);
 //
