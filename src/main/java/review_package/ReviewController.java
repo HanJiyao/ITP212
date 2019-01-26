@@ -206,7 +206,6 @@ public class ReviewController {
 //        return reviews;
 //    }
 
-<<<<<<< HEAD
 
     public ArrayList getUserReview(String user) throws Exception{
         reviewsUser = reviewDbUtil.getUsersReview(user);
@@ -232,27 +231,6 @@ public class ReviewController {
     }
 
     public ArrayList usersReviews(String user){
-=======
-    public void usersReviews() {
-        logger.info("Loading reviews");
-
-        logger.info("User Email = " + userEmail);
-
-        try {
-            reviewsUser = reviewDbUtil.getUsersReview(userEmail);
-
-
-        } catch (Exception exc) {
-            // send this to server logs
-            logger.log(Level.SEVERE, "Error loading reviews", exc);
-
-            //add error message for JSF page
-            addErrorMessage(exc);
-        }
-    }
-
-    public ArrayList usersRev(String user){
->>>>>>> parent of 86774a9... fefesfesffesfe
 
         logger.info("loading review for: " + user);
 //

@@ -35,8 +35,9 @@
 
         <h:form id="form" style="margin-top: 10px;" >
             <h:panelGrid columns="3">
-                <h:outputLabel/>
+                <h:outputLabel>
                     Card Number:
+                </h:outputLabel>
                 <h:inputText value="#{creditCardDetails.cardNum}"
                              required="true"
                              requiredMessage="Your Card Num is mandatory."
@@ -47,11 +48,11 @@
                                                                    required="true"
                                                                    requiredMessage="Your cvv is mandatory."/>
                 <h:message for="cvv" styleClass="error" />
-                <h:outputLabel>Expiry Date:</h:outputLabel> <h:inputText value="#{creditCardDetails.expiryDate}" id="expiryDate"
+                <h:outputLabel>Expiry Date</h:outputLabel> <h:inputText value="#{creditCardDetails.expiryDate}" id="expiryDate"
                                                                 required="true"
                                                                 requiredMessage="Your Credit card Expiry Date is mandatory."/>
                 <h:message for="expiryDate" styleClass="error"/>
-                <h:outputLabel>Postal Code:</h:outputLabel> <h:inputText value="#{creditCardDetails.postalCode}" id="postalCode"
+                <h:outputLabel>Postal Code</h:outputLabel> <h:inputText value="#{creditCardDetails.postalCode}" id="postalCode"
                                                                 required="true"
                                                                 requiredMessage="Your postal code is mandatory."/>
                 <h:message for="postalCode" styleClass="error"/>
