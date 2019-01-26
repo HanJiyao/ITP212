@@ -81,7 +81,6 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
  DROP TABLE IF EXISTS `order_details`;
  CREATE TABLE `order_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -91,6 +90,7 @@ CREATE TABLE `orders` (
   `quantity` int(11) NOT NULL,
   `price` float(10,2) NOT NULL,
   `created` datetime NOT NULL,
+  `delivery_status` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -108,7 +108,6 @@ CREATE TABLE `transactions` (
   `created` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 DROP TABLE IF EXISTS `delivery`;
 CREATE TABLE `delivery` (
