@@ -1,4 +1,4 @@
-package org.primefaces.showcase.view.data.datatable;
+package zextras.org.primefaces.showcase.view.data.datatable;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,8 +6,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import org.primefaces.showcase.domain.Car;
-import org.primefaces.showcase.service.CarService;
+import zextras.org.primefaces.showcase.domain.Car;
+import zextras.org.primefaces.showcase.service.CarService;
 
 @ManagedBean(name="dtPaginatorView")
 @ViewScoped

@@ -1,4 +1,4 @@
-package example;
+package zextras.example;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;

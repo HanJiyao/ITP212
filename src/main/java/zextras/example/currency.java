@@ -1,4 +1,4 @@
-package example;
+package zextras.example;
 
 import javax.faces.bean.ManagedBean;
 import java.util.Arrays;
