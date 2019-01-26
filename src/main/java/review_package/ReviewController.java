@@ -206,6 +206,7 @@ public class ReviewController {
 //        return reviews;
 //    }
 
+<<<<<<< Updated upstream
     public void usersReviews() {
         logger.info("Loading reviews");
 
@@ -225,6 +226,32 @@ public class ReviewController {
     }
 
     public ArrayList usersRev(String user){
+=======
+    public ArrayList getUserReview(String user) throws Exception{
+        reviewsUser = reviewDbUtil.getUsersReview(user);
+        return reviewsUser;
+    }
+
+    public void usersReviews() {
+        logger.info("Loading reviews");
+
+        logger.info("User Email = " + userEmail);
+
+        try {
+            reviewsUser = reviewDbUtil.getUsersReview(userEmail);
+
+
+        } catch (Exception exc) {
+            // send this to server logs
+            logger.log(Level.SEVERE, "Error loading reviews", exc);
+
+            //add error message for JSF page
+            addErrorMessage(exc);
+        }
+    }
+
+    public ArrayList usersReviews(String user){
+>>>>>>> Stashed changes
 
         logger.info("loading review for: " + user);
 //

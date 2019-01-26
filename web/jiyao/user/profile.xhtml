@@ -62,7 +62,11 @@
                     <p:tab title="Review You Posted">
                     <h:panelGrid>
                      <h:form>
+<<<<<<< Updated upstream
                     <p:dataTable value="#{reviewController.usersRev(loginView.authenticatedUser.email)}"  var="tempReview" paginator="true" rows="3" widgetVar="tableReview"
+=======
+                    <p:dataTable value="#{reviewController.usersReviews(loginView.authenticatedUser.email)}"  var="tempReview" paginator="true" rows="3" widgetVar="tableReview"
+>>>>>>> Stashed changes
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 
                         <f:facet name="header">
