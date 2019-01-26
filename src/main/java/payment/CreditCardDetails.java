@@ -14,8 +14,8 @@ public class CreditCardDetails {
     private int cvv;
     private int postalCode;
     private String expiryDate;
-    public CreditCardDetails(String fullName,String cardNum,
-                             int cvv,String expiryDate,int postalCode,int id){
+    public CreditCardDetails(int id,String cardNum,String fullName,
+                             int cvv,int postalCode,String expiryDate){
         this.id=id;
         this.fullName=fullName;
         this.cardNum=cardNum;
