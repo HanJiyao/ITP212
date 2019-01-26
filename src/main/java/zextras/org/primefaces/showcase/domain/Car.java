@@ -1,4 +1,4 @@
-package org.primefaces.showcase.domain;
+package zextras.org.primefaces.showcase.domain;
 
 import java.io.Serializable;
 

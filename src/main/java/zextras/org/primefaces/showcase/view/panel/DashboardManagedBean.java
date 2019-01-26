@@ -1,4 +1,4 @@
-package org.primefaces.showcase.view.panel;
+package zextras.org.primefaces.showcase.view.panel;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;

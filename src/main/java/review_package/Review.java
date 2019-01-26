@@ -1,19 +1,21 @@
 package review_package;
-import org.primefaces.model.UploadedFile;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 public class Review {
 
     private int id;
     //reviewUId is the person that uploaded the review
-    private int reviewUId;
+    private String reviewUId;
     private String displayName;
     private String reviewTitle;
     private String reviewText;
@@ -28,7 +30,7 @@ public class Review {
 
     public Review(){
     }
-    public Review(int id, int reviewUId, String displayName, String reviewTitle, String reviewText, int rating, Date reviewDate, Time reviewTime, String reviewPhoto, String reviewFor, String reviewItem) {
+    public Review(int id, String reviewUId, String displayName, String reviewTitle, String reviewText, int rating, Date reviewDate, Time reviewTime, String reviewPhoto, String reviewFor, String reviewItem) {
         this.id = id;
         this.reviewUId = reviewUId;
         this.displayName = displayName;
@@ -50,11 +52,11 @@ public class Review {
         this.id = id;
     }
 
-    public int getReviewUId() {
+    public String getReviewUId() {
         return reviewUId;
     }
 
-    public void setReviewUId(int reviewUId) {
+    public void setReviewUId(String reviewUId) {
         this.reviewUId = reviewUId;
     }
 

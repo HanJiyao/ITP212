@@ -3,7 +3,8 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 
 <h:head>
@@ -24,14 +25,33 @@
                 .formClass{
                     font-size: 150%;
                 }
+
+                .login{
+                    text-align: center;
+                    height: 200px;
+                    width: 400px;
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    margin-top: -100px;
+                    margin-left: -200px;
+                }
             </style>
 
+            <c:if test="#{empty loginView.authenticatedUser.email}">
+
+                <h1 class="login"><a href="http://localhost:8080/ITP212/jiyao/admin/signin.xhtml">Please Login To Add Review</a></h1>
+
+            </c:if>
+
+            <c:if test="#{not empty loginView.authenticatedUser.email}">
+
             <div id="container">
-                <h3>Add Your Review</h3>
+                <h3>Add Review</h3>
 
                 <h:messages globalOnly="true" />
 
-                <h:form id="formReview" method="post" enctype="multipart/form-data" style="margin-top: 10px;" >
+                <h:form id="formReview" style="margin-top: 10px;" >
                     <h:panelGrid columns="3">
 
                         <p:outputLabel for="dn" value="Review Title:" styleClass="formClass" /><p:inputText value="#{review.displayName}" id="dn" class="validate" required="true" requiredMessage="Please input a display name."/> <p:message for="dn" />
@@ -44,20 +64,19 @@
 
                         <h:inputHidden value="#{review.id}" />
 
-                        <!--<h:inputHidden value="#{review.reviewUId}" />-->
-                        <p:outputLabel styleClass="formClass">Image:<p:fileUpload fileUploadListener="#{reviewController.saveFile(review.reviewPhoto, reviewController.uploadedFile ,review)}" value="#{reviewController.uploadedFile}" mode="simple" skinSimple="true" dragDropSupport="true" allowTypes="/(\.|\/)(jpe?g|png)$/"/></p:outputLabel>
-
-                        <br/>
-                        <p:commandButton update="formReview" value="Add Review" type="submit" styleClass="save" action="#{reviewController.addReview(review)}" />
-
                     </h:panelGrid>
+
+                    <p:commandButton update="formReview" value="Add Review" type="submit" styleClass="save" action="#{reviewController.addReview(review, loginView.authenticatedUser.email)}" />
+
                 </h:form>
+
+                <br/>
 
                 <div style="clear: both;"></div>
                 <p:button outcome="review" value="Back to all review" icon="pi pi-angle-double-left" />
                 <!--<p><h:outputLink value="review.xhtml">All review</h:outputLink></p>-->
             </div>
-
+            </c:if>
         </ui:define>
     </ui:composition>
 

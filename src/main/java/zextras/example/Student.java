@@ -1,4 +1,4 @@
-package example;
+package zextras.example;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
