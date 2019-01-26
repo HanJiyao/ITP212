@@ -180,7 +180,7 @@ public class ReviewDbUtil {
             myConn = getConnection();
 
             String sql = "update review"
-                    + " set reviewUId=?, displayName=?, reviewTitle=?, reviewText=?, rating=?, reviewPhoto=?"
+                    + " set displayName=?, reviewTitle=?, reviewText=?, rating=?, reviewPhoto=?"
                     + " where id=?";
 
             myStmt = myConn.prepareStatement(sql);
@@ -190,13 +190,12 @@ public class ReviewDbUtil {
 //            FileInputStream input = new FileInputStream(file);
 
             // set params
-            myStmt.setString(1, theReview.getReviewUId());
-            myStmt.setString(2, theReview.getDisplayName());
-            myStmt.setString(3, theReview.getReviewTitle());
-            myStmt.setString(4, theReview.getReviewText());
-            myStmt.setInt(5, theReview.getRating());
-            myStmt.setString(6, theReview.getReviewPhoto());
-            myStmt.setInt(7, theReview.getId());
+            myStmt.setString(1, theReview.getDisplayName());
+            myStmt.setString(2, theReview.getReviewTitle());
+            myStmt.setString(3, theReview.getReviewText());
+            myStmt.setInt(4, theReview.getRating());
+            myStmt.setString(5, theReview.getReviewPhoto());
+            myStmt.setInt(6, theReview.getId());
 
             myStmt.execute();
         }
@@ -325,6 +324,8 @@ public class ReviewDbUtil {
         }
     }
 
+
+
     public ArrayList<Review> getUsersReview(String user) throws Exception {
         ArrayList<Review> reviews = new ArrayList<>();
 
@@ -369,9 +370,8 @@ public class ReviewDbUtil {
         }
     }
 
-        public int ratingTotal() throws Exception {
+        public int ratingTotal(String userName) throws Exception {
 
-            //    List<Float> ratingList = new ArrayList<>();
             int rateSum = 0;
 
             Connection myConn = null;
@@ -381,7 +381,7 @@ public class ReviewDbUtil {
             try {
                 myConn = getConnection();
 
-                String sql = "select avg(rating) as rateSum from review";
+                String sql = "select avg(rating) as rateSum from review where reviewUId='"+userName+"'";
 
                 myStmt = myConn.createStatement();
 
@@ -398,7 +398,8 @@ public class ReviewDbUtil {
             }
             return rateSum;
     }
-    public int ratingNum() throws Exception {
+
+    public int ratingNum(String userName) throws Exception {
 
         int rateNo = 0;
 
@@ -409,7 +410,7 @@ public class ReviewDbUtil {
         try {
             myConn = getConnection();
 
-            String sql = "select count(*) as rateNo from review";
+            String sql = "select count(*) as rateNo from review where reviewUId='"+userName+"'";
 
             myStmt = myConn.createStatement();
 
