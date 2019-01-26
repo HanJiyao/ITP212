@@ -1,8 +1,9 @@
 package review_package;
 
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.context.RequestContext;
 import jiyao.managedbeans.LoginView;
+import org.primefaces.model.UploadedFile;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -118,7 +119,7 @@ public class ReviewController {
             return null;
         }
 
-        return "/review/review?faces-redirect=true";
+        return "/review/review.xhtml?faces-redirect=true";
     }
 
     public String loadReview(int reviewId){
@@ -143,7 +144,7 @@ public class ReviewController {
             return null;
         }
 
-        return "update-review.xhtml";
+        return "/review/update-review.xhtml";
     }
 
     public String updateReview(Review theReview) {
@@ -164,7 +165,7 @@ public class ReviewController {
             return null;
         }
 
-        return "review.xhtml?faces-redirect=true";
+        return "/review/review.xhtml?faces-redirect=true";
     }
 
     public String deleteReview(int reviewId) {
@@ -188,17 +189,15 @@ public class ReviewController {
 //        if (reviews.contains(reviewId)){
 //            reviews.remove(reviewId);
  //       }
-        return "review.xhtml?faces-redirect=true";
+        return "/review/review.xhtml?faces-redirect=true";
     }
 
-    public int getNumRate() throws Exception {
-        numrate = reviewDbUtil.ratingNum();
-        return numrate;
+    public int numRate(String user) throws Exception {
+        return reviewDbUtil.ratingNum(user);
     }
 
-    public int getRatee() throws Exception {
-        ratee = reviewDbUtil.ratingTotal();
-        return ratee;
+    public int rateRate(String userName) throws Exception {
+        return reviewDbUtil.ratingTotal(userName);
     }
 
 //    public List<Review> getUserReview(String user) throws Exception{
