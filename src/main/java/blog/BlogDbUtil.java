@@ -247,7 +247,8 @@ public class BlogDbUtil {
             //
             if (theSearchName != null && theSearchName.trim().length() > 0) {
 
-                // create sql to search for students by name
+
+                // create sql to search for blog posts by title
                 String sql = "select * from blog where lower(blogTitle) like ?";
 
                 // create prepared statement

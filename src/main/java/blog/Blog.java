@@ -11,6 +11,7 @@ public class Blog {
     private String blogCategory;
     private String blogPoster;
 
+
     List<String> categoryOptions;
 
     public Blog(){
@@ -22,6 +23,8 @@ public class Blog {
         categoryOptions.add("Healthy Food");
         categoryOptions.add("Restaurant");
         categoryOptions.add("Snacks");
+
+
     }
 
     public Blog(int id, String blogTitle, String blogContent, String blogCategory, String blogPoster){

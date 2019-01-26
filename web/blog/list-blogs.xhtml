@@ -6,6 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 
 <f:metadata>
@@ -19,9 +20,21 @@
 <h:body>
     <ui:composition template="../templates/template.xhtml">
         <ui:define name="content">
-            <h:button value="Create Blog Post"
-                      outcome="add-blogpost"/>
-            <h:form id="form">
+            <c:if test="#{not empty loginView.authenticatedUser.email}">
+                <p:button value="Create Blog Post"
+                          outcome="add-blogpost"/>
+                <p:button value="View My posts"/>
+                <p:button value="View Liked Posts"/>
+                <p:separator/>
+            </c:if>
+
+            <h:form>
+            <p:outputPanel>
+                <p:inputText value="#{blogController.theSearchName}" id="theSearchName" placeholder="Search" />
+            </p:outputPanel>
+            </h:form>
+
+
                 <br></br>
 
                 <p:dataScroller value="#{blogController.blogs}" var="tmpBlog" chunkSize="5">
@@ -29,28 +42,40 @@
                     <h:panelGrid columns="1" style="width:100%" columnClasses="logo,detail">
 
                         <p:outputPanel>
+
                             <h:outputText value="#{tmpBlog.id}" style="font-weight: bold; font-size: large; visibility: hidden "/>
                             <h:outputText value="#{tmpBlog.blogTitle}" style="font-weight: bold; font-size: large "/>
-                            <br></br>
-                            <br></br>
+                            <br/>
+                            <br/>
                             <h:outputText value="#{tmpBlog.blogContent}" style="font-weight: normal; font-size: medium"/>
                             <br/>
                             By: <h:outputText value="#{tmpBlog.blogPoster}" style="font-weight: normal; font-size: smaller"/>
                             <br/>
                             Category: <h:outputText value="#{tmpBlog.blogCategory}" style="font-weight: normal; font-size: small"/>
-                            <hr/>
-                            <h:commandButton value="Delete Post"
-                                           onclick="if (!confirm('Are you sure you want to delete this post?')) return false"
-                                           action="#{blogController.deleteBlog(tmpBlog.id)}"
-                                            style="font-size: smaller"/> |
-                            <h:commandButton value="Update Post"
+                            <p:separator/>
+
+                            <h:form>
+                                <h:inputHidden value="#{tmpBlog.blogTitle}"/>
+                                <h:inputHidden value="#{tmpBlog.id}"/>
+                                <p:commandButton value="Like this Post" onclick="if (!confirm('Are you sure you want to like #{tmpBlog.blogTitle}?')) return false"
+                                                     action="#{likesController.addLikes(tmpBlog.blogTitle)}" style="margin-right:20px;"/>
+                            </h:form>
+                            <h:form>
+                            <p:commandButton value="Delete Post"
+                                             onclick="if (!confirm('Are you sure you want to delete #{tmpBlog.blogTitle}?')) return false"
+                                             action="#{blogController.deleteBlog(tmpBlog.id)}"
+                                             style="font-size: smaller"/>
+
+                            <p:commandButton value="Update Post"
                                              action="#{blogController.loadBlog(tmpBlog.id)}"
                                              style="font-size: smaller"/>
+                        </h:form>
                         </p:outputPanel>
                     </h:panelGrid>
 
                 </p:dataScroller>
-            </h:form>
+
+
 
         </ui:define>
     </ui:composition>

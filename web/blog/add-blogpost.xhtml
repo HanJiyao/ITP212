@@ -27,10 +27,8 @@
                 <h3><p:inputText value="#{blog.blogTitle}" id="blogTitle" placeholder="Title of blog post"/></h3>
 
                 <br></br>
-                <p:fileUpload value=""/>
-                <br></br>
-                <p:inputTextarea widgetVar="editor1" value="#{blog.blogContent}" height="500" style="margin-bottom:10px" id="blogContent"/>
-                <h:message styleClass="error" for="blogContent"/>
+                <p:inputTextarea minQueryLength="30" value="#{blog.blogContent}" height="500" style="margin-bottom:10px" id="blogContent"/>
+                <h:message class="validate" for="blogContent"/>
                 <br/>
                 <p:selectOneListbox value="#{blog.blogCategory}">
                     <f:selectItems value="#{blog.categoryOptions}"/>
