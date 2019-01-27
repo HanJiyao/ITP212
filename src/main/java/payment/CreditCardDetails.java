@@ -1,5 +1,8 @@
 package payment;
-
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.*;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
 import java.util.Objects;
@@ -18,9 +21,9 @@ public class CreditCardDetails {
     private int postalCode;
     private String expiryDate;
     private int balance;
-    private int topupamount;
-    private int newbalance;
-    public int test=50;
+
+
+
     public CreditCardDetails(String fullName,String cardNum,
                              int cvv,String expiryDate,int postalCode,int balance,int id){
         this.balance=balance;
@@ -31,24 +34,13 @@ public class CreditCardDetails {
         this.postalCode=postalCode;
         this.expiryDate=expiryDate;
 
-    }
 
-    public int topUpBalance(){
-        balance=balance+50;
-        return balance;
-    }
-
-    public int getTopupamount() {
-        return topupamount;
     }
 
 
-    public void setTopupamount(int topupamount) {
-        this.topupamount = topupamount;
-    }
 
-    public CreditCardDetails() {
-    }
+
+
 
     @Id
     @Column(name = "id")
@@ -100,6 +92,8 @@ public class CreditCardDetails {
         this.postalCode = postalCode;
     }
 
+
+
     @Basic
     @Column(name = "expiry_date")
     public String getExpiryDate() {
@@ -128,11 +122,14 @@ public class CreditCardDetails {
                 cvv == that.cvv &&
                 postalCode == that.postalCode &&
                 balance==that.balance &&
+
                 Objects.equals(fullName, that.fullName) &&
                 Objects.equals(cardNum, that.cardNum) &&
                 Objects.equals(expiryDate, that.expiryDate);
     }
 
+    public CreditCardDetails() {
+    }
     @Override
     public int hashCode() {
         return Objects.hash(id,balance, fullName, cardNum, cvv, postalCode, expiryDate);

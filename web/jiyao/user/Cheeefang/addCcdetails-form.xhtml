@@ -37,7 +37,7 @@
 
         <h:messages globalOnly="true" />
 
-        <h:form id="form" style="margin-top: 10px;" >
+        <h:form id="addccdetailsform" style="margin-top: 10px;" onsubmit="return cardnumber(inputtxt)" >
 
             <h:panelGrid columns="3">
 
@@ -47,8 +47,6 @@
 
                 <h:inputText value="#{creditCardDetails.cardNum}"
                              required="true"
-
-
                              requiredMessage="Your Card Number is mandatory."
                              id="cardNum" />
 
@@ -88,6 +86,7 @@
 
                 <h:message for="postalCode" style="color:red"/>
                 <h:inputHidden value="#{creditCardDetails.balance}"/>
+
                 <h:outputLabel /> <h:commandButton value="Save" styleClass="save" action="#{creditCardDetailsController.addCcdetail(creditCardDetails)}"/>
 
             </h:panelGrid>
@@ -98,6 +97,23 @@
         <p><h:outputLink value="listccdetails.xhtml">Back to List</h:outputLink></p>
 
     </div>
+        <script type="text/javascript">
+            function cardnumber()
+            {
+                testinglol=document.getElementById("addccdetailsform:cardNum")
+                var cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+                if(testinglol.value.match(cardno))
+                {
+                    return true;
+                }
+                else
+                {
+                    alert("Not a valid Visa credit card number!");
+                    return false;
+                }
+            }
+
+        </script>
     </ui:define>
     </ui:composition>
 </h:body>

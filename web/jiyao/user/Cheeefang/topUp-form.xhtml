@@ -23,11 +23,8 @@
                         </div>
                         <div class="row" style="margin: 0">
                             <div class="input-field col s12">
-                                <h:outputLabel for="topupamount">Top up amount:</h:outputLabel>
-                                <h:inputText id="topupamount" value=""
-                                               required="true" requiredMessage="Please enter top up amount"/>
+                                <h:outputLabel >Top up amount:</h:outputLabel>
 
-                                <h:message for="topupamount" style="color:red"/>
                             </div>
                         </div>
                         <div style="text-align: center;margin-bottom: 2rem">
@@ -43,9 +40,15 @@
                             }
                         </style>
                         <div style="text-align: center">
-                            <h:button value="Top up" styleClass="btn btn-large waves-effect waves-light"
+                            <h:button value="Top up $50" styleClass="btn btn-large waves-effect waves-light"
                                       style="font-size: 1.5rem;margin-bottom: 1rem;"
-                                      action="#{creditCardDetails.topUpBalance()}" outcome="listccdetails"/>
+                                      action="#{creditCardDetails.balance=creditCardDetails.balance+50}" outcome="listccdetails"/>
+                            <h:button value="Top up $100" styleClass="btn btn-large waves-effect waves-light"
+                                      style="font-size: 1.5rem;margin-bottom: 1rem;"
+                                      action="#{creditCardDetails.balance=creditCardDetails.balance+100}" outcome="listccdetails"/>
+                            <h:button value="Top up $200" styleClass="btn btn-large waves-effect waves-light"
+                                      style="font-size: 1.5rem;margin-bottom: 1rem;"
+                                      action="#{creditCardDetails.balance=creditCardDetails.balance+200}" outcome="listccdetails"/>
                             <br/>
 
                         </div>

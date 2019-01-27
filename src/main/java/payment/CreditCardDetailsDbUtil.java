@@ -84,7 +84,7 @@ public class CreditCardDetailsDbUtil {
         try {
             myConn = this.getConnection();
 
-            String sql = "insert into credit_card_details ( full_name, card_num, CVV, expiry_date, postal_code,balance,id) values (?,?,?,?,?,?,?)";
+            String sql = "insert into credit_card_details " + "(full_name, card_num, CVV, expiry_date, postal_code,balance,id) values (?,?,?,?,?,?,?)";
 
             myStmt = myConn.prepareStatement(sql);
             // set params
@@ -130,11 +130,11 @@ public class CreditCardDetailsDbUtil {
                 int id = myRs.getInt("id");
                 String full_name = myRs.getString("full_name");
                 String card_num = myRs.getString("card_num");
-
                 int CVV = myRs.getInt("CVV");
                 String expiry_date=myRs.getString("expiry_date");
                 int postal_code=myRs.getInt("postal_code");
                 int balance=myRs.getInt("balance");
+
 
                 theCcdetail = new CreditCardDetails(full_name,card_num,CVV,expiry_date,postal_code,balance,id);
 
@@ -155,7 +155,8 @@ public class CreditCardDetailsDbUtil {
         try {
 
             myConn =this.getConnection();
-            String sql = "update credit_card_details  set full_name=?, postal_code=?, card_num=? ,CVV=? ,expiry_date=?,balance=? where id=?";
+            String sql =
+                    "update credit_card_details  set full_name=?, postal_code=?, card_num=? ,CVV=? ,expiry_date=?,balance=? where id=?";
 
             myStmt = myConn.prepareStatement(sql);
 
@@ -166,6 +167,7 @@ public class CreditCardDetailsDbUtil {
             myStmt.setInt(4,theCcdetail.getCvv());
             myStmt.setString(5,theCcdetail.getExpiryDate());
             myStmt.setInt(6,theCcdetail.getBalance());
+
             myStmt.setInt(7, theCcdetail.getId());
 
             myStmt.execute();
@@ -272,6 +274,7 @@ public class CreditCardDetailsDbUtil {
                 int postal_code=myRs.getInt("postal_code");
                 int id = myRs.getInt("id");
                 int balance=myRs.getInt("balance");
+
 
                 // create new Credit card object
                 CreditCardDetails tempCreditCard = new CreditCardDetails(full_name,cardNum,CVV,expiry_date,postal_code,balance,id);
