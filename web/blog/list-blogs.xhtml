@@ -49,14 +49,17 @@
                             <br/>
                             <h:outputText value="#{tmpBlog.blogContent}" style="font-weight: normal; font-size: medium"/>
                             <br/>
-                            By: <h:outputText value="#{tmpBlog.blogPoster}" style="font-weight: normal; font-size: smaller"/>
-                            <br/>
-                            Category: <h:outputText value="#{tmpBlog.blogCategory}" style="font-weight: normal; font-size: small"/>
+                            <h:outputText value=" By: #{tmpBlog.blogPoster} | " style="font-weight: normal; font-size: smaller"/>
+                            <h:outputText value="Category: #{tmpBlog.blogCategory} | " style="font-weight: normal; font-size: small"/>
+                            <h:outputText value="Posted on: #{tmpBlog.blogDate}" style="font-weight: normal; font-size: small"/>
+
+
+
                             <p:separator/>
 
                             <h:form>
-                                <p:inputText value="#{tmpBlog.blogTitle}"/>
-                                <p:inputNumber value="#{tmpBlog.id}"/>
+                                <h:inputHidden value="#{tmpBlog.blogTitle}"/>
+                                <h:inputHidden value="#{tmpBlog.id}"/>
                                 <p:commandButton value="Like this Post" onclick="#{tmpBlog.id}"
                                                      action="#{likesController.addLikes(tmpBlog.id)}" style="margin-right:20px;"/>
                             </h:form>

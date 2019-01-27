@@ -1,6 +1,7 @@
 package blog;
 
 import java.sql.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,11 +62,12 @@ public class BlogDbUtil {
                 String blogTitle = myRs.getString("blogTitle");
                 String blogContent = myRs.getString("blogContent");
                 String blogCategory = myRs.getString("blogCategory");
-                Date blogDate = myRs.getDate("blogDate");
                 String blogPoster = myRs.getString("blogPoster");
+                Date blogDate = myRs.getDate("blogDate");
+                //Time blogTime = myRs.getTime("blogDate");
 
                 // create new student object
-               Blog tempBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogDate, blogPoster);
+               Blog tempBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogPoster, blogDate);
 
                 // add it to the list of students
                 blogs.add(tempBlog);
@@ -84,6 +86,8 @@ public class BlogDbUtil {
         PreparedStatement myStmt = null;
 
         try {
+            Class.forName("com.mysql.jdbc.Driver");
+
             myConn = getConnection();
 
             String sql = "insert into blog (blogTitle, blogContent, blogCategory, blogPoster) values (?, ?, ?, ?)";
@@ -130,10 +134,11 @@ public class BlogDbUtil {
                 String blogTitle = myRs.getString("blogTitle");
                 String blogContent = myRs.getString("blogContent");
                 String blogCategory = myRs.getString("blogCategory");
-                Date blogDate = myRs.getDate("blogDate");
                 String blogPoster = myRs.getString("blogPoster");
+                Date blogDate = myRs.getDate("blogDate");
+                //Time blogTime = myRs.getTime("blogDate");
 
-                theBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogDate, blogPoster);
+                theBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogPoster, blogDate);
             }
             else {
                 throw new Exception("Could not find blog id: " + blogId);
@@ -277,12 +282,13 @@ public class BlogDbUtil {
                 String blogContent = myRs.getString("blogContent");
                 String blogTitle = myRs.getString("blogTitle");
                 String blogCategory = myRs.getString("blogCategory");
-                Date blogDate = myRs.getDate("blogDate");
                 String blogPoster = myRs.getString("blogPoster");
+                Date blogDate = myRs.getDate("blogDate");
+                //Time blogTime = myRs.getTime("blogDate");
 
 
                 // create new student object
-                Blog tempBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogDate, blogPoster);
+                Blog tempBlog = new Blog(id, blogTitle, blogContent, blogCategory, blogPoster, blogDate);
 
                 // add it to the list of students
                 blogs.add(tempBlog);

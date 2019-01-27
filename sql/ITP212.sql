@@ -37,15 +37,29 @@ CREATE TABLE IF NOT EXISTS `review` (
   `itemName` VARCHAR(255) NULL,
   PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
  
+DROP TABLE IF EXISTS `likes`;
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `blogTitle` varchar(45) DEFAULT NULL,
   `blogContent` varchar(45) DEFAULT NULL,
   `blogCategory` varchar(45) DEFAULT NULL,
+  `blogDate` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `blogPoster` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8;
+
+
+CREATE TABLE `likes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `likeTitle` varchar(45) default null,
+  `blogLikeId` int(11) default null,
+  foreign key (blogLikeId)
+	references blog(id)
+    on delete cascade,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARSET=utf8;
+
 
 DROP TABLE IF EXISTS `credit_card_details`;
 create table credit_card_details (
