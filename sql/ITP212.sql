@@ -134,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `credit_card_details` (
                                                    `card_num` varchar(45) DEFAULT NULL,
                                                    `CVV` int(11) NOT NULL,
                                                    `postal_code` INT NOT NULL,
-                                                   `expiry_date` DATE NOT NULL,
+                                                   `expiry_date` varchar(45) NOT NULL,
                                                    `balance` INT NOT NULL ,
                                                    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8;

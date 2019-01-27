@@ -69,11 +69,12 @@
 
                 <h:outputLabel for="expiryDate" style="font-size: larger ; color: black">Expiry Date:(mm/yy)</h:outputLabel>
 
-                <h:inputText  value="#{creditCardDetails.expiryDate}" maxlength="5" id="expiryDate"
+                <p:inputMask  value="#{creditCardDetails.expiryDate}" maxlength="5" id="expiryDate"
                               required="true"
-                                requiredMessage="Expiry date is mandatory">
+                              mask="11/11"
+                              requiredMessage="Expiry date is mandatory">
 
-                </h:inputText>
+                </p:inputMask>
 
 
                 <h:message for="expiryDate" style="color:red"/>
