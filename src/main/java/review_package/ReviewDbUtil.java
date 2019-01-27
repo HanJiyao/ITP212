@@ -325,28 +325,6 @@ public class ReviewDbUtil {
         }
     }
 
-//    public void compareId(String reviewItemId) throws Exception {
-//
-//        if (reviewItemId == )
-////        Connection myConn = null;
-////        PreparedStatement myStmt = null;
-////        ResultSet myRs = null;
-////
-////        try {
-////            myConn = dataSource.getConnection();
-////            myRs = myStmt.executeQuery();
-////
-////            while (myRs.next()) {
-////                String reviewItem = myRs.getString("reviewItem");
-////
-////
-////            }
-////        }finally {
-////            close (myConn, myStmt);
-////        }
-//    }
-
-
     public List<Review> getYourReview(String user) throws Exception {
         List<Review> reviews = new ArrayList<>();
 

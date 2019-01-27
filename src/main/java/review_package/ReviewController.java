@@ -37,18 +37,14 @@ public class ReviewController {
 
     private List<Review> reviews;
     private List<Review> reviewsUser;
-    private String userEmail;
     private ReviewDbUtil reviewDbUtil;
-    private int ratee;
-    private int numrate;
+
     private Logger logger = Logger.getLogger(getClass().getName());
 
+    private String userEmail;
     private String theSearchName;
     private String searchUser;
     private static final int BUFFER_SIZE = 6124;
-    private String folderToUpload;
-    private UploadedFile uploadedFile;
-    //private String folder = "..\\..\\..\\web\\resources\\pictures";
 
     public ReviewController() throws Exception {
         reviews = new ArrayList<>();
@@ -218,23 +214,23 @@ public class ReviewController {
         return reviewsUser;
     }
 
-    public void usersReviews() {
-        logger.info("Loading reviews");
-
-        logger.info("User Email = " + userEmail);
-
-        try {
-            reviewsUser = reviewDbUtil.getUsersReview(userEmail);
-
-
-        } catch (Exception exc) {
-            // send this to server logs
-            logger.log(Level.SEVERE, "Error loading reviews", exc);
-
-            //add error message for JSF page
-            addErrorMessage(exc);
-        }
-    }
+//    public void usersReviews() {
+//        logger.info("Loading reviews");
+//
+//        logger.info("User Email = " + userEmail);
+//
+//        try {
+//            reviewsUser = reviewDbUtil.getUsersReview(userEmail);
+//
+//
+//        } catch (Exception exc) {
+//            // send this to server logs
+//            logger.log(Level.SEVERE, "Error loading reviews", exc);
+//
+//            //add error message for JSF page
+//            addErrorMessage(exc);
+//        }
+//    }
 
     public List<Review> usersReviews(String user){
 
@@ -243,6 +239,7 @@ public class ReviewController {
         try{
 //            //get review from database
             reviewsUser = reviewDbUtil.getUsersReview(user);
+//            userEmail = user;
 
             return reviewsUser;
 
@@ -261,23 +258,23 @@ public class ReviewController {
 //
     }
 
-    public void yourReviews() {
-        logger.info("Loading reviews");
-
-        logger.info("User Email = " + userEmail);
-
-        try {
-            reviewsUser = reviewDbUtil.getYourReview(userEmail);
-
-
-        } catch (Exception exc) {
-            // send this to server logs
-            logger.log(Level.SEVERE, "Error loading reviews", exc);
-
-            //add error message for JSF page
-            addErrorMessage(exc);
-        }
-    }
+//    public void yourReviews() {
+//        logger.info("Loading reviews");
+//
+//        logger.info("User Email = " + userEmail);
+//
+//        try {
+//            reviewsUser = reviewDbUtil.getYourReview(userEmail);
+//
+//
+//        } catch (Exception exc) {
+//            // send this to server logs
+//            logger.log(Level.SEVERE, "Error loading reviews", exc);
+//
+//            //add error message for JSF page
+//            addErrorMessage(exc);
+//        }
+//    }
 
     public List<Review> yourReviews(String user){
 
@@ -286,13 +283,10 @@ public class ReviewController {
         try{
 //            //get review from database
             reviewsUser = reviewDbUtil.getYourReview(user);
+//            userEmail = user;
 
             return reviewsUser;
 
-//            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//
-//            Map<String, Object> requestMap = externalContext.getRequestMap();
-//            requestMap.put("review", reviewsUser);
         } catch (Exception exc){
             //send this to server logs
             logger.log(Level.SEVERE, "Error loading user's review :" + user, exc);
@@ -303,6 +297,50 @@ public class ReviewController {
         }
 //
     }
+
+//    public ArrayList<String> itemUser;
+//
+//    public String itemId;
+//    public String itemUserId;
+
+//    public String itemOutcome(){
+//        FacesContext fc = FacesContext.getCurrentInstance();
+//        this.itemId = getItemsParam(fc).get(0);
+//        this.itemUserId = getItemsParam(fc).get(1);
+//
+//        return "/review/add-review-form.xhtml";
+//    }
+//
+//    public ArrayList<String> getItemsParam(FacesContext fc){
+//        itemUser = new ArrayList<>();
+//        itemUser.add(fc.getExternalContext().getRequestParameterMap().get("itemsId"));
+//        itemUser.add(fc.getExternalContext().getRequestParameterMap().get("itemUserId"));
+//
+//        return itemUser;
+//
+//    }
+//
+//    public String getItemId() {
+//        return itemId;
+//    }
+//
+//    public void setItemId(String itemId) {
+//        this.itemId = itemId;
+//    }
+//
+//    public String getItemUserId() {
+//        return itemUserId;
+//    }
+//
+//    public void setItemUserId(String itemUserId) {
+//        this.itemUserId = itemUserId;
+//    }
+
+    //    public void getItemId() throws Exception{
+//        String itemId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("itemsId");
+//        String itemUserId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("itemUserId");
+//        reviewDbUtil.setItemId(itemId);
+//    }
 
     private void addErrorMessage(Exception exc) {
         FacesMessage message = new FacesMessage("Error: " + exc.getMessage());

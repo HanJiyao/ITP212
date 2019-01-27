@@ -110,8 +110,15 @@
                         <p>#{item.desc}</p>
                     </div>
                     <div class="card-action row" style="margin: 0;text-align: center">
-                        <a class="col s12 l6" href="#" style="margin: 0">Add Cart</a>
-                        <a class="col s12 l6" href="#" style="margin: 0">More</a>
+                        <h:form>
+                        <h:link class="col s12 l6" outcome="/review/add-review-form.xhtml">
+                            <f:param name="itemsId" value="#{item.id}"/>
+                            <f:param name="itemUserId" value="#{item.user}"/>
+                            <f:param name="itemName" value="#{item.name}"/>
+                            ADD REVIEW???
+                        </h:link>
+                        </h:form>
+                        <a class="col s12 l6" href="#" style="margin: 0">Cart</a>
                     </div>
                 </div>
             </div>

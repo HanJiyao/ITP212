@@ -45,11 +45,11 @@
 
                 <h:panelGrid columns="3">
 
-                    <p:outputLabel for="rtEdit" value="Display Name:" styleClass="formClass" /><p:inputText value="#{review.reviewTitle}" id="rtEdit" class="validate"/> <p:message for="rtEdit" />
+                    <p:outputLabel for="dnEdit" value="Display Name:" styleClass="formClass" /><p:inputText value="#{review.displayName}" id="dnEdit" class="validate" required="true" requiredMessage="Please input a display name."/> <p:message for="dnEdit" />
 
-                    <p:outputLabel for="dnEdit" value="Review Title:" styleClass="formClass" /><p:inputText value="#{review.displayName}" id="dnEdit" class="validate" required="true" requiredMessage="Please input a display name."/> <p:message for="dnEdit" />
+                    <p:outputLabel for="rtEdit" value="Review Title:" styleClass="formClass" /><p:inputText value="#{review.reviewTitle}" id="rtEdit" class="validate" requiredMessage="Please write a title for your review."/> <p:message for="rtEdit" />
 
-                    <p:outputLabel for="reviewEdit" value="Review:" styleClass="formClass" /><p:inputText value="#{review.reviewText}" id="reviewEdit" class="validate"/> <p:message for="reviewEdit" />
+                    <p:outputLabel for="reviewEdit" value="Review Description:" styleClass="formClass" /><p:inputText value="#{review.reviewText}" id="reviewEdit" class="validate" requiredMessage="Please input a review before submitting."/> <p:message for="reviewEdit" />
 
                     <p:outputLabel for="rateEdit" value="Rating:" styleClass="formClass" /><p:rating value="#{review.rating}" id="rateEdit" required="true" requiredMessage="Please rate the service."/> <p:message for="rateEdit" />
 
