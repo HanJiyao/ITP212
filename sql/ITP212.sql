@@ -37,13 +37,14 @@ CREATE TABLE IF NOT EXISTS `review` (
   `reviewItem` VARCHAR(255) NULL,
   PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
  
+DROP TABLE IF EXISTS `likes`;
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `blogTitle` varchar(45) DEFAULT NULL,
   `blogContent` varchar(45) DEFAULT NULL,
   `blogCategory` varchar(45) DEFAULT NULL,
-  `blogDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `blogDate` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `blogPoster` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB CHARSET=utf8;

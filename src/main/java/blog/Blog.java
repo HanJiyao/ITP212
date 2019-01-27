@@ -2,16 +2,19 @@ package blog;
 
 import java.util.*;
 import java.sql.Date;
+import java.sql.Time;
 import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 
 @ManagedBean
-public class Blog {
+public class Blog implements Serializable{
     private int id;
     private String blogTitle;
     private String blogContent;
     private String blogCategory;
-    private Date blogDate;
     private String blogPoster;
+    private Date blogDate;
+
 
 
     List<String> categoryOptions;
@@ -29,14 +32,14 @@ public class Blog {
 
     }
 
-    public Blog(int id, String blogTitle, String blogContent, String blogCategory, Date blogDate, String blogPoster){
+    public Blog(int id, String blogTitle, String blogContent, String blogCategory, String blogPoster, Date blogDate){
         this.id = id;
         this.blogTitle = blogTitle;
         this.blogContent = blogContent;
         this.blogCategory = blogCategory;
-        this.blogDate = blogDate;
         this.blogPoster = blogPoster;
-    }
+        this.blogDate = blogDate;
+  }
 
     public int getId() {
         return id;
@@ -94,9 +97,11 @@ public class Blog {
         this.blogDate = blogDate;
     }
 
+
     //hmm
     @Override
     public String toString(){
-        return "BlogPost [blogId=" + id + ", blogTitle=" + blogTitle + ", blogContent=" + blogContent + ", blogCategory=" + blogCategory + ", blogDate=" + blogDate + ", blogPoster=" + blogPoster + "]";
+        return "BlogPost [blogId=" + id + ", blogTitle=" + blogTitle + ", blogContent=" + blogContent + ", blogCategory=" + blogCategory
+                + ", blogPoster=" + blogPoster + ", blogDate=" + blogDate + "]";
     }
 }
