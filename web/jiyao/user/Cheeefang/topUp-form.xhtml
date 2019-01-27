@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Top Up</title>
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+            <div style="max-width: 36rem; margin: auto;padding-top:3rem;">
+                <div class="card">
+                    <div class="card-content" style="text-align: center">
+                        <h5>Please enter the amount you want to top up</h5>
+                    </div>
+                    <h:form style="padding: 3rem">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <h:outputLabel>Available balance:$#{creditCardDetails.balance}</h:outputLabel>
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin: 0">
+                            <div class="input-field col s12">
+                                <h:outputLabel for="topupamount">Top up amount:</h:outputLabel>
+                                <h:inputText id="topupamount" value=""
+                                               required="true" requiredMessage="Please enter top up amount"/>
+
+                                <h:message for="topupamount" style="color:red"/>
+                            </div>
+                        </div>
+                        <div style="text-align: center;margin-bottom: 2rem">
+
+                            </div>
+                        <style type="text/css">
+                            .waves-button-input{
+                                color: white;
+                                display: block;
+                                height: 100%;
+                                width:100%;
+                                text-align: center;
+                            }
+                        </style>
+                        <div style="text-align: center">
+                            <h:button value="Top up" styleClass="btn btn-large waves-effect waves-light"
+                                      style="font-size: 1.5rem;margin-bottom: 1rem;"
+                                      action="#{creditCardDetails.topUpBalance()}" outcome="listccdetails"/>
+                            <br/>
+
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

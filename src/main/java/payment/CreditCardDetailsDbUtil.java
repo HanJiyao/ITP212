@@ -61,11 +61,12 @@ public class CreditCardDetailsDbUtil {
                 int cvv = myRs.getInt("CVV");
                 String expiry_date=myRs.getString("expiry_date");
                 int postal_code=myRs.getInt("postal_code");
+                int balance=myRs.getInt("balance");
                 int id = myRs.getInt("id");
 
                 // create new CreditCard object
                 CreditCardDetails tempCreditcard = new CreditCardDetails(fullName,card_num,
-                        cvv,expiry_date,postal_code,id);
+                        cvv,expiry_date,postal_code,balance,id);
 
                 // add it to the list of CreditCards
                 CreditCardList.add(tempCreditcard);
@@ -83,7 +84,7 @@ public class CreditCardDetailsDbUtil {
         try {
             myConn = this.getConnection();
 
-            String sql = "insert into credit_card_details ( full_name, card_num, CVV, expiry_date, postal_code,id) values (?,?,?,?,?,?)";
+            String sql = "insert into credit_card_details ( full_name, card_num, CVV, expiry_date, postal_code,balance,id) values (?,?,?,?,?,?,?)";
 
             myStmt = myConn.prepareStatement(sql);
             // set params
@@ -93,7 +94,8 @@ public class CreditCardDetailsDbUtil {
             myStmt.setInt(3,theCcdetail.getCvv());
             myStmt.setString(4,theCcdetail.getExpiryDate());
             myStmt.setInt(5, theCcdetail.getPostalCode());
-            myStmt.setInt(6, theCcdetail.getId());
+            myStmt.setInt(6,theCcdetail.getBalance());
+            myStmt.setInt(7, theCcdetail.getId());
 
 
             myStmt.execute();
@@ -132,8 +134,9 @@ public class CreditCardDetailsDbUtil {
                 int CVV = myRs.getInt("CVV");
                 String expiry_date=myRs.getString("expiry_date");
                 int postal_code=myRs.getInt("postal_code");
+                int balance=myRs.getInt("balance");
 
-                theCcdetail = new CreditCardDetails(full_name,card_num,CVV,expiry_date,postal_code,id);
+                theCcdetail = new CreditCardDetails(full_name,card_num,CVV,expiry_date,postal_code,balance,id);
 
             } else {
                 throw new Exception("Could not find Credit card detail id: " + ccdetailId);
@@ -152,7 +155,7 @@ public class CreditCardDetailsDbUtil {
         try {
 
             myConn =this.getConnection();
-            String sql = "update credit_card_details  set full_name=?, postal_code=?, card_num=? ,CVV=? ,expiry_date=? where id=?";
+            String sql = "update credit_card_details  set full_name=?, postal_code=?, card_num=? ,CVV=? ,expiry_date=?,balance=? where id=?";
 
             myStmt = myConn.prepareStatement(sql);
 
@@ -162,7 +165,8 @@ public class CreditCardDetailsDbUtil {
             myStmt.setString(3, theCcdetail.getCardNum());
             myStmt.setInt(4,theCcdetail.getCvv());
             myStmt.setString(5,theCcdetail.getExpiryDate());
-            myStmt.setInt(6, theCcdetail.getId());
+            myStmt.setInt(6,theCcdetail.getBalance());
+            myStmt.setInt(7, theCcdetail.getId());
 
             myStmt.execute();
         } finally {
@@ -259,16 +263,18 @@ public class CreditCardDetailsDbUtil {
             while (myRs.next()) {
 
                 // retrieve data from result set row
-                int id = myRs.getInt("id");
+
                 String full_name = myRs.getString("full_name");
                 String cardNum = myRs.getString("card_num");
 
                 int CVV = myRs.getInt("CVV");
                 String expiry_date=myRs.getString("expiry_date");
                 int postal_code=myRs.getInt("postal_code");
+                int id = myRs.getInt("id");
+                int balance=myRs.getInt("balance");
 
                 // create new Credit card object
-                CreditCardDetails tempCreditCard = new CreditCardDetails(full_name,cardNum,CVV,expiry_date,postal_code,id);
+                CreditCardDetails tempCreditCard = new CreditCardDetails(full_name,cardNum,CVV,expiry_date,postal_code,balance,id);
 
                 // add it to the list of Credit card
                 CreditCardList.add(tempCreditCard);

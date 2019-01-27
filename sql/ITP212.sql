@@ -33,8 +33,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   `rating` INT NOT NULL,
   `reviewDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `reviewFor` VARCHAR(255) NULL,
-  `reviewItem` VARCHAR(255) NULL,
-  `itemName` VARCHAR(255) NULL,
+  `reviewItem` VARCHAR(255) NULL;
   PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
  
 DROP TABLE IF EXISTS `likes`;
@@ -89,9 +88,11 @@ create table credit_card_details (
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_date` datetime DEFAULT NULL,
-  `buyer_id` int(11) NOT NULL,
-  `total_price` float(10,2) NOT NULL,
+  `full_name` varchar(45) NOT NULL,
+  `card_num` varchar(45) DEFAULT NULL,
+  `CVV` int(11) NOT NULL,
+  `postal_code` INT NOT NULL,
+  `expiry_date` DATE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

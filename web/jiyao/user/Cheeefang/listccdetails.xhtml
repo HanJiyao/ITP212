@@ -17,7 +17,7 @@
 </h:head>
 
 <h:body>
-    <ui:composition template="../templates/template.xhtml">
+    <ui:composition template="../../../templates/template.xhtml">
     <ui:define name="content">
 
     <div id="wrapper">
@@ -100,6 +100,21 @@
                                        onclick="if (!confirm('Are you sure you want to delete this Credit Card?')) return false"
                                        action="#{creditCardDetailsController.deleteCcdetail(tempCreditCard.id)}"/>
 
+                    </h:column>
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Available Balance:</f:facet>
+
+                        <!--  the value for each row -->
+                        $#{tempCreditCard.balance}
+                    </h:column>
+                    <h:column>
+                        <!-- the column header -->
+                        <f:facet name="header">Top Up</f:facet>
+
+                        <!--  the button for each row -->
+                        <h:button value="Top up" styleClass="btn btn-large waves-effect waves-light"
+                                  style="font-size: 1.5rem;margin-bottom: 1rem;" outcome="topUp-form"/>
                     </h:column>
 
                 </h:dataTable>

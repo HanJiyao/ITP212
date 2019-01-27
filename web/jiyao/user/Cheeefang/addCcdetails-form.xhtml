@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +11,10 @@
 
     <title>Add Credit Card</title>
     <style type="text/css">
-        .error {color:red}
+        .error
+        {
+            color:red;
+        }
     </style>
 
     <h:outputStylesheet library="css" name="style.css"  />
@@ -19,7 +23,7 @@
 </h:head>
 
 <h:body>
-    <ui:composition template="../templates/template.xhtml">
+    <ui:composition template="../../../templates/template.xhtml">
     <ui:define name="content">
 
     <div id="wrapper">
@@ -34,28 +38,56 @@
         <h:messages globalOnly="true" />
 
         <h:form id="form" style="margin-top: 10px;" >
+
             <h:panelGrid columns="3">
-                <h:outputLabel>
+
+                <h:outputLabel style="font-size: larger ; color: black">
                     Card Number:
                 </h:outputLabel>
+
                 <h:inputText value="#{creditCardDetails.cardNum}"
                              required="true"
-                             requiredMessage="Your Card Num is mandatory."
+
+
+                             requiredMessage="Your Card Number is mandatory."
                              id="cardNum" />
-                <h:message for="cardNum" styleClass="error"/>
-                <h:outputLabel>Full Name:</h:outputLabel> <h:inputText value="#{creditCardDetails.fullName}" id="fullName" /> <h:message for="fullName" />
-                <h:outputLabel>CVV</h:outputLabel> <h:inputText value="#{creditCardDetails.cvv}" id="cvv"
+
+                <h:message for="cardNum" style="color:red"/>
+
+                <h:outputLabel for="fullName" style="font-size: larger ; color: black">Full Name:</h:outputLabel>
+
+                <h:inputText value="#{creditCardDetails.fullName}" id="fullName" required="true" requiredMessage="Your full name is mandatory"/>
+
+                <h:message for="fullName" style="color:red"/>
+
+                <h:outputLabel style="font-size: larger ; color: black">CVV</h:outputLabel>
+
+                <h:inputText value="#{creditCardDetails.cvv}" id="cvv"
                                                                    required="true"
+                                                                maxlength="3"
                                                                    requiredMessage="Your cvv is mandatory."/>
-                <h:message for="cvv" styleClass="error" />
-                <h:outputLabel>Expiry Date</h:outputLabel> <h:inputText value="#{creditCardDetails.expiryDate}" id="expiryDate"
-                                                                required="true"
-                                                                requiredMessage="Your Credit card Expiry Date is mandatory."/>
-                <h:message for="expiryDate" styleClass="error"/>
-                <h:outputLabel>Postal Code</h:outputLabel> <h:inputText value="#{creditCardDetails.postalCode}" id="postalCode"
+
+                <h:message for="cvv" style="color:red" />
+
+                <h:outputLabel for="expiryDate" style="font-size: larger ; color: black">Expiry Date:(mm/yy)</h:outputLabel>
+
+                <h:inputText  value="#{creditCardDetails.expiryDate}" maxlength="5" id="expiryDate"
+                              required="true"
+                                requiredMessage="Expiry date is mandatory">
+
+                </h:inputText>
+
+
+                <h:message for="expiryDate" style="color:red"/>
+
+                <h:outputLabel style="font-size: larger ; color: black">Postal Code</h:outputLabel>
+
+                <h:inputText value="#{creditCardDetails.postalCode}" id="postalCode"
                                                                 required="true"
                                                                 requiredMessage="Your postal code is mandatory."/>
-                <h:message for="postalCode" styleClass="error"/>
+
+                <h:message for="postalCode" style="color:red"/>
+                <h:inputHidden value="#{creditCardDetails.balance}"/>
                 <h:outputLabel /> <h:commandButton value="Save" styleClass="save" action="#{creditCardDetailsController.addCcdetail(creditCardDetails)}"/>
 
             </h:panelGrid>

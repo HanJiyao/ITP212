@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Update Credit Card</title>
+
+    <h:outputStylesheet library="css" name="style.css"  />
+    <h:outputStylesheet library="css" name="add-student-style.css"  />
+    <style type="text/css">
+        .error {color:red}
+    </style>
+</h:head>
+
+<h:body>
+    <ui:composition template="../../../templates/template.xhtml">
+    <ui:define name="content">
+
+    <div id="wrapper">
+        <div id="header">
+            <h2>Itp212</h2>
+        </div>
+    </div>
+
+    <div id="container">
+        <h3>Update Credit Card</h3>
+
+        <h:messages globalOnly="true" />
+
+        <h:form id="form" style="margin-top: 10px;" >
+            <h:panelGrid columns="3">
+
+                <h:outputLabel style="font-size: larger ; color: black">Full Name:</h:outputLabel>
+                <h:inputText value="#{creditCardDetails.fullName}"
+                             required="true"
+                             id="full_name"
+                             requiredMessage="Your Full name is mandatory."/>
+                <h:message for="full_name" style="color:red"/>
+                <h:outputLabel style="font-size: larger ; color: black">Card Number:</h:outputLabel>
+                <h:inputText value="#{creditCardDetails.cardNum}" id="card_num"
+                             required="true"
+                             requiredMessage="Your Card number is mandatory."/> <h:message for="card_num" style="color:red"/>
+
+
+
+                <h:outputLabel style="font-size: larger ; color: black">CVV:</h:outputLabel> <h:inputText value="#{creditCardDetails.cvv}" id="CVV"
+                                                                   required="true"
+                                                                   requiredMessage="Your cvv is mandatory."/> 	<h:message for="CVV" style="color:red" />
+
+                <h:outputLabel style="font-size: larger ; color: black">Expiry Date:</h:outputLabel>
+
+                <h:inputText value="#{creditCardDetails.expiryDate}" id="expiry_date"
+                                                                 required="true"
+                                                                 requiredMessage="Your expiry date is mandatory."/>
+
+                <h:message for="expiry_date" style="color:red" />
+
+                <h:outputLabel style="font-size: larger ; color: black">Postal Code:</h:outputLabel>
+
+                <h:inputText value="#{creditCardDetails.postalCode}" id="postal_code"
+                                                                         required="true"
+                                                                         requiredMessage="Your Postal Code is mandatory."/>
+
+                <h:message for="postal_code" style="color:red"/>
+
+                <h:inputHidden value="#{creditCardDetails.id}" />
+                <h:inputHidden value="#{creditCardDetails.balance}"/>
+
+                <h:commandButton value="Save" styleClass="save" action="#{creditCardDetailsController.updateCcdetail(creditCardDetails)}"/>
+
+            </h:panelGrid>
+        </h:form>
+
+        <div style="clear: both;"></div>
+
+        <p><h:outputLink value="listccdetails.xhtml">Back to List</h:outputLink></p>
+
+    </div>
+    </ui:define>
+    </ui:composition>
+</h:body>
+</html>

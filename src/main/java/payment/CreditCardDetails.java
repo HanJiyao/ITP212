@@ -3,9 +3,12 @@ package payment;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Scanner;
+
 
 @Entity
 @ManagedBean
+@javax.annotation.ManagedBean
 @Table(name = "credit_card_details", schema = "itp212")
 public class CreditCardDetails {
     private int id;
@@ -14,14 +17,34 @@ public class CreditCardDetails {
     private int cvv;
     private int postalCode;
     private String expiryDate;
+    private int balance;
+    private int topupamount;
+    private int newbalance;
+    public int test=50;
     public CreditCardDetails(String fullName,String cardNum,
-                             int cvv,String expiryDate,int postalCode,int id){
+                             int cvv,String expiryDate,int postalCode,int balance,int id){
+        this.balance=balance;
         this.id=id;
         this.fullName=fullName;
         this.cardNum=cardNum;
         this.cvv=cvv;
         this.postalCode=postalCode;
         this.expiryDate=expiryDate;
+
+    }
+
+    public int topUpBalance(){
+        balance=balance+50;
+        return balance;
+    }
+
+    public int getTopupamount() {
+        return topupamount;
+    }
+
+
+    public void setTopupamount(int topupamount) {
+        this.topupamount = topupamount;
     }
 
     public CreditCardDetails() {
@@ -87,6 +110,15 @@ public class CreditCardDetails {
         this.expiryDate = expiryDate;
     }
 
+    @Basic
+    @Column(name = "balance")
+    public int getBalance() {
+        return balance;
+    }
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,6 +127,7 @@ public class CreditCardDetails {
         return id == that.id &&
                 cvv == that.cvv &&
                 postalCode == that.postalCode &&
+                balance==that.balance &&
                 Objects.equals(fullName, that.fullName) &&
                 Objects.equals(cardNum, that.cardNum) &&
                 Objects.equals(expiryDate, that.expiryDate);
@@ -102,6 +135,10 @@ public class CreditCardDetails {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, fullName, cardNum, cvv, postalCode, expiryDate);
+        return Objects.hash(id,balance, fullName, cardNum, cvv, postalCode, expiryDate);
     }
-}
+
+    }
+
+
+
