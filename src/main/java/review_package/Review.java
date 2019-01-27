@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Time;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
-public class Review {
+public class Review implements Serializable{
 
     private int id;
     //reviewUId is the person that uploaded the review
