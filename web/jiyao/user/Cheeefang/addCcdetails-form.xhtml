@@ -37,7 +37,7 @@
 
         <h:messages globalOnly="true" />
 
-        <h:form id="addccdetailsform" style="margin-top: 10px;" onsubmit="return cardnumber(inputtxt)" >
+        <h:form id="addccdetailsform" style="margin-top: 10px;" onsubmit="return cardNumber()" >
 
             <h:panelGrid columns="3">
 
@@ -99,7 +99,7 @@
 
     </div>
         <script type="text/javascript">
-            function cardnumber()
+            function cardNumber()
             {
                 testinglol=document.getElementById("addccdetailsform:cardNum")
                 var cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
@@ -112,6 +112,17 @@
                     alert("Not a valid Visa credit card number!");
                     return false;
                 }
+            }
+
+            function checkExpiryDate() {
+                var dateString = document.getElementById('addccdetailsform:expiryDate').value;
+                var myDate = new Date(dateString);
+                var today = new Date();
+                if ( myDate > today ) {
+                    $('#expiryDate').before('Your Credit card has expired!.');
+                    return false;
+                }
+                return true;
             }
 
         </script>
