@@ -55,15 +55,15 @@
                             <p:separator/>
 
                             <h:form>
-                                <h:inputHidden value="#{tmpBlog.blogTitle}"/>
-                                <h:inputHidden value="#{tmpBlog.id}"/>
-                                <p:commandButton value="Like this Post" onclick="if (!confirm('Are you sure you want to like #{tmpBlog.blogTitle}?')) return false"
-                                                     action="#{likesController.addLikes(tmpBlog.blogTitle)}" style="margin-right:20px;"/>
+                                <p:inputText value="#{tmpBlog.blogTitle}"/>
+                                <p:inputNumber value="#{tmpBlog.id}"/>
+                                <p:commandButton value="Like this Post" onclick="#{tmpBlog.id}"
+                                                     action="#{likesController.addLikes(tmpBlog.id)}" style="margin-right:20px;"/>
                             </h:form>
                             <h:form>
                             <p:commandButton value="Delete Post"
                                              onclick="if (!confirm('Are you sure you want to delete #{tmpBlog.blogTitle}?')) return false"
-                                             action="#{blogController.deleteBlog(tmpBlog.id)}"
+                                             action="#{blogController.deleteBlog(tmpBlog)}"
                                              style="font-size: smaller"/>
 
                             <p:commandButton value="Update Post"
@@ -81,4 +81,6 @@
     </ui:composition>
 
 </h:body>
+
+
 </html>

@@ -1,6 +1,7 @@
 package blog;
 
 import java.util.*;
+import java.sql.Date;
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean
@@ -9,6 +10,7 @@ public class Blog {
     private String blogTitle;
     private String blogContent;
     private String blogCategory;
+    private Date blogDate;
     private String blogPoster;
 
 
@@ -27,11 +29,12 @@ public class Blog {
 
     }
 
-    public Blog(int id, String blogTitle, String blogContent, String blogCategory, String blogPoster){
+    public Blog(int id, String blogTitle, String blogContent, String blogCategory, Date blogDate, String blogPoster){
         this.id = id;
         this.blogTitle = blogTitle;
         this.blogContent = blogContent;
         this.blogCategory = blogCategory;
+        this.blogDate = blogDate;
         this.blogPoster = blogPoster;
     }
 
@@ -83,9 +86,17 @@ public class Blog {
         this.blogPoster = blogPoster;
     }
 
+    public Date getBlogDate() {
+        return blogDate;
+    }
+
+    public void setBlogDate(Date blogDate) {
+        this.blogDate = blogDate;
+    }
+
     //hmm
     @Override
     public String toString(){
-        return "BlogPost [blogId=" + id + ", blogTitle=" + blogTitle + ", blogContent=" + blogContent + ", blogCategory=" + blogCategory + ", blogPoster=" + blogPoster + "]";
+        return "BlogPost [blogId=" + id + ", blogTitle=" + blogTitle + ", blogContent=" + blogContent + ", blogCategory=" + blogCategory + ", blogDate=" + blogDate + ", blogPoster=" + blogPoster + "]";
     }
 }
