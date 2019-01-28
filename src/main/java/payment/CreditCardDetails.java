@@ -16,7 +16,7 @@ public class CreditCardDetails {
     private int cvv;
     private int postalCode;
     private String expiryDate;
-    private int balance;
+    private int balance=1000;
 
 
 
