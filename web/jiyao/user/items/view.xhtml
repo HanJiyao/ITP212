@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+    <title>Explore New Flavor</title>
+</h:head>
+<h:body>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="content">
+            <h:form>
+            <div class="card" style="padding: 3rem">
+                <div class="row">
+                    <div class="col l5 s12">
+                        <div style="padding-top: 10rem">
+                            <h:graphicImage library="food" name="#{viewItem.image}" style="width: 100%" />
+                        </div>
+                    </div>
+                    <div class="col l7 s12">
+                        <div style="padding: 2rem;padding-top: 0">
+                            <h3 class="font-weight-normal pb-1">#{viewItem.name}</h3>
+                            <a href="#">
+                                <div class="star-ratings">
+                                    <div style="font-size: 1.2rem;color:orange">
+                                        <i class="fas fa-star"/>
+                                        <i class="fas fa-star"/>
+                                        <i class="fas fa-star"/>
+                                        <i class="fas fa-star"/>
+                                        <i class="fas fa-star"/>
+                                        <span style="font-size: 0.9rem;vertical-align: 3px;color:grey;padding-left: 5px"> (reviews) </span>
+                                    </div>
+                                </div>
+                            </a>
+                            <div style="padding-top: 20px">
+                                <i class="material-icons" style="vertical-align:-5px">store</i> #{viewItem.user}
+                            </div>
+                            <h3 class="text-danger font-weight-normal" style="border-top:thin solid #e0e0e0;border-bottom:thin solid #e0e0e0;padding-top: 2rem;padding-bottom: 2rem;">
+                                <div style="font-size: 1.2rem"><del style="color:grey">SGD#{viewItem.price}</del> -#{viewItem.discount}%</div>
+                                <span style="position: relative;color:red">
+                                    SGD #{viewItem.price*(1-viewItem.discount/100)}
+                                </span>
+                            </h3>
+                            <div class="row" style="margin-top: 3rem">
+                                <h6 class="col s3">
+                                    Description
+                                </h6>
+                                <h6 class="col font-weight-normal">
+                                    #{viewItem.desc}
+                                </h6>
+                            </div>
+                            <div class="row">
+                                <h6 class="col s3">
+                                    Type
+                                </h6>
+                                <h6 class="col font-weight-normal">
+                                    #{viewItem.type}
+                                </h6>
+                            </div>
+                            <div class="row">
+                                <h6 class="col s3">
+                                    Availability
+                                </h6>
+                                <h6 class="col font-weight-normal">
+                                    #{viewItem.quantity} in stock
+                                </h6>
+                            </div>
+                            <div class="row">
+                                <h6 class="col s3">Quantity</h6>
+                                <div class="col">
+                                    <div class="btn-group number-spinner">
+                                        <span class="input-prepend data-dwn">
+                                            <button id="numDown" class="btn red waves-effect" data-dir="dwn" style="border-radius:50%!important;width:36px;height:36px;padding: 0" disabled="disabled">
+                                                <i class="material-icons" style="vertical-align: -5px;">remove</i>
+                                            </button>
+                                        </span>
+                                        <style>
+                                            .quantity{
+                                                border:none;
+                                                outline:none!important;
+                                                text-align: center;
+                                                font-size: 1.2rem;
+                                                width: 100%;
+                                                max-width: 50px;
+                                            }
+                                        </style>
+                                        <h:inputText type="text" styleClass="quantity" id="quantity" min="1" max="#{viewItem.quantity}" value="#{cart.quantity}"/>
+                                        <span class="input-append data-up">
+                                            <button id="numUp" class="btn red waves-effect" data-dir="up" style="border-radius:50%!important;width:36px;height:36px;padding: 0">
+                                                <i class="material-icons" style="vertical-align: -5px;">add</i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <script>
+                                    $(document).ready(function(){
+                                        var quantity = parseInt("#{viewItem.quantity}")
+                                        var quantityInput = parseInt($(".quantity").val());
+                                        if (quantityInput == quantity){
+                                            $("#numUp").attr("disabled", true);
+                                        } else {
+                                            $("#numUp").attr("disabled", false);
+                                        }
+                                        if (quantityInput == 1){
+                                            $("#numDown").attr("disabled", true);
+                                        } else {
+                                            $("#numDown").attr("disabled", false);
+                                        }
+                                    })
+                                    $(function () {
+                                        var quantity = parseInt("#{viewItem.quantity}")
+                                        $(".number-spinner button").mousedown(function () {
+                                            btn = $(this);
+                                            input = btn.closest('.number-spinner').find('input');
+                                            btn.closest('.number-spinner').find('button').prop("disabled", false);
+                                            if (btn.attr('data-dir') == 'up') {
+                                                if (input.attr('max') == undefined || parseInt(input.val()) &lt; parseInt(input.attr('max'))-1) {
+                                                    input.val(parseInt(input.val()) + 1);
+                                                } else {
+                                                    input.val(parseInt(input.val()) + 1);
+                                                    btn.prop("disabled", true);
+                                                }
+                                            } else {
+                                                if (input.attr('min') == undefined || parseInt(input.val()) > parseInt(input.attr('min'))+1) {
+                                                    input.val(parseInt(input.val()) - 1);
+                                                } else {
+                                                    input.val(parseInt(input.val()) - 1);
+                                                    btn.prop("disabled", true);
+                                                }
+                                            }
+                                        })
+                                        $(".quantity").blur(()=>{
+                                            var quantityInput = parseInt($(".quantity").val());
+                                        if (quantityInput &lt;= 0 || quantityInput > quantity || !Number.isInteger(parseInt($(".quantity").val().trim()))){
+                                            $("#selectErr").click();
+                                            $(".quantity").val(1);
+                                        };
+                                        if (quantityInput == quantity){
+                                            $("#numUp").attr("disabled", true);
+                                        } else {
+                                            $("#numUp").attr("disabled", false);
+                                        }
+                                        if (quantityInput == 1){
+                                            $("#numDown").attr("disabled", true);
+                                        } else {
+                                            $("#numDown").attr("disabled", false);
+                                        }
+                                    })
+                                    });
+                                </script>
+                            </div>
+                            <div class="row" style="margin-top: 3rem">
+                                <a class="col pr-0" href="#">
+                                    <h:commandLink
+                                                   action="#{cart.createItem(viewItem.id,viewItem.price*(1-viewItem.discount/100)*cart.quantity, cart.quantity, loginView.authenticatedUser.id)}"
+                                                   id="addCart"
+                                                   class="btn-large waves-effect waves-light red"
+                                                   style="font-size:1.2rem;-webkit-border-radius:10em!important;border-radius:10em!important;">
+                                        <i class="material-icons text-white" style="vertical-align:-10px;font-size:2rem;padding-right: 10px">add_shopping_cart</i> Add to Cart
+                                    </h:commandLink>
+                                    <button disabled="disabled" type="button" id="addCartSuccess" class="btn btn-light font-weight-bold text-success btn-block sr-only" style="font-size:1.2rem;color:#00C851!important;-webkit-border-radius:10em!important;border-radius:10em!important;">
+                                        <i class="material-icons text-success" style="vertical-align:-10px;font-size:2rem;padding-right: 10px">done_outline</i> Add Successfully
+                                    </button>
+                                </a>
+                                <!--<div class="row mt-3 pb-5">-->
+                                    <!--<h6 class="col-sm-3">Quantity</h6>-->
+                                    <!--<div class="col">Sorry, this item is temporarily unavailable</div>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="justify-content-center" style="border-top: solid thin #e0e0e0" id="review">
+                    <h4 style="padding-top: 2rem;padding-bottom: 2rem;">Ratings &amp; Reviews </h4>
+                    <div class="row" style="border-bottom:thin solid #e0e0e0;padding-bottom: 3rem">
+                        <div class="col l4 s12">
+                            <div class="font-weight-normal text-warning" style="font-size: 5rem">
+                                4.5 <span class="grey-text" style="font-size: 1.5rem;vertical-align: middle"> out of 5</span>
+                            </div>
+                            <div class="star-ratings" style="width: 181px;vertical-align: 6px;">
+                                <div class="star-ratings-top font-weight-bold" style="font-size: 1.8rem;color: orange">
+                                    <i class="fas fa-star"/>
+                                    <i class="fas fa-star"/>
+                                    <i class="fas fa-star"/>
+                                    <i class="fas fa-star"/>
+                                    <i class="fas fa-star"/>
+                                </div>
+                            </div>
+                            <div class="font-weight-light text-dark" style="font-size: 1.5rem;display: inline-block">
+                                <span id="reviewCount">
+                                    <i class="material-icons grey-text" style="vertical-align: -3px;">person</i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col l8 s12">
+                            <div class="row">
+                                <div class="col s2 grey-text">5 stars</div>
+                                <div class="col s9">
+                                    <div class="progress" style="background: #e0e0e0; height: 10px">
+                                        <div class="determinate" style="width: 15%; background: red"></div>
+                                    </div>
+                                </div>
+                                <div class="col s1 grey-text" id="star5">
+                                    0
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s2 grey-text">5 stars</div>
+                                <div class="col s9">
+                                    <div class="progress" style="background: #e0e0e0; height: 10px">
+                                        <div class="determinate" style="width: 60%; background: red"></div>
+                                    </div>
+                                </div>
+                                <div class="col s1 grey-text" id="star4">
+                                    0
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s2 grey-text">5 stars</div>
+                                <div class="col s9">
+                                    <div class="progress" style="background: #e0e0e0; height: 10px">
+                                        <div class="determinate" style="width: 15%; background: red"></div>
+                                    </div>
+                                </div>
+                                <div class="col s1 grey-text" id="star3">
+                                    0
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s2 grey-text">5 stars</div>
+                                <div class="col s9">
+                                    <div class="progress" style="background: #e0e0e0; height: 10px">
+                                        <div class="determinate" style="width: 5%; background: red"></div>
+                                    </div>
+                                </div>
+                                <div class="col s1 grey-text" id="star2">
+                                    0
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s2 grey-text">5 stars</div>
+                                <div class="col s9">
+                                    <div class="progress" style="background: #e0e0e0; height: 10px">
+                                        <div class="determinate" style="width: 5%; background: red"></div>
+                                    </div>
+                                </div>
+                                <div class="col s1 grey-text" id="star1">
+                                    0
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="border-bottom: solid thin #e0e0e0;padding-bottom: 20px">
+                        <div class="col l2 text-lg-right" style="padding-bottom: 1rem;">
+                            <h:graphicImage library="pictures" height="80px" style="border-radius: 50%; box-shadow: 3px 3px 10px #e0e0e0" alt="avatar" name="avatar.png"/>
+                        </div>
+                        <div class="col">
+                            <h5 class="font-weight-bold">Test</h5>
+                            <h6>
+                                <i class="material-icons text-light startRating" style="font-size: 1rem">star</i>
+                                <span class="grey-text font-weight-normal"> on </span>
+                            </h6>
+                            <div class="grey-text" style="font-size: 1rem"> by  </div>
+                            <div class="pt-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

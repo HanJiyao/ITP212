@@ -5,33 +5,32 @@
       xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <body>
 <ui:composition>
-	<nav style="position: fixed; top: 0;z-index: 1000">
-		<div class="nav-wrapper container">
-            <a href="http://localhost:8080/ITP212/index.xhtml" class="brand-logo">
+	<nav class="white" style="position: fixed; top: 0;z-index: 1000">
+		<div class="nav-wrapper container white">
+            <a href="http://localhost:8080/ITP212/index.xhtml" class="brand-logo" style="color: black">
                 <i class="material-icons">cloud</i>
                 ITP212
             </a>
             <a href="#" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-            <ul style="padding-left: 15rem!important;" class="hide-on-med-and-down">
+            <ul style="padding-left: 15rem!important;" class="right hide-on-med-and-down">
                 <li>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/admin/signin"> login </h:link>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/user/items/search"> item search </h:link>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/user/items/items"> items </h:link>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/yongrui/mapTest"> maptest </h:link>
-                    <h:link styleClass="waves-effect waves-light btn" outcome="/jiyao/user/Cheeefang/listccdetails">Add payment details</h:link>
-                </li>
-                <li>
-                    <a class="">My Task</a>
+                    <h:link styleClass="waves-effect waves-light btn blue" outcome="/jiyao/user/items/search"> Browse Food</h:link>
+                    <h:link styleClass="waves-effect waves-light btn blue" outcome="/blog/list-blogs"> Blog </h:link>
+                    <h:link styleClass="waves-effect waves-light btn blue" outcome="/review/review"> Review </h:link>
+                    <h:link styleClass="waves-effect waves-light btn blue" outcome="/jiyao/user/items/items"> My Product </h:link>
+                    <h:link styleClass="waves-effect waves-light btn blue" outcome="/jiyao/user/Cheeefang/listccdetails">My Payment</h:link>
+                    <h:link styleClass="waves-effect waves-light btn blue" outcome="/jiyao/user/cart"> My Cart </h:link>
+                    <h:link styleClass="waves-effect waves-light btn blue" outcome="/jiyao/admin/signin"> login </h:link>
                 </li>
             </ul>
-			<ul class="right hide-on-med-and-down">
-				<li><a href="sass.html"><i class="material-icons">search</i></a></li>
-				<li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-				<li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-				<li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-			</ul>
 		</div>
 	</nav>
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">one</a></li>
+        <li><a href="#!">two</a></li>
+        <li class="divider"></li>
+        <li><a href="#!">three</a></li>
+    </ul>
     <ul class="sidenav" id="mobile-demo" style="z-index: 2000">
         <li><a href="sass.html">Sass</a></li>
         <li><a href="badges.html">Components</a></li>

@@ -25,17 +25,17 @@ CREATE TABLE `user_groups` (
 
 DROP TABLE IF EXISTS `review`;
 CREATE TABLE IF NOT EXISTS `review` (
-                                      `id` INT NOT NULL AUTO_INCREMENT,
-                                      `reviewTitle` VARCHAR(255) NULL,
-                                      `reviewUId` VARCHAR(255) NULL,
-                                      `displayName` VARCHAR(45) NOT NULL,
-                                      `reviewText` VARCHAR(1000) NOT NULL,
-                                      `rating` INT NOT NULL,
-                                      `reviewDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                                      `reviewFor` VARCHAR(255) NULL,
-                                      `reviewItem` VARCHAR(255) NULL,
-                                      PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
-
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `reviewTitle` VARCHAR(255) NULL,
+  `reviewUId` VARCHAR(255) NULL,
+  `displayName` VARCHAR(45) NOT NULL,
+  `reviewText` VARCHAR(1000) NOT NULL,
+  `rating` INT NOT NULL,
+  `reviewDate` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `reviewFor` VARCHAR(255) NULL,
+  `reviewItem` VARCHAR(255) NULL,
+  PRIMARY KEY (`id`)) ENGINE = InnoDB CHARSET=utf8;
+ 
 DROP TABLE IF EXISTS `likes`;
 DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog` (
@@ -78,41 +78,39 @@ CREATE TABLE `items` (
 
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-                        `id` int(11) NOT NULL AUTO_INCREMENT,
-                        `full_name` varchar(45) NOT NULL,
-                        `card_num` varchar(45) DEFAULT NULL,
-                        `CVV` int(11) NOT NULL,
-                        `postal_code` INT NOT NULL,
-                        `expiry_date` DATE NOT NULL,
-                        PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_date` datetime DEFAULT NULL,
+  `buyer_id` int(11) NOT NULL,
+  `total_price` float(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `order_details`;
-CREATE TABLE `order_details` (
-                               `id` int(11) NOT NULL AUTO_INCREMENT,
-                               `order_id` int(11) NOT NULL,
-                               `item_id` int(11) NOT NULL,
-                               `seller_id` int(11) NOT NULL,
-                               `quantity` int(11) NOT NULL,
-                               `price` float(10,2) NOT NULL,
-                               `created` datetime NOT NULL,
-                               `delivery_status` varchar(255) NOT NULL,
-                               PRIMARY KEY (`id`)
+ DROP TABLE IF EXISTS `order_details`;
+ CREATE TABLE `order_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `seller_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` float(10,2) NOT NULL,
+  `created` datetime DEFAULT current_timestamp(),
+  `delivery_status` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
-                              `id` int(11) NOT NULL AUTO_INCREMENT,
-                              `transaction_date` datetime NOT NULL,
-                              `transaction_made_to_seller` int(11) DEFAULT NULL,
-                              `transaction_received_from_buyer` int(11) DEFAULT NULL,
-                              `description` varchar(255) NOT NULL,
-                              `debit` float(10,2) DEFAULT 0.00,
-                              `credit` float(10,2) DEFAULT 0.00,
-                              `balance` float(10,2) NOT NULL DEFAULT 0.00,
-                              `user_id` int(11) NOT NULL,
-                              `created` datetime NOT NULL,
-                              PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `transaction_date` datetime NOT NULL,
+  `transaction_made_to_seller` int(11) DEFAULT NULL,
+  `transaction_received_from_buyer` int(11) DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
+  `debit` float(10,2) DEFAULT 0.00,
+  `credit` float(10,2) DEFAULT 0.00,
+  `balance` float(10,2) NOT NULL DEFAULT 0.00,
+  `user_id` int(11) NOT NULL,
+  `created` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `delivery`;

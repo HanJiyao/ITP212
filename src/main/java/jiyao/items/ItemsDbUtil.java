@@ -3,6 +3,7 @@ package jiyao.items;
 import jiyao.entity.User;
 import jiyao.managedbeans.LoginView;
 
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.ws.rs.Path;
@@ -114,6 +115,34 @@ public class ItemsDbUtil {
             navigationResult="create.xhtml?faces-redirect=true";
         }
         return navigationResult;
+    }
+
+    public static String getItem(int itemId){
+        Item viewItem = null;
+        System.out.print("get(): item ID " + itemId);
+        Map<String,Object> sessionMapObj = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        try {
+            stmtObj = getConnection().createStatement();
+            resultSetObj = stmtObj.executeQuery("select  * from items where id ="+itemId);
+            if(resultSetObj!=null){
+                resultSetObj.next();
+                viewItem = new Item();
+                viewItem.setImage(resultSetObj.getString("image"));
+                viewItem.setId(resultSetObj.getInt("id"));
+                viewItem.setName(resultSetObj.getString("name"));
+                viewItem.setType(resultSetObj.getString("type"));
+                viewItem.setDesc(resultSetObj.getString("desc"));
+                viewItem.setQuantity(resultSetObj.getInt("quantity"));
+                viewItem.setPrice(resultSetObj.getFloat("price"));
+                viewItem.setDiscount(resultSetObj.getFloat("discount")*100);
+                viewItem.setUser(resultSetObj.getString("user"));
+            }
+            sessionMapObj.put("viewItem",viewItem);
+            connObj.close();
+        }catch (Exception sqlException){
+            sqlException.printStackTrace();
+        }
+        return "view.xhtml?faces-redirect=true";
     }
 
     public static String editItem(int itemId){

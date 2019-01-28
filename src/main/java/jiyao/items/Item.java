@@ -133,6 +133,9 @@ public class Item {
         System.out.print("Creating item");
         return ItemsDbUtil.createItem(newItemObj,userEmail);
     }
+    public String getItem(int itemId){
+        return ItemsDbUtil.getItem(itemId);
+    }
     public String editItem(int itemId){
         return ItemsDbUtil.editItem(itemId);
     }

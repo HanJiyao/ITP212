@@ -1,8 +1,4 @@
 package payment;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import javax.validation.constraints.*;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
 import java.util.Objects;
