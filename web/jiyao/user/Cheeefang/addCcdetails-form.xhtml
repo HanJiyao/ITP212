@@ -37,7 +37,7 @@
 
         <h:messages globalOnly="true" />
 
-        <h:form id="addccdetailsform" style="margin-top: 10px;" onsubmit="return cardNumber()" >
+        <h:form id="addccdetailsform" style="margin-top: 10px;" onsubmit="return cardNumber() " >
 
             <h:panelGrid columns="3">
 
@@ -62,6 +62,7 @@
 
                 <h:inputText value="#{creditCardDetails.cvv}" id="cvv"
                                                                    required="true"
+
                                                                 maxlength="3"
                                                                    requiredMessage="Your cvv is mandatory."/>
 
@@ -114,11 +115,37 @@
                 }
             }
 
+            function valid_credit_card() {
+                value=document.getElementById("addccdetailsform:cardNum")
+                // accept only digits, dashes or spaces
+                if (/[^0-9-\s]+/.test(value))
+                    // alert("Not a valid  credit card number!");
+                    return false;
+
+                // The Luhn Algorithm. It's so pretty.
+                var nCheck = 0, nDigit = 0, bEven = false;
+                value = value.replace(/\D/g, "");
+
+                for (var n = value.length - 1; n >= 0; n--) {
+                    var cDigit = value.charAt(n),
+                        nDigit = parseInt(cDigit, 10);
+
+                    if (bEven) {
+                        if ((nDigit *= 2) > 9) nDigit -= 9;
+                    }
+
+                    nCheck += nDigit;
+                    bEven = !bEven;
+                }
+
+                return (nCheck % 10) == 0;
+            }
+
             function checkExpiryDate() {
                 var dateString = document.getElementById('addccdetailsform:expiryDate').value;
                 var myDate = new Date(dateString);
                 var today = new Date();
-                if ( myDate > today ) {
+                if ( today > myDate ) {
                     $('#expiryDate').before('Your Credit card has expired!.');
                     return false;
                 }
