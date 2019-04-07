@@ -1,4 +1,4 @@
-package webservice;
+package zextras.webservice;
 
 import javax.faces.bean.ManagedBean;
 import javax.json.Json;
@@ -65,7 +65,7 @@ public class SimpleWebServiceJson {
         this.output = output;
     }
 
-    public SimpleWebServiceJson(){
+    public SimpleWebServiceJson() {
         this.url = "https://currency-api.appspot.com/api/SGD/SGD.json";
     }
 
@@ -84,43 +84,7 @@ public class SimpleWebServiceJson {
     public void setJsonResponse(String jsonResponse) {
         SimpleWebServiceJson.jsonResponse = jsonResponse;
     }
-
-
-    public void callWebService(){
-
-        this.url = "https://currency-api.appspot.com/api/"+fromCurrency+"/"+toCurrency+".json";
-
-        // call the service and get the response object
-        Response response = ClientBuilder.newClient()
-                .target(this.url)
-                .request(MediaType.APPLICATION_JSON)
-                .get();
-        // process the response object
-        StatusType status = response.getStatusInfo();
-        int statusCode = status.getStatusCode();
-        if (statusCode == OK_STATUS) {
-            System.out.println("Status is ok!!");
-            jsonResponse = response.readEntity(String.class);
-            JsonParser parser = Json.createParser(new StringReader(jsonResponse));
-            float rate = 0f;
-            // parse the file
-            while (parser.hasNext()) {
-                JsonParser.Event event = parser.next();
-                if (event.equals(JsonParser.Event.KEY_NAME)) {
-                    String key = parser.getString();
-                    parser.next();
-                    if(key.equals("rate")){
-                        String value = parser.getString();
-                        rate = Float.parseFloat(value);
-                        this.rate = Float.toString(rate);
-                        this.output = String.format("%.2f", Float.parseFloat(input)*rate);
-                    }
-                }
-            }
-            //this.parseJson(this.jsonResponse);
-        } else {
-            System.out.printf("Service returned status: \"%d %s\"\n",
-                    statusCode, status.getReasonPhrase());
-        }
-    }
 }
+
+
+

@@ -148,7 +148,7 @@ public class Item {
     public String UpdateImage(){
         String newImageName = null;
         try (InputStream input = uploadedFile.getInputStream()) {
-            String fileName = uploadedFile.getSubmittedFileName();
+            String fileName = uploadedFile.getName();
             newImageName = fileName;
             Files.copy(input, new File(folder, fileName).toPath());
         }
@@ -163,7 +163,7 @@ public class Item {
             @Override
             public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
                 try (InputStream input = uploadedFile.getInputStream()) {
-                    String fileName = uploadedFile.getSubmittedFileName();
+                    String fileName = uploadedFile.getName();
                     System.out.print(fileName);
                     image = fileName;
                     Files.copy(input, new File(folder, fileName).toPath());

@@ -1,4 +1,4 @@
-package webservice;
+package zextras.webservice;
 
 import javax.faces.bean.ManagedBean;
 import javax.json.Json;
@@ -49,15 +49,13 @@ public class WeatherWebServiceJson {
                 .get();
 
         // process the response object
-        StatusType status = response.getStatusInfo();
-        int statusCode = status.getStatusCode();
+        int statusCode = response.getStatus();
         if (statusCode == OK_STATUS) {
             System.out.println("Status is ok!!");
-            this.jsonResponse = response.readEntity(String.class);
             //this.parseJson(this.jsonResponse);
         } else {
             System.out.printf("Service returned status: \"%d %s\"\n",
-                    statusCode, status.getReasonPhrase());
+                    statusCode, "");
         }
     }
 }
